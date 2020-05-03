@@ -1,1 +1,1 @@
-este repositorio fue creado con el fin de cumplir con lo requerido para aprobar Web 2
+ Este repositorio fue creado con el fin de cumplir con lo requerido para promocionar Web 2.
