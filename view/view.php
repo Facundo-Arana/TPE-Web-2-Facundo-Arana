@@ -1,18 +1,41 @@
 <?php
 
+include_once('model/model.php');
+
 class view
 {
-    public function principalView($url){
-        echo('aca va el index');
+    public function home($list)
+    {
+        echo $this->getHeader();
+        echo $list;
+        echo $this->closeHtml();
     }
 
-    function home()
+    public function getGenresList($catalogue)
     {
-        echo '
-        <html lang="en">
+        $html = '
+        <div class="side">
+            <nav>
+                <h2>catalogo</h2>
+                <ul>';
+        foreach ($catalogue as $genre) {
+            $html .= '<li><a href="' . $genre->name . '">' . $genre->name . '</a></li>';
+        }
+        $html .= '</ul>
+            </nav>
+        </div>
+        
+        <div class="main">';
+        return $html;
+    }
 
+
+    private function getHeader()
+    {
+        $html = '
+        <html lang="en">
         <head>
-        <!-- <base href="' . URLBASE . '"> -->
+            <base href="' . URLBASE . '"> 
             <title>Universidad del alto Perú</title>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,21 +48,15 @@ class view
 
         <body>
             <header>
-
                 <div>
-
                     <figure>
                         <img src="img/libary.jpg" name="logo">
                     </figure>
-
                 </div>
 
                 <section class="login">
-
                     <div>
-
                         <form action="checking" method="POST">
-
                             <label>Username</label>
 
                             <input type="text" name="user">
@@ -50,61 +67,26 @@ class view
                             
                             <label>ocultar</label>
                             
-                            <input type="submit" value="login">
-                        
+                            <input type="submit" value="login">                      
                         </form>
-
                     </div>
 
                     <div>
-
                         <h1>virtual library</h1>
-
                     </div>
-
                 </section>
-
             </header>
 
-            <div class="conteiner">
+            <div class="conteiner">';
+        return $html;
+    }
 
-                <div class="side">
-
-                    <nav>
-
-                        <h2>catalogo</h2>
-
-                        <ul>
-                            <li>aaaa</li>
-                            <li>bbbb</li>
-                            <li>cccccccc</li>
-                            <li>ddddddddddddd</li>
-                            <li>eeeeeeeeeee</li>
-                            <li>ffffffffffffff</li>
-                            <li>ggggggggggggggggggggggg</li>
-                            <li>hhhhhhhhhhhh hhhhhhhhhh</li>
-                            <li>i</li>
-                            <li>jj</li>
-                            <li>kkkkkkkkkkkkkkkkkkkkkkkkk</li>
-                            <li>ll</li>
-                            <li>mm</li>
-                            <li>nn</li>
-                        </ul>
-
-                    </nav>
-
-                </div>
-
-                
-
-                <div class="main">
-                
-                    <div class="wrapper">
-                    
+    public function e()
+    {
+        echo ('      
+                    <div class="wrapper">                  
                         <section>
-
                             <article>
-
                                 <h2>titulo</h2>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu nibh commodo, pulvinar sapien hendrerit, mattis est. 
@@ -115,9 +97,7 @@ class view
                                     Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut in justo ut neque tempor rutrum nec eu nisl.
                                     Nam dictum quis libero ultrices fermentum. Donec dapibus sollicitudin nisl nec gravida. Sed et tortor vel turpis sagittis rhoncus ac at est.  
                                 </p>
-
-                            </article>
-                            
+                            </article>                           
                         </section>
 
                         <figure>
@@ -125,43 +105,17 @@ class view
                             <figcaption>imagen desciptiva</figcaption>                                        
                         </figure> 
 
-                    </div>
-
-                    <div class="wrapper">
-                    
-                    <section>
-
-                        <article>
-
-                            <h2>titulo</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu nibh commodo, pulvinar sapien hendrerit, mattis est. 
-                                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-                                Ut vehicula sodales lectus et laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                Mauris eleifend mauris at urna dictum, eu vestibulum lorem ultrices. Fusce eleifend magna ac ex dapibus gravida. 
-                                Suspendisse condimentum feugiat tortor, ut rutrum neque pellentesque vel. Morbi luctus auctor ultrices.
-                                Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut in justo ut neque tempor rutrum nec eu nisl.
-                                Nam dictum quis libero ultrices fermentum. Donec dapibus sollicitudin nisl nec gravida. Sed et tortor vel turpis sagittis rhoncus ac at est.  
-                            </p>
-
-                        </article>
-                        
-                    </section>
-
-                    <figure>
-                        <img src="img/portada.jpg" name="portada">
-                        <figcaption>imagen desciptiva</figcaption>                                        
-                    </figure> 
-                                           
-                </div>
-                    
-                </div>
-            </div>
-        </body>
-            
-        </html>';
+                    </div>');
     }
 
+    private function closeHtml()
+    {
+        $html = '
+                </div>  <--main-->            
+            </div>   <--conteiner-->
+        </body>
 
-
+        </html>';
+        return $html;
+    }
 }
