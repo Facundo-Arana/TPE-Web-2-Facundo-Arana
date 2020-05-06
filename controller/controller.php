@@ -7,7 +7,6 @@ class controller
     private $model;
     private $view;
 
-
     function __construct()
     {
         $this->view = new view();
@@ -24,28 +23,49 @@ class controller
         $this->view->showIndex();
     }
 
+
+
     /**
-     *  Muestra la pagina explorar el catalogo de libros.
+     *  Genera una lista con los generos para la navegacion del sitio.
+     *  
+     */
+    private function createListOfGenres()
+    {
+        $arrayGenres = $this->model->getAllGenresDB();
+        $listOfGenres = $this->view->getGenresList($arrayGenres);
+        return $listOfGenres;
+    }
+
+    /**
+     *  Genera una lista de libros por genero.
      * 
-     * 
+     */
+    private function createListOfBooksByGenre($genre){
+        $arrayOfBooks = $this->model->getBooksByGenreDB($genre);
+        $booksDetails = $this->view->showBooksDatails($arrayOfBooks);
+        return $booksDetails;
+    }
+
+    /**
+     *  Muestra la pagina about donde ya se puede explorar el catalogo de libros.
      */
     function getAbout()
     {
-        $genres = $this->model->getAllGenresDB();
-        $listOfGenres = $this->view->getGenresList($genres);
-        $this->view->getAboutDB($listOfGenres);
+        $sideListGenres = $this->createListOfGenres();
+        $this->view->showAbout($sideListGenres);
     }
 
 
     /**
-     *  Muestra la lista de libros de un genero especifico.
-     *  $genre es el genero del que se quiere buscar los libros.
+     *  Muestra solo libros de un genero especifico.
+     *  $genre es el genero de libro que se quiere buscar.
      * 
      */
-    function getGenreDetails($genre)
+    function getBooksByGenre($genre)
     {
-        $booksByGenre = $this->model->getBooksByGenre($genre);
-        var_dump($booksByGenre);die;
+        $sideListGenres = $this->createListOfGenres();
+        $booksByGenre = $this->createListOfBooksByGenre($genre);
+        $this->view->showBooksByGenre($sideListGenres, $booksByGenre);
     }
 
 

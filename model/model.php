@@ -48,18 +48,29 @@ class catalogue
     }
 
     /**
-     *  Retorna un arreglo con todos los libros de un genero especifico.
-     * //TODO
+     *  Esta funcion retorna todos los libros de un genero especifico.
+     *  El parametro recibido $genre es el nombre del genero de libros a buscar.
      * 
+     *   //TODO  $reponse posibilidad de fallos en la db.
      */
-    function getBooksByGenre($genre)
+    function getBooksByGenreDB($genre)
     {
-        $query = $this->db->prepare('SELECT catalogue.*, literary_genre.name as literary_genre FROM catalogue JOIN literary_genre ON catalogue.id_genre_fk = literary_genre.id_genre');
-        $respuesta = $query->execute([$genre]);
-        if ($respuesta == true)
-            return $query->fetchAll(PDO::FETCH_OBJ);
-        else
-            return NULL;
+        /**
+         * En esta sentencia se busca traer de la tabla 'literary_genre' el id que le corresponde al genero.
+         */
+        $query = $this->db->prepare('SELECT id_genre FROM literary_genre WHERE literary_genre.name = ?');
+        $response = $query->execute([$genre]);
+        $obj = $query->fetchAll(PDO::FETCH_OBJ);  //  var_dump($obj[0]->id_genre);die;    
+          
+        $id = $obj[0]->id_genre;
 
+        /**
+         * En esta sentencia se busca traer de la tabla 'catalogue' todos los libros del genero ya nombrado.
+         */
+        $query = $this->db->prepare('SELECT * FROM catalogue WHERE id_genre_fk = ?');
+        $response = $query->execute([$id]);
+        $booksByGenre = $query->fetchAll(PDO::FETCH_OBJ);
+
+        return $booksByGenre;
     }
 }

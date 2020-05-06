@@ -25,11 +25,16 @@ switch ($actions[1]) {
             $controller->getAbout();
             break;
         } elseif (!isset($actions[3])) {
-            $controller->getGenreDetails($actions[2]);//TODO
+            $controller->getBooksByGenre($actions[2]);
             break;
         } else
             //$controller->getBookDetails($actions[2],$actions[3]); /////TODO
             break;
+
+    case 'checking':
+        //TODO;
+        break;
+
     default:
         $controller->error();
 }
