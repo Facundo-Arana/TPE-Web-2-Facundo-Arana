@@ -54,7 +54,7 @@ class catalogue
      *   //TODO  $reponse posibilidad de fallos en la db.
      */
     function getBooksByGenreDB($genre)
-    {
+    { 
         /**
          * En esta sentencia se busca traer de la tabla 'literary_genre' el id que le corresponde al genero.
          */

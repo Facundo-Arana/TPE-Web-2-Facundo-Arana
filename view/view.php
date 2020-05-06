@@ -1,6 +1,5 @@
 <?php
-include_once('index.php');
-
+require_once('libs/Smarty.class.php');
 
 class view
 {
@@ -12,7 +11,9 @@ class view
      */
     public function showIndex()
     {
-        echo callIndex();
+        $smarty = new Smarty();
+        $smarty->assign('url', URLBASE);
+        $smarty->display('templates/index.tpl'); 
     }
 
 
