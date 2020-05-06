@@ -1,42 +1,103 @@
 <?php
+include_once('index.php');
 
-include_once('model/model.php');
 
 class view
 {
-    public function home($list)
+
+
+    /**
+     *  Llama el index.php
+     * 
+     */
+    public function showIndex()
+    {
+        echo callIndex();
+    }
+
+
+
+    /**
+     *  Muestra la pagina para navegar por el sitio.
+     *  
+     * 
+     */
+    public function getAboutDB($listGenres)
     {
         echo $this->getHeader();
-        echo $list;
+        echo $listGenres;
+        echo $this->about();
         echo $this->closeHtml();
     }
 
+    public function showError(){
+        echo('error');
+    }
+
+
+
+    /**
+     *  Genera una  de libros.
+     *  $catalogue es el arreglo que fue traido desde la db con los datos de la tabla 'catalogue'.
+     * 
+     */
+    public function getBooksDatails($catalogue){
+        $html =  ('<div class="main">');
+        if($catalogue != NULL){
+            foreach($catalogue as $book){
+                $html .= ('
+                    <div class="wrapper">
+                        <section>
+                            <article>
+                                <h2>'. $book->name .'</h2>
+                                <p> '. $book->details .'</p>
+                            </article>                           
+                        </section>
+                        <figure>
+                            <img src="img/'. $book->name .'.jpg" name="'. $book->name .'">
+                            <figcaption>'. $book->author .'</figcaption>                                        
+                        </figure> 
+                    </div>
+                ');
+            }
+            $html .= ('</div>');
+            return $html;
+        }else
+            return $catalogue;
+    }
+
+
+    /**
+     *  Genera una lista de generos de libros.
+     *  $catalogue es el arreglo que fue traido desde la db con los datos de la tabla 'literary_genre'.
+     * 
+     */
     public function getGenresList($catalogue)
     {
-        $html = '
-        <div class="side">
-            <nav>
-                <h2>catalogo</h2>
-                <ul>';
+        $html = ('
+            <div class="side">
+                <nav>
+                    <h2>generos</h2>
+                    <ul>');
         foreach ($catalogue as $genre) {
-            $html .= '<li><a href="' . $genre->name . '">' . $genre->name . '</a></li>';
+            $html .= ('  <li><a href="library/catalogue/' . $genre->name . '">' . $genre->name . '</a></li>');
         }
-        $html .= '</ul>
-            </nav>
-        </div>
-        
-        <div class="main">';
+        $html .= ('
+                    </ul>
+                </nav>
+            </div>       
+        ');
         return $html;
     }
 
 
     private function getHeader()
     {
-        $html = '
+        $html = ('
         <html lang="en">
         <head>
-            <base href="' . URLBASE . '"> 
-            <title>Universidad del alto Perú</title>
+            <base href=' . URLBASE . '> 
+            <title>TPe WEb</title>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -54,7 +115,7 @@ class view
                     </figure>
                 </div>
 
-                <section class="login">
+                <section class="front">
                     <div>
                         <form action="checking" method="POST">
                             <label>Username</label>
@@ -65,57 +126,51 @@ class view
                             
                             <input type="text" name="pass">
                             
-                            <label>ocultar</label>
                             
                             <input type="submit" value="login">                      
                         </form>
                     </div>
 
-                    <div>
+                    <div class="title">
                         <h1>virtual library</h1>
                     </div>
                 </section>
             </header>
 
-            <div class="conteiner">';
+            <div class="conteiner">');
         return $html;
     }
 
-    public function e()
+    private function about()
     {
-        echo ('      
-                    <div class="wrapper">                  
-                        <section>
-                            <article>
-                                <h2>titulo</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu nibh commodo, pulvinar sapien hendrerit, mattis est. 
-                                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-                                    Ut vehicula sodales lectus et laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                                    Mauris eleifend mauris at urna dictum, eu vestibulum lorem ultrices. Fusce eleifend magna ac ex dapibus gravida. 
-                                    Suspendisse condimentum feugiat tortor, ut rutrum neque pellentesque vel. Morbi luctus auctor ultrices.
-                                    Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut in justo ut neque tempor rutrum nec eu nisl.
-                                    Nam dictum quis libero ultrices fermentum. Donec dapibus sollicitudin nisl nec gravida. Sed et tortor vel turpis sagittis rhoncus ac at est.  
-                                </p>
-                            </article>                           
-                        </section>
-
-                        <figure>
-                            <img src="img/portada.jpg" name="portada">
-                            <figcaption>imagen desciptiva</figcaption>                                        
-                        </figure> 
-
-                    </div>');
+        $html = ('      
+        <div class="wrapper">                  
+            <section>
+                <article>
+                    <h2>about</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu nibh commodo, pulvinar sapien hendrerit, mattis est. 
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+                        Ut vehicula sodales lectus et laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                        Mauris eleifend mauris at urna dictum, eu vestibulum lorem ultrices. Fusce eleifend magna ac ex dapibus gravida. 
+                        Suspendisse condimentum feugiat tortor, ut rutrum neque pellentesque vel. Morbi luctus auctor ultrices.
+                        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut in justo ut neque tempor rutrum nec eu nisl.
+                        Nam dictum quis libero ultrices fermentum. Donec dapibus sollicitudin nisl nec gravida. Sed et tortor vel turpis sagittis rhoncus ac at est.  
+                    </p>
+                </article>                           
+            </section>
+        </div>'); 
+        return $html;
     }
 
     private function closeHtml()
     {
-        $html = '
-                </div>  <--main-->            
-            </div>   <--conteiner-->
+        $html = ('
+                </div>  <!--main-->            
+            </div>   <!--conteiner-->
         </body>
 
-        </html>';
+        </html>');
         return $html;
     }
 }
