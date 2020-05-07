@@ -25,36 +25,23 @@ class controller
 
 
 
-    /**
-     *  Genera una lista con los generos para la navegacion del sitio.
-     *  
-     */
-    private function createListOfGenres()
-    {
-        $arrayGenres = $this->model->getAllGenresDB();
-        $listOfGenres = $this->view->getGenresList($arrayGenres);
-        return $listOfGenres;
-    }
+   
 
-    /**
-     *  Genera una lista de libros por genero.
-     * 
-     */
-    private function createListOfBooksByGenre($genre){
-        $arrayOfBooks = $this->model->getBooksByGenreDB($genre);
-        $booksDetails = $this->view->showBooksDatails($arrayOfBooks);
-        return $booksDetails;
-    }
+   
 
     /**
      *  Muestra la pagina about donde ya se puede explorar el catalogo de libros.
      */
     function getAbout()
     {
-        $sideListGenres = $this->createListOfGenres();
+        $sideListGenres = $this->model->getAllGenresDB();
         $this->view->showAbout($sideListGenres);
     }
 
+
+
+
+    
 
     /**
      *  Muestra solo libros de un genero especifico.
@@ -63,8 +50,8 @@ class controller
      */
     function getBooksByGenre($genre)
     {
-        $sideListGenres = $this->createListOfGenres();
-        $booksByGenre = $this->createListOfBooksByGenre($genre);
+        $sideListGenres = $this->model->getAllGenresDB();
+        $booksByGenre = $this->model->getBooksByGenreDB($genre);
         $this->view->showBooksByGenre($sideListGenres, $booksByGenre);
     }
 
