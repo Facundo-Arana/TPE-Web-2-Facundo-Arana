@@ -22,7 +22,7 @@ class catalogue
      */
     function getAllGenresDB()
     {
-        $query = $this->db->prepare('SELECT * FROM literary_genre');
+        $query = $this->db->prepare('SELECT * FROM genre');
         $respuesta = $query->execute();
         if ($respuesta == true)
             return $query->fetchAll(PDO::FETCH_OBJ);
@@ -39,12 +39,11 @@ class catalogue
      */
     function getAllBooksDB()
     {
-        $query = $this->db->prepare('SELECT * FROM catalogue');
-        $respuesta = $query->execute();
-        if ($respuesta == true)
-            return $query->fetchAll(PDO::FETCH_OBJ);
-        else
-            return NULL;
+        $query = $this->db->prepare('SELECT * FROM book');
+        $query->execute();
+  
+        return $query->fetchAll(PDO::FETCH_OBJ);
+
     }
 
     /**
@@ -52,24 +51,20 @@ class catalogue
      *  El parametro recibido $genre es el nombre del genero de libros a buscar.
      * 
      */
-    function getBooksByGenreDB($genre)
+    function getBooksByGenreDB($name)
     { 
-        /**
-         * En esta sentencia se busca traer de la tabla 'literary_genre' el id que le corresponde al genero.
-         */
-        $query = $this->db->prepare('SELECT id_genre FROM literary_genre WHERE literary_genre.name = ?');
+        //ciencia-ficcion
+        $split = explode("-", $name);
+        
+        if(isset($split[1]))
+            $genre = $split[0] . ' ' . $split[1];
+        else
+            $genre = $split[0];
+
+        $query = $this->db->prepare('SELECT book.*, genre.name as genre FROM book JOIN genre ON book.id_genre_fk = genre.id_genre WHERE genre.name = ? ');
+
         $query->execute([$genre]);
-        $obj = $query->fetchAll(PDO::FETCH_OBJ);  //  var_dump($obj[0]->id_genre);die;    
-          
-        $id = $obj[0]->id_genre;
-
-        /**
-         * En esta sentencia se busca traer de la tabla 'catalogue' todos los libros del genero ya nombrado.
-         */
-        $query = $this->db->prepare('SELECT * FROM catalogue WHERE id_genre_fk = ?');
-        $query->execute([$id]);
         $booksByGenre = $query->fetchAll(PDO::FETCH_OBJ);
-
         return $booksByGenre;
     }
 }
