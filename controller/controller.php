@@ -1,26 +1,30 @@
 <?php
 include_once('view/view.php');
-include_once('model/model.php');
+include_once('model/bookModel.php');
+include_once('model/genreModel.php');
 
 class controller
 {
-    private $model;
+    private $genreModel;
+    private $bookModel;
     private $view;
 
     function __construct()
     {
         $this->view = new view();
-        $this->model = new catalogue();
+        $this->genreModel = new genreModel();
+        $this->bookModel = new bookModel();
     }
+
+
 
     /**
      *  Muetra el formulario de registro index.php
      * 
-     * 
      */
-    function getIndex()
+    public function getLogin()
     {
-        $this->view->showIndex();
+        $this->view->showLogin();
     }
 
 
@@ -32,10 +36,10 @@ class controller
     /**
      *  Muestra la pagina about donde ya se puede explorar el catalogo de libros.
      */
-    function getAbout()
+    public function getAbout()
     {
-        $sideListGenres = $this->model->getAllGenresDB();
-        $this->view->showAbout($sideListGenres);
+        $listGenres = $this->genreModel->getAllGenresDB();
+        $this->view->showAbout($listGenres);
     }
 
 
@@ -48,12 +52,24 @@ class controller
      *  $genre es el genero de libro que se quiere buscar.
      * 
      */
-    function getBooksByGenre($genre)
+    public function getBooksByGenre($genre)
     {
-        $sideListGenres = $this->model->getAllGenresDB();
-        $booksByGenre = $this->model->getBooksByGenreDB($genre);
-        $this->view->showBooksByGenre($sideListGenres, $booksByGenre);
+        $listGenres = $this->genreModel->getAllGenresDB();
+        $booksByGenre = $this->bookModel->getBooksByGenreDB($genre);
+
+        if(empty($booksByGenre))
+            $this->showError('aun no hay registrados libros del genero ' . $genre . '');
+
+        elseif($booksByGenre == false )
+            $this->showError('ocurrio un error durante la busqueda');
+
+        else
+            $this->view->showBooksByGenre($listGenres, $booksByGenre);
+        
     }
+
+
+
 
 
 
@@ -61,8 +77,9 @@ class controller
      *  Muestra en pantalla que hubo un error.
      * 
      */
-    function error()
-    {
-        $this->view->showError();
+    public function showError($mensegge)
+    {      
+        $listGenres = $this->genreModel->getAllGenresDB();
+        $this->view->showErrorView($mensegge, $listGenres);
     }
 }

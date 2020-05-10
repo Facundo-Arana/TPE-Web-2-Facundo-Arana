@@ -9,8 +9,9 @@ define('URLBASE', '//'. $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] 
 $controller = new controller();
 
 
-if (empty($_GET['action'])) {
-    header('Location: library/index.php');
+
+if (empty($_GET['action']))  {
+    header('Location: library/login');
     die;
 }
 
@@ -18,8 +19,8 @@ $actions = explode('/', $_GET['action']);
 
 switch ($actions[1]) {
 
-    case 'index.php':
-        $controller->getIndex();
+    case 'login':
+        $controller->getLogin();
         break;
 
     case 'catalogue':
@@ -38,5 +39,5 @@ switch ($actions[1]) {
         break;
 
     default:
-        $controller->error();
+        $controller->showError('parametro no contemplado en el route');
 }

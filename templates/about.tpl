@@ -1,5 +1,5 @@
 {include 'templates/header.tpl'}
-{include 'templates/principalView.tpl'}
+{include 'templates/nav.tpl'}
 
 <div class="main">   
     <div class="wrapper">                  

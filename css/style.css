@@ -7,7 +7,7 @@
 }
 
 body {
-    margin: 10px 10px 10px 10px;
+    margin: 10px ;
 }
 
 /*    
@@ -20,21 +20,16 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    background: url(../img/background.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .login {
-    background-color: black;
-    opacity: 90%;
+    background-color: black;   
+    opacity: 98%;
     color: white;
-    position: absolute;
-    top: 50%;
+    position: fixed;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid #E1E1E1;
-    border-radius: 5px;
     padding: 20px;
     width: 300px;
     text-align: center;
@@ -45,35 +40,47 @@ body {
 *
 *
 */
+.conteiner, .main, .side, .wrapper, header, .title {
+    display: flex;
+}
+
 
 header {
-    display: flex;
+    flex-direction: row;
+    width: -webkit-fill-available;
+    justify-content: space-around;
+    align-items: center;
+    background: url(../img/headerbackground.png);
+    
+}
+
+.conteiner {
     flex-direction: row;
     justify-content: space-between;
 }
 
-.conteiner {
-    display: flex;
-    flex-direction: row;
-}
-
-.main {
-    display: inherit;
-    flex-direction: column;
+.main {  
+    flex-direction: column;  
     padding: 3em;
+    margin: 2px 0 0 0;
+    width: -webkit-fill-available;
+   
 }
 
 .side {
-    padding: 2em;
-    display: inherit;
     flex-direction: column;
+    background-color: rgb(37, 37, 37);
+    padding: 0 2em;
+    margin: 2px 2px 0 0 ;
+    width: 20%;
+  
 }
 
-.wrapper {
-    display: inherit;
+.wrapper {  
     flex-direction: row;
     padding: 1em;
 }
+
 
 /*
 *   Estilo de elementos en general.
@@ -81,44 +88,48 @@ header {
 *
 */
 
-h1 {
-    font-size: 3em;
+.main, .side, header, input, button, .login {
+    border: 1px solid #008081;
+    border-radius: 5px;
 }
 
-li {
-    padding: 10px 0px 10px 0px;
+h1, h2, input, button{
+    color: #008081;
+}
+
+h1 {
+    font-size: 3em;
+    font-family: monospace;
 }
 
 input, button {
-    border: 1px solid #E1E1E1;
-    border-radius: 5px;
+    background-color: rgb(20, 20, 20);
+    opacity: 90%;         
     padding: 5px;
 }
 
-
-
-/*
-*   Clases utilizadas.
-*
-*
-*/
-
-
-.front{
-    width: -webkit-fill-available;
-    text-align: center;
+nav>ul{
+    padding: 5px 0;
+}
+nav>ul>li{
+    padding: 9px 0;
+}
+nav>ul>li>a {
+    list-style-type: lower-roman;
+    color: linen;
 }
 
-.title{
-    top: 50%;
-    bottom: 50%;
-    transform: translate(0px, 50%);
+
+
+.title {
+  align-items: center;
 }
 
-.subtitle{
+.subtitle {
     margin-top: 20px;
     padding: 20px 0;
-    border-top: 1px solid #E1E1E1;
+    border-top: 1px solid #008081;
+    border-bottom: 1px solid #008081;
 }
 
 .oculto {

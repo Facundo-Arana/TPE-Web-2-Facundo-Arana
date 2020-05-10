@@ -4,16 +4,22 @@ require_once('libs/Smarty.class.php');
 class view
 {
 
+    private $smarty;
+    
+    function __construct()
+    {
+        $this->smarty = new Smarty();
+        $this->smarty->assign('url', URLBASE);
+    }
+
 
     /**
-     *  Muestra el index donde se regustra el administrador.
+     *  Muestra el login donde se registra el administrador.
      * 
      */
-    public function showIndex()
-    {
-        $smarty = new Smarty();
-        $smarty->assign('url', URLBASE);
-        $smarty->display('templates/index.tpl'); 
+    public function showLogin()
+    {     
+        $this->smarty->display('templates/login.tpl'); 
     }
 
 
@@ -29,12 +35,10 @@ class view
      * 
      */
     public function showAbout($listGenres)
-    {
-        $smarty = new Smarty();
-        $smarty->assign('url', URLBASE);
-        $smarty->assign('side', $listGenres);
-        
-        $smarty->display('templates/about.tpl'); 
+    {    
+        $this->smarty->assign('nav', $listGenres); 
+
+        $this->smarty->display('templates/about.tpl'); 
     }
 
 
@@ -50,12 +54,15 @@ class view
      *  TODO panatalla de error.
      * 
      */
-    public function showError()
+    public function showErrorView($mensagge, $nav)
     {
-        $smarty = new Smarty();
-        $smarty->assign('url', URLBASE);
-        $smarty->display('templates/error.tpl'); 
+        $this->smarty->assign('text', $mensagge);
+        $this->smarty->assign('nav', $nav);
+
+        $this->smarty->display('templates/error.tpl'); 
     }
+
+
 
 
 
@@ -66,14 +73,10 @@ class view
      */
     public function showBooksByGenre($listGenres,$booksByGenre)
     {
-        $smarty = new Smarty();
-        $smarty->assign('url', URLBASE);
-        $smarty->assign('side', $listGenres);
-        $smarty->assign('main', $booksByGenre);
+        $this->smarty->assign('nav', $listGenres);
+        $this->smarty->assign('main', $booksByGenre);
 
-
-        $smarty->display('templates/booksByGenre.tpl'); 
-        
+        $this->smarty->display('templates/booksByGenre.tpl');    
     }
 
   
