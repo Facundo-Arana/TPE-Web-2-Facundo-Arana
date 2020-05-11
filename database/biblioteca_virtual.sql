@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-05-2020 a las 16:18:33
+-- Tiempo de generación: 11-05-2020 a las 02:04:55
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `catalogue`
+-- Estructura de tabla para la tabla `book`
 --
 
-CREATE TABLE `catalogue` (
+CREATE TABLE `book` (
   `id_document` int(11) NOT NULL,
   `name` varchar(80) NOT NULL,
   `author` varchar(80) NOT NULL,
@@ -36,59 +36,79 @@ CREATE TABLE `catalogue` (
   `id_genre_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `book`
+--
+
+INSERT INTO `book` (`id_document`, `name`, `author`, `details`, `id_genre_fk`) VALUES
+(2, 'carpincho', 'internet', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu nibh commodo, pulvinar sapien hendrerit, mattis est. \r\n Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut vehicula sodales lectus et laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris eleifend mauris at urna dictum, eu vestibulum lorem ultrices. Fusce eleifend magna ac ex dapibus gravida. Suspendisse condimentum feugiat tortor, ut rutrum neque pellentesque vel. Morbi luctus auctor ultrices.', 3);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `literary_genre`
+-- Estructura de tabla para la tabla `genre`
 --
 
-CREATE TABLE `literary_genre` (
-  `id_genre` int(11) NOT NULL,
+CREATE TABLE `genre` (
+  `id` int(11) NOT NULL,
   `name` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `genre`
+--
+
+INSERT INTO `genre` (`id`, `name`) VALUES
+(1, 'comic'),
+(2, 'cuentos'),
+(3, 'ciencia ficción'),
+(4, 'novelas'),
+(5, 'filosofia'),
+(6, 'historia'),
+(7, 'informatica');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `catalogue`
+-- Indices de la tabla `book`
 --
-ALTER TABLE `catalogue`
+ALTER TABLE `book`
   ADD PRIMARY KEY (`id_document`),
-  ADD KEY `FK_id_genre` (`id_genre_fk`);
+  ADD KEY `id_genre_fk` (`id_genre_fk`);
 
 --
--- Indices de la tabla `literary_genre`
+-- Indices de la tabla `genre`
 --
-ALTER TABLE `literary_genre`
-  ADD PRIMARY KEY (`id_genre`);
+ALTER TABLE `genre`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `catalogue`
+-- AUTO_INCREMENT de la tabla `book`
 --
-ALTER TABLE `catalogue`
-  MODIFY `id_document` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `book`
+  MODIFY `id_document` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `literary_genre`
+-- AUTO_INCREMENT de la tabla `genre`
 --
-ALTER TABLE `literary_genre`
-  MODIFY `id_genre` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `genre`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `catalogue`
+-- Filtros para la tabla `book`
 --
-ALTER TABLE `catalogue`
-  ADD CONSTRAINT `catalogue_ibfk_1` FOREIGN KEY (`id_genre_fk`) REFERENCES `literary_genre` (`id_genre`);
+ALTER TABLE `book`
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`id_genre_fk`) REFERENCES `genre` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

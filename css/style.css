@@ -7,13 +7,13 @@
 }
 
 body {
-    margin: 10px ;
+    margin: 10px;
+    background-color: rgb(255, 236, 217);
+    height: -webkit-fill-available;
 }
 
 /*    
-*   Estilo de la pagina index.
-*
-*
+*   Estilo del login.
 */
 
 .index {
@@ -23,7 +23,7 @@ body {
 }
 
 .login {
-    background-color: black;   
+    background-color: black;
     opacity: 98%;
     color: white;
     position: fixed;
@@ -40,10 +40,10 @@ body {
 *
 *
 */
-.conteiner, .main, .side, .wrapper, header, .title {
+
+.conteiner, .main, .side, .wrapper, header, .title, .writer {
     display: flex;
 }
-
 
 header {
     flex-direction: row;
@@ -51,7 +51,6 @@ header {
     justify-content: space-around;
     align-items: center;
     background: url(../img/headerbackground.png);
-    
 }
 
 .conteiner {
@@ -59,31 +58,28 @@ header {
     justify-content: space-between;
 }
 
-.main {  
-    flex-direction: column;  
-    padding: 3em;
+.main {
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    padding: 0 2em ;
     margin: 2px 0 0 0;
-    width: -webkit-fill-available;
-   
 }
 
 .side {
     flex-direction: column;
     background-color: rgb(37, 37, 37);
     padding: 0 2em;
-    margin: 2px 2px 0 0 ;
-    width: 20%;
-  
+    margin: 2px 2px 0 0;
 }
 
-.wrapper {  
+.wrapper {
     flex-direction: row;
-    padding: 1em;
+    padding: 1em 0;
+    
 }
-
 
 /*
-*   Estilo de elementos en general.
+*   Estilo de elementos y clases en general.
 *
 *
 */
@@ -93,8 +89,16 @@ header {
     border-radius: 5px;
 }
 
-h1, h2, input, button{
+h1, h2, input, button {
     color: #008081;
+}
+
+.main, .writer {
+    width: 80%;
+}
+
+.side, .writer+div {
+    width: 20%;
 }
 
 h1 {
@@ -104,32 +108,53 @@ h1 {
 
 input, button {
     background-color: rgb(20, 20, 20);
-    opacity: 90%;         
+    opacity: 90%;
     padding: 5px;
 }
 
-nav>ul{
+nav>ul {
     padding: 5px 0;
 }
-nav>ul>li{
+
+nav>ul>li {
     padding: 9px 0;
 }
+
 nav>ul>li>a {
     list-style-type: lower-roman;
-    color: linen;
+    color: rgb(255, 236, 217);
 }
 
-
-
 .title {
-  align-items: center;
+    align-items: center;
 }
 
 .subtitle {
+    text-align: center;
     margin-top: 20px;
     padding: 20px 0;
     border-top: 1px solid #008081;
     border-bottom: 1px solid #008081;
+}
+
+.writer{
+    flex-direction: column;
+    margin-right: 10px;
+}
+.writer>h3 {
+    
+    font-style: oblique;
+    font-weight: bold;
+}
+
+.writer>p {
+
+}
+
+.writer+div {
+    display: inherit;
+    flex-direction: column;
+    align-self: center;
 }
 
 .oculto {

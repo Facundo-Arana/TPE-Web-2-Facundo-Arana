@@ -37,31 +37,8 @@ class view
     public function showAbout($listGenres)
     {    
         $this->smarty->assign('nav', $listGenres); 
-
         $this->smarty->display('templates/about.tpl'); 
     }
-
-
-
-
-
-
-
-
-
-
-    /**
-     *  TODO panatalla de error.
-     * 
-     */
-    public function showErrorView($mensagge, $nav)
-    {
-        $this->smarty->assign('text', $mensagge);
-        $this->smarty->assign('nav', $nav);
-
-        $this->smarty->display('templates/error.tpl'); 
-    }
-
 
 
 
@@ -75,9 +52,30 @@ class view
     {
         $this->smarty->assign('nav', $listGenres);
         $this->smarty->assign('main', $booksByGenre);
-
         $this->smarty->display('templates/booksByGenre.tpl');    
     }
+
+
+
+
+
+
+    /**
+     *  Pantalla de error.
+     * 
+     */
+    public function showErrorView($mensagge, $nav)
+    {
+        $this->smarty->assign('text', $mensagge);
+        $this->smarty->assign('nav', $nav);
+        $this->smarty->display('templates/error.tpl'); 
+    }
+
+
+
+
+
+
 
   
 

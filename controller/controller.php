@@ -29,9 +29,9 @@ class controller
 
 
 
-   
 
-   
+
+
 
     /**
      *  Muestra la pagina about donde ya se puede explorar el catalogo de libros.
@@ -45,7 +45,7 @@ class controller
 
 
 
-    
+
 
     /**
      *  Muestra solo libros de un genero especifico.
@@ -57,15 +57,17 @@ class controller
         $listGenres = $this->genreModel->getAllGenresDB();
         $booksByGenre = $this->bookModel->getBooksByGenreDB($genre);
 
-        if(empty($booksByGenre))
+        //var_dump($booksByGenre);die;
+        if (empty($booksByGenre))
             $this->showError('aun no hay registrados libros del genero ' . $genre . '');
 
-        elseif($booksByGenre == false )
+        elseif ($booksByGenre == false)
             $this->showError('ocurrio un error durante la busqueda');
 
-        else
+        else {
+            
             $this->view->showBooksByGenre($listGenres, $booksByGenre);
-        
+        }
     }
 
 
@@ -78,7 +80,7 @@ class controller
      * 
      */
     public function showError($mensegge)
-    {      
+    {
         $listGenres = $this->genreModel->getAllGenresDB();
         $this->view->showErrorView($mensegge, $listGenres);
     }
