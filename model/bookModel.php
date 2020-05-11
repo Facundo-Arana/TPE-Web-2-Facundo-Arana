@@ -20,7 +20,7 @@ class bookModel
 
 
     /**
-     *  Retorna un arreglo con todos los datos de la tabla 'catalogue' de la db.
+     *  Retorna un arreglo con todos los libros de la db.
      *  //TODO hacer un boton para esto.
      * 
      */
@@ -40,34 +40,39 @@ class bookModel
 
 
     /**
-     *  Esta funcion retorna todos los libros de un genero especifico.
+     *  Retorna todos los libros de un genero especifico.
      *  El parametro recibido $genre es el nombre del genero de libros a buscar.
      * 
      */
-    public function getBooksByGenreDB($name)
+    public function getBooksByGenreDB($genre)
     {
-        //ciencia-ficcion
-        $split = explode("-", $name);
-
-        if (!isset($split[1]))
-            $genre = $split[0];
-        elseif (!isset($split[2]))
-            $genre = $split[0] . ' ' . $split[1];
-        elseif (!isset($split[3]))
-            $genre = $split[0] . ' ' . $split[1] . ' ' . $split[2];
-        else {
-            $genre = $split[0] . ' ' . $split[1] . ' ' . $split[2] . ' ' . $split[3];
-        }
-
-
         $query = $this->db->prepare('SELECT book.*, genre.name as genre FROM book JOIN genre ON book.id_genre_fk = genre.id WHERE genre.name = ? ');
-        $reponse = $query->execute([$genre]);
+        $response = $query->execute([$genre]);
 
-        if ($reponse == true) 
+        if ($response == true) 
             return  $query->fetchAll(PDO::FETCH_OBJ);
 
         else {
-            return $reponse;
+            return $response;
         }
     }
+
+
+    /**
+     *  Retorna un libro especifico incluido el nombre de su genero.
+     * 
+     */
+    public function getBookDetailsDB($name)
+    {
+        $query = $this->db->prepare('SELECT * FROM book WHERE book.name = ?');
+        $response = $query->execute([$name]);
+        
+        if ($response == true) 
+            return  $query->fetchAll(PDO::FETCH_OBJ);
+
+        else {
+            return $response;
+        }
+    }
+
 }

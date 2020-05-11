@@ -1,11 +1,8 @@
 "use strict";
-document.addEventListener('DOMContentLoaded', iniciar);
+//document.addEventListener('DOMContentLoaded', iniciar);
 
 function iniciar() {
-    let p = document.getElementById('details');
-    let text = p.textContent;
-    let i ;
-
+ 
     
 }
 

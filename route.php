@@ -4,11 +4,7 @@ require_once('controller/controller.php');
 
 define('URLBASE', '//'. $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
-//define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
-
 $controller = new controller();
-
-
 
 if (empty($_GET['action']))  {
     header('Location: library/login');
@@ -31,7 +27,7 @@ switch ($actions[1]) {
             $controller->getBooksByGenre($actions[2]);
             break;
         } else
-            //$controller->getBookDetails($actions[2],$actions[3]); /////TODO
+            $controller->getBookDetails($actions[2],$actions[3]); 
             break;
 
     case 'checking':

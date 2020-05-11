@@ -1,5 +1,4 @@
 * {
-    text-transform: capitalize;
     list-style-type: none;
     text-decoration: none;
     padding: 0px;
@@ -41,7 +40,7 @@ body {
 *
 */
 
-.conteiner, .main, .side, .wrapper, header, .title, .writer {
+.conteiner, .main, .side, .wrapper, header, .title, .writer, .genre {
     display: flex;
 }
 
@@ -56,6 +55,7 @@ header {
 .conteiner {
     flex-direction: row;
     justify-content: space-between;
+    
 }
 
 .main {
@@ -63,6 +63,7 @@ header {
     background-color: rgb(255, 255, 255);
     padding: 0 2em ;
     margin: 2px 0 0 0;
+   
 }
 
 .side {
@@ -70,14 +71,28 @@ header {
     background-color: rgb(37, 37, 37);
     padding: 0 2em;
     margin: 2px 2px 0 0;
+    min-height: 400px;
 }
 
 .wrapper {
+  
     flex-direction: row;
-    padding: 1em 0;
-    
+    padding: 1em ;
+    border-radius: 5px ;
+    border-right: solid salmon;
+    border-top: 1px solid salmon;
+    margin-top: 5px;
 }
 
+.writer{
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.genre {
+    flex-direction: column;
+    align-items: center;
+}
 /*
 *   Estilo de elementos y clases en general.
 *
@@ -89,7 +104,7 @@ header {
     border-radius: 5px;
 }
 
-h1, h2, input, button {
+h1,h1>a, h2, input, button {
     color: #008081;
 }
 
@@ -106,6 +121,7 @@ h1 {
     font-family: monospace;
 }
 
+
 input, button {
     background-color: rgb(20, 20, 20);
     opacity: 90%;
@@ -117,7 +133,7 @@ nav>ul {
 }
 
 nav>ul>li {
-    padding: 9px 0;
+    padding: 10px 0;
 }
 
 nav>ul>li>a {
@@ -136,27 +152,51 @@ nav>ul>li>a {
     border-top: 1px solid #008081;
     border-bottom: 1px solid #008081;
 }
-
-.writer{
-    flex-direction: column;
-    margin-right: 10px;
+ 
+figcaption{
+    color:#008081;
 }
-.writer>h3 {
-    
+
+article{
+    text-align: center;
+}
+article>p{
+    font-size: 1.2em;
+}
+.writer>h3, .genre > h3{
+    text-decoration-line: underline;
     font-style: oblique;
     font-weight: bold;
+    padding: 0 0 10px 0;
+    color: rgb(255, 50, 50);
 }
 
-.writer>p {
-
+.genre  {
+    border-left: 1px solid rgb(255, 50, 50);
 }
 
-.writer+div {
-    display: inherit;
-    flex-direction: column;
-    align-self: center;
+p{
+    font-weight: bold;
+    padding: 0 0 10px 0;
+    color: rgb(252, 50, 50);
+}
+p>a { 
+    color: #008081;
+}
+
+
+.subtitle1{
+    text-align: center;
+    margin-bottom: 1em;
 }
 
 .oculto {
     visibility: hidden;
+}
+
+@media(max-width:900px){
+    header{
+        flex-direction: column;
+    }
+
 }

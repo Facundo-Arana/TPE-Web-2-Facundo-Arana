@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-05-2020 a las 02:04:55
+-- Tiempo de generación: 12-05-2020 a las 00:39:27
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `book` (
-  `id_document` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(80) NOT NULL,
   `author` varchar(80) NOT NULL,
   `details` text NOT NULL,
@@ -40,8 +40,8 @@ CREATE TABLE `book` (
 -- Volcado de datos para la tabla `book`
 --
 
-INSERT INTO `book` (`id_document`, `name`, `author`, `details`, `id_genre_fk`) VALUES
-(2, 'carpincho', 'internet', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu nibh commodo, pulvinar sapien hendrerit, mattis est. \r\n Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut vehicula sodales lectus et laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris eleifend mauris at urna dictum, eu vestibulum lorem ultrices. Fusce eleifend magna ac ex dapibus gravida. Suspendisse condimentum feugiat tortor, ut rutrum neque pellentesque vel. Morbi luctus auctor ultrices.', 3);
+INSERT INTO `book` (`id`, `name`, `author`, `details`, `id_genre_fk`) VALUES
+(2, 'carpincho', 'internet', 'descripcion de libro que deberia mostrar solamente las primeras 20 palabras con el fin de poder incluir un enlace para continuar con la lectura detallada del libro en cuestion y poder incluir una imagen descriptiva.', 3);
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ INSERT INTO `genre` (`id`, `name`) VALUES
 -- Indices de la tabla `book`
 --
 ALTER TABLE `book`
-  ADD PRIMARY KEY (`id_document`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `id_genre_fk` (`id_genre_fk`);
 
 --
@@ -92,7 +92,7 @@ ALTER TABLE `genre`
 -- AUTO_INCREMENT de la tabla `book`
 --
 ALTER TABLE `book`
-  MODIFY `id_document` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `genre`

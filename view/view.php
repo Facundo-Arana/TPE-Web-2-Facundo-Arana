@@ -48,17 +48,27 @@ class view
      *  Muestra los libros de un genero especifico.
      * 
      */
-    public function showBooksByGenre($listGenres,$booksByGenre)
+    public function showBooksByGenre($listGenres,$booksByGenre, $genre)
     {
+
         $this->smarty->assign('nav', $listGenres);
         $this->smarty->assign('main', $booksByGenre);
+        $this->smarty->assign('genero', $genre);
         $this->smarty->display('templates/booksByGenre.tpl');    
     }
 
 
-
-
-
+    /**
+     *  Muestra los detalles un libro especifico.
+     * 
+     */
+    public function showBookDetails($listGenres, $genre, $book)
+    {
+        $this->smarty->assign('nav', $listGenres);
+        $this->smarty->assign('book', $book);
+        $this->smarty->assign('genero', $genre);
+        $this->smarty->display('templates/bookDetails.tpl');  
+    }
 
     /**
      *  Pantalla de error.

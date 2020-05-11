@@ -1,14 +1,22 @@
-<div class="main">
-    <section>
-        <article>
+{include 'templates/header.tpl' }
+{include 'templates/nav.tpl'}
 
-            <h2>{$book->name}</h2>
-            <p>{$book->details}</p>
-        </article>                           
+<div class="main">
+    <section >
+        <article >
+            <h2 class="subtitle1">{$book->name}</h2>
+            <figure>
+                <img src="img/{$book->name}.jpg" name="{$book->name}">
+                <figcaption>{$book->author}</figcaption>                                        
+            </figure> 
+                <p class="wrapper">{$book->details}</p>
+            </article>                           
     </section>
 
-    <figure>
-        <img src="img/{$book->name}.jpg" name="{$book->name}">
-        <figcaption>{$book->author}</figcaption>                                        
-    </figure> 
+    <div>
+        
+    </div>
+
 </div>  
+
+{include 'templates/footer.tpl'}
