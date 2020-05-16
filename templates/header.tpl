@@ -28,14 +28,19 @@
         </div>
          
         
-        <div>
-            <form action="search" method="POST">
+        </header>
+        
+        <div class="conteiner">
+        {*
+            <div>
+                <form action="search" method="POST">
 
-                <input type="text" name="search" placeholder="search">
-                                 
-                <input type="submit" value="send">                      
-            </form>
-        </div>       
-    </header>
+                    <input type="text" name="userSearch" placeholder="search" class="oculto">
+                                    
+                    <input type="submit" value="send" class="oculto">                      
+                </form>
+            </div>       
+        *}
 
-    <div class="conteiner">
+        
+        

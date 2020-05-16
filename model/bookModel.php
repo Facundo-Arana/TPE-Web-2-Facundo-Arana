@@ -62,10 +62,10 @@ class bookModel
      *  Retorna un libro especifico incluido el nombre de su genero.
      * 
      */
-    public function getBookDetailsDB($name)
+    public function getBookDetailsDB($id)
     {
-        $query = $this->db->prepare('SELECT * FROM book WHERE book.name = ?');
-        $response = $query->execute([$name]);
+        $query = $this->db->prepare('SELECT * FROM book WHERE book.id = ?');
+        $response = $query->execute([$id]);
         
         if ($response == true) 
             return  $query->fetchAll(PDO::FETCH_OBJ);

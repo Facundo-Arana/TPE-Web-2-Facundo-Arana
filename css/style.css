@@ -7,7 +7,7 @@
 
 body {
     margin: 10px;
-    background-color: rgb(255, 236, 217);
+    background-color: rgb(0, 0, 0);
     height: -webkit-fill-available;
 }
 
@@ -15,7 +15,7 @@ body {
 *   Estilo del login.
 */
 
-.index {
+.index{
     position: relative;
     width: 100%;
     height: 100%;
@@ -62,7 +62,7 @@ header {
     flex-direction: column;
     background-color: rgb(255, 255, 255);
     padding: 0 2em ;
-    margin: 2px 0 0 0;
+    margin: 2px 0 2px 0;
    
 }
 
@@ -70,17 +70,16 @@ header {
     flex-direction: column;
     background-color: rgb(37, 37, 37);
     padding: 0 2em;
-    margin: 2px 2px 0 0;
+    margin: 2px 2px 2px 0;
     min-height: 400px;
 }
 
-.wrapper {
-  
+.wrapper { 
     flex-direction: row;
     padding: 1em ;
     border-radius: 5px ;
-    border-right: solid salmon;
-    border-top: 1px solid salmon;
+    border-right: solid;
+    border-top: 1px solid ;
     margin-top: 5px;
 }
 
@@ -92,6 +91,7 @@ header {
 .genre {
     flex-direction: column;
     align-items: center;
+    border-left: 1px solid ;
 }
 /*
 *   Estilo de elementos y clases en general.
@@ -99,12 +99,12 @@ header {
 *
 */
 
-.main, .side, header, input, button, .login {
+.main, .side, header, input, button, .login, footer {
     border: 1px solid #008081;
     border-radius: 5px;
 }
 
-h1,h1>a, h2, input, button {
+h1,h1>a, h2, input, button, figcaption, button>a{
     color: #008081;
 }
 
@@ -121,6 +121,18 @@ h1 {
     font-family: monospace;
 }
 
+footer{
+    position:  relative;
+    height: 7%;
+    background: url(../img/headerbackground.png); 
+}
+
+.pie{
+    padding-top: 2px;
+    position: absolute;
+    width: -webkit-fill-available;
+   bottom: 20%;
+}
 
 input, button {
     background-color: rgb(20, 20, 20);
@@ -153,16 +165,15 @@ nav>ul>li>a {
     border-bottom: 1px solid #008081;
 }
  
-figcaption{
-    color:#008081;
-}
-
-article{
+article, footer{
     text-align: center;
 }
+
 article>p{
     font-size: 1.2em;
 }
+
+
 .writer>h3, .genre > h3{
     text-decoration-line: underline;
     font-style: oblique;
@@ -171,23 +182,24 @@ article>p{
     color: rgb(255, 50, 50);
 }
 
-.genre  {
-    border-left: 1px solid rgb(255, 50, 50);
-}
-
 p{
     font-weight: bold;
     padding: 0 0 10px 0;
-    color: rgb(252, 50, 50);
+    color: rgb(0, 0, 0);
 }
+
 p>a { 
     color: #008081;
 }
 
-
 .subtitle1{
+    color: black;
     text-align: center;
     margin-bottom: 1em;
+}
+
+.form-left-top{
+    padding: 10px 0 10px 0;
 }
 
 .oculto {

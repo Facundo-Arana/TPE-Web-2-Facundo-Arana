@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-05-2020 a las 00:39:27
+-- Tiempo de generación: 17-05-2020 a las 01:28:44
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -41,7 +41,7 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`id`, `name`, `author`, `details`, `id_genre_fk`) VALUES
-(2, 'carpincho', 'internet', 'descripcion de libro que deberia mostrar solamente las primeras 20 palabras con el fin de poder incluir un enlace para continuar con la lectura detallada del libro en cuestion y poder incluir una imagen descriptiva.', 3);
+(2, 'carpincho bostero', 'internet', '\"descripcion de libro que deberia mostrar solamente las primeras 20 palabras con el fin de poder incluir un enlace para continuar con la lectura detallada del libro en cuestion y poder incluir una imagen descriptiva\".', 3);
 
 -- --------------------------------------------------------
 
@@ -67,6 +67,26 @@ INSERT INTO `genre` (`id`, `name`) VALUES
 (6, 'historia'),
 (7, 'informatica');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `login`
+--
+
+CREATE TABLE `login` (
+  `id` int(11) NOT NULL,
+  `userName` varchar(80) NOT NULL,
+  `password` varchar(80) NOT NULL,
+  `adminPass` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `login`
+--
+
+INSERT INTO `login` (`id`, `userName`, `password`, `adminPass`) VALUES
+(1, 'admin', '', '1234');
+
 --
 -- Índices para tablas volcadas
 --
@@ -82,6 +102,12 @@ ALTER TABLE `book`
 -- Indices de la tabla `genre`
 --
 ALTER TABLE `genre`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `login`
+--
+ALTER TABLE `login`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -101,6 +127,12 @@ ALTER TABLE `genre`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT de la tabla `login`
+--
+ALTER TABLE `login`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -108,7 +140,7 @@ ALTER TABLE `genre`
 -- Filtros para la tabla `book`
 --
 ALTER TABLE `book`
-  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`id_genre_fk`) REFERENCES `genre` (`id`);
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`id_genre_fk`) REFERENCES `genre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

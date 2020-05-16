@@ -1,39 +1,49 @@
 <?php
-require_once('view/view.php');
-require_once('controller/controller.php');
+require_once('controller/userController.php');
+require_once('controller/sessionController.php');
+require_once('controller/adminController.php');
 
-define('URLBASE', '//'. $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
+define('URLBASE', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
-$controller = new controller();
+$actions = explode('/', $_GET['action']);
 
-if (empty($_GET['action']))  {
+if (!isset($actions[1])) {
     header('Location: library/login');
     die;
 }
 
-$actions = explode('/', $_GET['action']);
+$userController = new userController();
+$sessionController = new sessionController();
+$adminController = new adminController();
 
 switch ($actions[1]) {
-
     case 'login':
-        $controller->getLogin();
+        $userController->getLogin();
         break;
 
-    case 'catalogue':
+    case 'home':
         if (!isset($actions[2])) {
-            $controller->getAbout();
+            $userController->getHome();
             break;
         } elseif (!isset($actions[3])) {
-            $controller->getBooksByGenre($actions[2]);
+            $userController->getBooksByGenre($actions[2]);
             break;
         } else
-            $controller->getBookDetails($actions[2],$actions[3]); 
-            break;
+            $userController->getBookDetails($actions[2], $actions[3]);
+        break;
 
     case 'checking':
-        //TODO;
+        $sessionController->verify($_POST['user'], $_POST['password']);
+        break;
+
+    case 'logOut':
+        $sessionController->logOut();
+        break;
+
+    case 'admin':
+        $adminController->getAdminView();
         break;
 
     default:
-        $controller->showError('parametro no contemplado en el route');
+        $userController->showError('parametro no contemplado en el route');
 }

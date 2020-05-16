@@ -1,15 +1,15 @@
 {include 'templates/header.tpl' }
     <div class="index"> 
         <div class="login">                    
-            <form action="library/catalogue" method="POST">
+            <form action="library/home" method="POST">
                 <input type="submit" value="acceder como invitado">  
             </form>                   
            
             <div class="subtitle">
-                <h2>registro solo administrador</h2>
+                <h2>Registro administrativo</h2>
             </div>
         
-            <form action="checking" method="POST">  
+            <form action="library/checking" method="POST">  
                 <div>   
                     <label class="oculto"> ---------------- </label>
                 </div>
@@ -21,7 +21,7 @@
 
                 <label>Password</label>
                 <div>
-                    <input type="text" name="pass">
+                    <input type="password" name="password">
                 </div>
 
                 <label class="oculto"> ---------------- </label>
@@ -32,4 +32,3 @@
             </form>
         </div>
     </div>
-{include 'templates/footer.tpl'}
