@@ -12,19 +12,8 @@ class userView
         $this->smarty->assign('url', URLBASE);
     }
 
-
     /**
-     *  Muestra el login donde se registra el administrador.
-     * 
-     */
-    public function showLogin()
-    {     
-        $this->smarty->display('templates/login.tpl'); 
-    }
-
-
-    /**
-     *  Muestra la pagina para navegar por el sitio.
+     *  Muestra la pagina principal para navegar por el sitio.
      *  
      * 
      */
@@ -34,23 +23,17 @@ class userView
         $this->smarty->display('templates/home.tpl'); 
     }
 
-
-
-
-
     /**
-     *  Muestra los libros de un genero especifico.
+     *  Muestra todos los libros de un genero especifico.
      * 
      */
-    public function showBooksByGenre($listGenres, $booksByGenre, $genre, $nameBook)
+    public function showBooksByGenre($listGenres, $booksByGenre, $genre)
     {
         $this->smarty->assign('nav', $listGenres);
         $this->smarty->assign('main', $booksByGenre);
         $this->smarty->assign('genero', $genre);
-        $this->smarty->assign('nameBook', $nameBook);
         $this->smarty->display('templates/booksByGenre.tpl');    
     }
-
 
     /**
      *  Muestra los detalles un libro especifico.
@@ -64,32 +47,23 @@ class userView
         $this->smarty->display('templates/bookDetails.tpl');  
     }
 
-
-
     /**
-     *  Pantalla de error.
+     *  Pantalla de error durante la navegacion del usuario.
      * 
      */
-    public function showErrorView($mensagge, $nav)
+    public function showErrorView($mensagge)
     {
-        $this->smarty->assign('text', $mensagge);
-        $this->smarty->assign('nav', $nav);
+        $this->smarty->assign('text', $mensagge);  
         $this->smarty->display('templates/error.tpl'); 
+    } 
+
+      /**
+     *  Muestra la pagina login.
+     * 
+     */
+    public function showLogin()
+    {     
+        $this->smarty->display('templates/login.tpl'); 
     }
 
-
-
-
-
-
-
-  
-
-
-
-
-
-   
-
-  
 }

@@ -1,5 +1,9 @@
 {include 'templates/header.tpl' }
     <div class="index"> 
+        {if isset($msj) }
+            <h2>{$msj}</h2>
+        {/if}    
+
         <div class="login">                    
             <form action="library/home" method="POST">
                 <input type="submit" value="acceder como invitado">  

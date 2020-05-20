@@ -7,7 +7,7 @@
 
 body {
     margin: 10px;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(255, 254, 254);
     height: -webkit-fill-available;
 }
 
@@ -54,7 +54,7 @@ header {
 
 .conteiner {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     
 }
 
@@ -63,7 +63,7 @@ header {
     background-color: rgb(255, 255, 255);
     padding: 0 2em ;
     margin: 2px 0 2px 0;
-   
+    float: right;
 }
 
 .side {
@@ -78,8 +78,8 @@ header {
     flex-direction: row;
     padding: 1em ;
     border-radius: 5px ;
-    border-right: solid;
-    border-top: 1px solid ;
+    border-right: solid rgb(148, 148, 148);
+    border-top: 1px solid rgb(148, 148, 148);
     margin-top: 5px;
 }
 
@@ -99,12 +99,12 @@ header {
 *
 */
 
-.main, .side, header, input, button, .login, footer {
+.main, .side, header, input, button, .login, footer, select {
     border: 1px solid #008081;
     border-radius: 5px;
 }
 
-h1,h1>a, h2, input, button, figcaption, button>a{
+h1,h1>a, h2, input, button, figcaption, button>a,.writer>h3, .genre > h3,p>a, select{
     color: #008081;
 }
 
@@ -131,14 +131,16 @@ footer{
     padding-top: 2px;
     position: absolute;
     width: -webkit-fill-available;
-   bottom: 20%;
+    bottom: 20%;
 }
 
-input, button {
+input, button, select {
     background-color: rgb(20, 20, 20);
     opacity: 90%;
     padding: 5px;
 }
+
+
 
 nav>ul {
     padding: 5px 0;
@@ -165,7 +167,7 @@ nav>ul>li>a {
     border-bottom: 1px solid #008081;
 }
  
-article, footer{
+article, footer, .error{
     text-align: center;
 }
 
@@ -179,7 +181,7 @@ article>p{
     font-style: oblique;
     font-weight: bold;
     padding: 0 0 10px 0;
-    color: rgb(255, 50, 50);
+
 }
 
 p{
@@ -188,9 +190,6 @@ p{
     color: rgb(0, 0, 0);
 }
 
-p>a { 
-    color: #008081;
-}
 
 .subtitle1{
     color: black;
@@ -205,6 +204,8 @@ p>a {
 .oculto {
     visibility: hidden;
 }
+
+
 
 @media(max-width:900px){
     header{

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2020 a las 01:28:44
+-- Tiempo de generación: 20-05-2020 a las 02:07:19
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -41,7 +41,8 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`id`, `name`, `author`, `details`, `id_genre_fk`) VALUES
-(2, 'carpincho bostero', 'internet', '\"descripcion de libro que deberia mostrar solamente las primeras 20 palabras con el fin de poder incluir un enlace para continuar con la lectura detallada del libro en cuestion y poder incluir una imagen descriptiva\".', 3);
+(2, 'carpincho bostero', 'internet', '\"descripcion de libro que deberia mostrar solamente las primeras 20 palabras con el fin de poder incluir un enlace para continuar con la lectura detallada del libro en cuestion y poder incluir una imagen descriptiva\".', 3),
+(3, 'otro libro', 'anonimo', '\"aaaaaa aaaa aaaa aaaaa aaaaaaaaaaa \r\naaaaa aaaaaaaa aaaaaaaaa aaa a aa a aaa aa a aa a a a aa a a aaaaaaaaaaaa a a aaaa aaaaaaa a aa aa aaaaaa aaa aaaaa aaaaa aaaaa aaa', 1);
 
 -- --------------------------------------------------------
 
@@ -62,10 +63,11 @@ INSERT INTO `genre` (`id`, `name`) VALUES
 (1, 'comic'),
 (2, 'cuentos'),
 (3, 'ciencia ficción'),
-(4, 'novelas'),
 (5, 'filosofia'),
-(6, 'historia'),
-(7, 'informatica');
+(6, 'geografia'),
+(7, 'informatica'),
+(9, 'terror'),
+(10, 'accion');
 
 -- --------------------------------------------------------
 
@@ -118,13 +120,13 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT de la tabla `book`
 --
 ALTER TABLE `book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `genre`
 --
 ALTER TABLE `genre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `login`

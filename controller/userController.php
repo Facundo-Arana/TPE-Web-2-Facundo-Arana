@@ -17,16 +17,7 @@ class userController
     }
 
     /**
-     *  Muetra el formulario de registro index.php
-     * 
-     */
-    public function getLogin()
-    {
-        $this->view->showLogin();
-    }
-
-    /**
-     *  Muestra la pagina about donde ya se puede explorar el catalogo de libros.
+     *  Muestra la pagina home donde ya se puede explorar el catalogo de libros.
      */
     public function getHome()
     {
@@ -35,54 +26,18 @@ class userController
     }
 
     /**
-     *  Prepara una seccion de la URL de forma que las palabras queden separadas por espacios " ".
-     * 
-     */
-    public function prepare_URL($name)
-    {
-        $split = explode("-", $name);
-        $correctedName = implode(' ', $split);
-        return $correctedName;
-    }
-
-    /**
-     *  Prepara una seccion de la URL de forma que las palabras queden separadas por "-".
-     * 
-     */
-    public function construct_URL($name)
-    {                                                   
-        $split = explode(" ", $name);
-        $correctedName = implode('-', $split);
-        return $correctedName;
-    }
-
-    /**
      *  Trae solo libros de un genero especifico.
      *  $genre es el genero de libro que se quiere buscar.
      * 
      */
-    public function getBooksByGenre($name)
+    public function getBooksByGenre($genreName)
     {
-        $genre = $this->prepare_URL($name);
-
         $listGenres = $this->genreModel->getAllGenresDB();
-
-        $booksByGenre = $this->bookModel->getBooksByGenreDB($genre);
-
-        $nameURL = array();
-        foreach($booksByGenre as $book){
-            $nameURL[] = $this->construct_URL($book->name);
-        }
-
-        if (empty($booksByGenre))
-            $this->showError('aun no hay registrados libros del genero ' . $name . '');
-
-        elseif ($booksByGenre == false)
-            $this->showError('ocurrio un error durante la busqueda');
-
-        else {          
-            $this->view->showBooksByGenre($listGenres, $booksByGenre, $name, $nameURL);
-        }
+        $booksByGenre = $this->bookModel->getBooksByGenreDB($genreName);
+        if ($booksByGenre == false)
+            $this->showError('aun no hay registrados libros del genero ' . $genreName . '');
+        else
+            $this->view->showBooksByGenre($listGenres, $booksByGenre, $genreName);
     }
 
     /**
@@ -91,28 +46,35 @@ class userController
      */
     public function getBookDetails($genreName, $id)
     {
-        $genre = $this->construct_URL($genreName);
-
         $listGenres = $this->genreModel->getAllGenresDB();
-
         $book = $this->bookModel->getBookDetailsDB($id);
-       
-        
-
         if ($book == false)
             $this->showError('ocurrio un error durante la busqueda de este libro en la base de datos');
-        
-        else {      
-
-            $this->view->showBookDetails($listGenres, $genre, $book[0]);
-        }
-    
+        else
+            $this->view->showBookDetails($listGenres, $genreName, $book[0]);
     }
 
+    /** #obtener todos los registros de libros.
+     * 
+     */
+    public function getAllBooks()
+    {
+        $listGenres = $this->genreModel->getAllGenresDB();
+        $books = $this->bookModel->getAllBooksDB();
+        if ($books == false)
+            $this->showError('ocurrio un error durante la busqueda en la base de datos');
+        else
+            $this->view->showBooksByGenre($listGenres, $books, 'all');
+    }
 
-
-
-
+    /**
+     *  Muetra el formulario de registro index.php
+     * 
+     */
+    public function getLogin()
+    {
+        $this->view->showLogin();
+    }
 
     /**
      *  Muestra en pantalla que hubo un error.

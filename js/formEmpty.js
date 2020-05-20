@@ -1,0 +1,1 @@
+alert('debes completar todos los campos');
