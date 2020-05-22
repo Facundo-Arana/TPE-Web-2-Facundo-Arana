@@ -1,11 +1,12 @@
 <?php
-include_once('view/adminView.php');
-include_once('model/bookModel.php');
-include_once('model/genreModel.php');
-
+require_once('view/adminView.php');
+require_once('model/bookModel.php');
+require_once('model/genreModel.php');
+require_once('helpers/auth.helper.php');
 
 class adminController
 {
+    private $sessionHelper;
     private $genreModel;
     private $bookModel;
     private $view;
@@ -15,7 +16,25 @@ class adminController
         $this->view = new adminView();
         $this->genreModel = new genreModel();
         $this->bookModel = new bookModel();
-        $this->userModel = new userModel();
+
+        $this->sessionHelper = new sessionHelper();
+    }
+
+
+    /** #Mostrar la vista del administrador solo si hay una sesion iniciada.
+     * 
+     *   En caso de no haber una sesion iniciada se mostrara un error en el login.
+     */
+    public function getAdminView()
+    {
+        $response = $this->sessionHelper->sessionIsOpen();
+        if ($response == false)
+            $this->view->showErrorLogin('Acceso negado... debes inicar sesion');
+        else {
+            $books = $this->bookModel->getAllBooksDB();
+            $genres = $this->genreModel->getAllGenresDB();
+            $this->view->showAdminView($_SESSION['userName'], $genres, $books);
+        }
     }
 
     /** #Añadir un nuevo genero a la base de datos.
@@ -65,7 +84,7 @@ class adminController
         else {
             $response = $this->genreModel->editGenreDB($newName, $idGenre);
             if ($response == false)
-                $this->view->showErrorAdmin('No se pudo editar el nombre del genero n°:' . $idGenre .'');
+                $this->view->showErrorAdmin('No se pudo editar el nombre del genero n°:' . $idGenre . '');
             else
                 $this->view->showAdminSuccess('Nombre del genero n°:' . $idGenre . ' cambiado a: "' . $newName . '" con exito');
         }
@@ -86,8 +105,53 @@ class adminController
         if ($response == false)
             $this->view->showErrorAdmin('No se pudo eliminar el genero n°:' . $idGenre . '');
         else
-            $this->view->showAdminSuccess('Se ha eliminado el genero n°:'. $idGenre .' con exito');
+            $this->view->showAdminSuccess('Se ha eliminado el genero n°:' . $idGenre . ' con exito');
     }
+
+    /** #añadir un nuevo libro.
+     * 
+     * @param params son los datos enviadosp x metodo POST
+     */
+    public function addBook($params)
+    {
+        $name = $params['name'];
+        $author = $params['author'];
+        $details = $params['details'];
+        $idGenreFk = $params['idGenreFK'];
+        if (empty($name) || empty($author) || empty($idGenreFk) || empty($details)) {
+            $this->view->showErrorAdmin('completar todos los campos');
+            die();
+        }
+        $response = $this->bookModel->addBookDB($name, $author, $details, $idGenreFk);
+        if ($response == false)
+            $this->view->showErrorAdmin('No se pudo añadir el libro :' . $name . '');
+        else
+            $this->view->showAdminSuccess('Se ha añadido el libro:' . $name . ' con exito');
+    }
+
+    /** #editar un libro ya existente.
+     * 
+     * @param params son los datos enviadosp x metodo POST
+     */
+    public function editBook($params)
+    {
+        $name = $params['newName'];
+        $author = $params['newAuthorName'];
+        $details = $params['details'];
+        $idBook = $params['idBook'];
+        $idGenreFk = $params['idGenreFk'];
+        if (empty($name) || empty($author) || empty($idBook) || empty($details) || empty($idGenreFk)) {
+            $this->view->showErrorAdmin('completar todos los campos');
+            die();
+        }
+        $response = $this->bookModel->editBookDB($name, $author, $details, $idGenreFk, $idBook);
+     
+        if ($response == false)
+            $this->view->showErrorAdmin('No se pudo editar el libro :' . $name . '');
+        else
+            $this->view->showAdminSuccess('Se haeditado el libro:' . $name . ' con exito');
+    }
+
 
     /** #Mensaje de error cuando ingresa un parametro incorrecto en el router.
      * 

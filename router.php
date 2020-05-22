@@ -1,7 +1,7 @@
 <?php
 require_once('controller/userController.php');
-require_once('controller/sessionController.php');
 require_once('controller/adminController.php');
+require_once('helpers/auth.helper.php');
 
 define('URLBASE', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
@@ -13,7 +13,7 @@ if (!isset($actions[1]) || ($actions[1] == '')) {
 }
 
 $userController = new userController();
-$sessionController = new sessionController();
+$sessionHelper = new sessionhelper();
 $adminController = new adminController();
 
 switch ($actions[1]) {
@@ -38,16 +38,16 @@ switch ($actions[1]) {
         break;
 
     case 'checking':
-        $sessionController->verify($_POST['user'], $_POST['password']);
+        $sessionHelper->verify($_POST['user'], $_POST['password']);
         break;
 
     case 'logOut':
-        $sessionController->logOut();
+        $sessionHelper->logOut();
         break;
 
     case 'admin':
         if (!isset($actions[2]))
-            $sessionController->getAdminView();
+            $adminController->getAdminView();
 
         elseif (!isset($actions[3])) {
             switch ($actions[2]) {
@@ -63,9 +63,17 @@ switch ($actions[1]) {
                     $adminController->deleteGenre($_POST['idGenre']);
                     break;
 
+                case 'addBook':
+                    $adminController->addBook($_POST);
+                    break;
+
+                case 'editBook':
+                    $adminController->editBook($_POST);
+                    break;
+
 
                 default:
-                    $sessionController->getAdminView();
+                    $adminController->getAdminView();
             }
         } else {
         }

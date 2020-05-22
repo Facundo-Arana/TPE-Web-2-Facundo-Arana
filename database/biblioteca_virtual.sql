@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2020 a las 02:07:19
+-- Tiempo de generación: 22-05-2020 a las 03:44:14
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `book` (
-  `id` int(11) NOT NULL,
-  `name` varchar(80) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `book_name` varchar(80) NOT NULL,
   `author` varchar(80) NOT NULL,
-  `details` text NOT NULL,
+  `details` text,
   `id_genre_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,9 +40,10 @@ CREATE TABLE `book` (
 -- Volcado de datos para la tabla `book`
 --
 
-INSERT INTO `book` (`id`, `name`, `author`, `details`, `id_genre_fk`) VALUES
+INSERT INTO `book` (`book_id`, `book_name`, `author`, `details`, `id_genre_fk`) VALUES
 (2, 'carpincho bostero', 'internet', '\"descripcion de libro que deberia mostrar solamente las primeras 20 palabras con el fin de poder incluir un enlace para continuar con la lectura detallada del libro en cuestion y poder incluir una imagen descriptiva\".', 3),
-(3, 'otro libro', 'anonimo', '\"aaaaaa aaaa aaaa aaaaa aaaaaaaaaaa \r\naaaaa aaaaaaaa aaaaaaaaa aaa a aa a aaa aa a aa a a a aa a a aaaaaaaaaaaa a a aaaa aaaaaaa a aa aa aaaaaa aaa aaaaa aaaaa aaaaa aaa', 1);
+(3, 'otro libro', 'anonimo', '\"aaaaaa aaaa aaaa aaaaa aaaaaaaaaaa \r\naaaaa aaaaaaaa aaaaaaaaa aaa a aa a aaa aa a aa a a a aa a a aaaaaaaaaaaa a a aaaa aaaaaaa a aa aa aaaaaa aaa aaaaa aaaaa aaaaa aaa', 1),
+(4, 's', 's', 's', 9);
 
 -- --------------------------------------------------------
 
@@ -97,7 +98,7 @@ INSERT INTO `login` (`id`, `userName`, `password`, `adminPass`) VALUES
 -- Indices de la tabla `book`
 --
 ALTER TABLE `book`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`book_id`),
   ADD KEY `id_genre_fk` (`id_genre_fk`);
 
 --
@@ -120,7 +121,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT de la tabla `book`
 --
 ALTER TABLE `book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `genre`
