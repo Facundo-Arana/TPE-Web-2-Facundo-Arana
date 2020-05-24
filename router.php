@@ -1,5 +1,5 @@
 <?php
-require_once('controller/userController.php');
+require_once('controller/homeController.php');
 require_once('controller/adminController.php');
 require_once('helpers/auth.helper.php');
 
@@ -11,71 +11,58 @@ if (!isset($actions[1]) || ($actions[1] == '')) {
     header('Location: ' . URLBASE . 'library/login');
     die;
 }
-
-$userController = new userController();
-$sessionHelper = new sessionhelper();
+$homeController = new homeController();
 $adminController = new adminController();
 
 switch ($actions[1]) {
     case 'login':
-        $userController->getLogin();
+        $homeController->getLogin();
         break;
-
     case 'home':
         if (!isset($actions[2]))
-            $userController->getHome();
-
-        elseif (!isset($actions[3]))
-            $userController->getBooksByGenre($actions[2]);
-
-        else
-            $userController->getBookDetails($actions[2], $actions[3]);
-
+            $homeController->getHome();
+        elseif (!isset($actions[3])) {
+            switch ($actions[2]) {
+                case 'allBooks':
+                    $homeController->getAllBooks();
+                    break;
+                default:
+                    $homeController->getBooksByGenre($actions[2]);
+            }
+        } else
+            $homeController->getBookDetails($actions[2], $actions[3]);
         break;
-
-    case 'allBooks':
-        $userController->getAllBooks();
+    case 'verify':
+        $adminController->verify($_POST['user'], $_POST['password']);
         break;
-
-    case 'checking':
-        $sessionHelper->verify($_POST['user'], $_POST['password']);
-        break;
-
     case 'logOut':
-        $sessionHelper->logOut();
+        $adminController->logOut();
         break;
-
     case 'admin':
         if (!isset($actions[2]))
-            $adminController->getAdminView();
-
+            $adminController->getAdminViews();
         elseif (!isset($actions[3])) {
             switch ($actions[2]) {
                 case 'newGenre':
                     $adminController->createNewGenre($_POST['nameGenre']);
                     break;
-
                 case 'editGenre':
                     $adminController->editGenre($_POST['newName'], $_POST['idGenre']);
                     break;
-
                 case 'deleteGenre':
                     $adminController->deleteGenre($_POST['idGenre']);
                     break;
-
                 case 'addBook':
                     $adminController->addBook($_POST);
                     break;
-
                 case 'editBook':
                     $adminController->editBook($_POST);
                     break;
-
-
+                case 'deleteBook':
+                    $adminController->deleteBook($_POST['idBook']);
                 default:
                     $adminController->getAdminView();
             }
-        } else {
         }
         break;
     default:

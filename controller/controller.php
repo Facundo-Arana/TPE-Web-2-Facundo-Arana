@@ -1,135 +1,73 @@
 <?php
-include_once('view/view.php');
-include_once('model/bookModel.php');
-include_once('model/genreModel.php');
+require_once('helpers/auth.helper.php');
+require_once('model/bookModel.php');
+require_once('model/genreModel.php');
+require_once('model/userModel.php');
+require_once('views/homeView.php');
+require_once('views/adminView.php');
+require_once('views/errorView.php');
+require_once('views/loginView.php');
 
 class controller
 {
+    private $authHelper;
     private $genreModel;
     private $bookModel;
-    private $view;
+    private $userModel;
+    private $homeView;
+    private $adminView;
+    private $errorView;
+    private $loginView;
 
     function __construct()
     {
-        $this->view = new view();
+        $this->authHelper = new authHelper();
         $this->genreModel = new genreModel();
         $this->bookModel = new bookModel();
+        $this->userModel = new userModel();
+        $this->homeView = new homeView();
+        $this->adminView = new adminView();
+        $this->errorView = new errorView();
+        $this->loginView = new loginView();
     }
 
-
-
-    /**
-     *  Muetra el formulario de registro index.php
-     * 
-     */
-    public function getLogin()
+    public function getBookModel()
     {
-        $this->view->showLogin();
+        return $this->bookModel;
     }
 
-
-
-
-
-
-
-    /**
-     *  Muestra la pagina about donde ya se puede explorar el catalogo de libros.
-     */
-    public function getAbout()
+    public function getGenreModel()
     {
-        $listGenres = $this->genreModel->getAllGenresDB();
-        $this->view->showAbout($listGenres);
+        return $this->genreModel;
     }
 
-
-
-
-
-    /**
-     *  Recontruye la URL de forma que las palabras queden separadas por espacios.
-     * 
-     */
-    public function construct_URL($name)
+    public function getUserModel()
     {
-        $split = explode("-", $name);
-
-        if (!isset($split[1]))
-            $genre = $split[0];
-
-        elseif (!isset($split[2]))
-            $genre = $split[0] . ' ' . $split[1];
-
-        else
-            $genre = $split[0] . ' ' . $split[1] . ' ' . $split[2];
-
-        return $genre;
+        return $this->userModel;
+    }
+    
+    public function getHomeView()
+    {
+        return $this->homeView;
     }
 
-
-
-
-
-
-    /**
-     *  Trae solo libros de un genero especifico.
-     *  $genre es el genero de libro que se quiere buscar.
-     * 
-     */
-    public function getBooksByGenre($name)
+    public function getAdminView()
     {
-        $genre = $this->construct_URL($name);
-
-        $listGenres = $this->genreModel->getAllGenresDB();
-
-        $booksByGenre = $this->bookModel->getBooksByGenreDB($genre);
-
-        if (empty($booksByGenre))
-            $this->showError('aun no hay registrados libros del genero ' . $name . '');
-
-        elseif ($booksByGenre == false)
-            $this->showError('ocurrio un error durante la busqueda');
-
-        else {
-            $this->view->showBooksByGenre($listGenres, $booksByGenre, $name);
-        }
+        return $this->adminView;
     }
 
-
-
-    /**
-     *  Trae solo un libro.
-     * 
-     */
-    public function getBookDetails($name, $book)
+    public function getAuthHelper()
     {
-        $genre = $this->construct_URL($name);
-
-        $listGenres = $this->genreModel->getAllGenresDB();
-
-        $book = $this->bookModel->getBookDetailsDB($book);
-       
-        if ($book == false)
-            $this->showError('ocurrio un error durante la busqueda de este libro especifico');
-
-        else {
-           
-            $this->view->showBookDetails($listGenres, $genre, $book[0]);
-        }
+        return $this->authHelper;
     }
 
-
-
-
-
-
-    /**
-     *  Muestra en pantalla que hubo un error.
-     * 
-     */
-    public function showError($mensegge)
+    public function getErrorView()
     {
-        $listGenres = $this->genreModel->getAllGenresDB();
-        $this->view->showErrorView($mensegge, $listGenres);
+        return $this->errorView;
+    }
+
+    public function getLoginView()
+    {
+        return $this->loginView;
     }
 }

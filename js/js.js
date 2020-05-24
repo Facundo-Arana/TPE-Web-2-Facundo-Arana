@@ -1,29 +1,8 @@
-"use strict";
-//document.addEventListener('DOMContentLoaded', iniciar);
-
-function iniciar() {
- 
-    
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
+"use strict";
+document.addEventListener('DOMContentLoaded', iniciar);
+function iniciar() {
+}
 $(document).ready(function () {
     $('#loginform').submit(function (e) {
         e.preventDefault();

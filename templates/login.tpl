@@ -13,7 +13,7 @@
                 <h2>Registro administrativo</h2>
             </div>
         
-            <form action="library/checking" method="POST">  
+            <form action="library/verify" method="POST">  
                 <div>   
                     <label class="oculto"> ---------------- </label>
                 </div>

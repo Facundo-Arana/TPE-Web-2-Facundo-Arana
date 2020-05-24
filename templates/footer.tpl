@@ -1,7 +1,7 @@
         </div>
     </div>      
     <footer>
-        <div class="pie">
+        <div>
             <h2 >Trabajo Practico Especial Web 2</h2>
         </div>   
     </footer>

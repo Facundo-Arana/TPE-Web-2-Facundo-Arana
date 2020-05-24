@@ -1,20 +1,8 @@
 <?php
+require_once('model/dbModel.php');
 
-
-class genreModel
+class genreModel extends dbModel
 {
-    private $db;
-
-    function __construct()
-    {
-        try {
-            $this->db = new PDO('mysql:host=localhost;' . 'dbname=biblioteca_virtual;charset=utf8', 'root', '');
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $c) {
-            echo ($c);
-        }
-    }
-
     /** #Obtener todos los datos registrados en la tabla 'genre' de la base de datos.
      * 
      *  @param query es la sentencia SQL que se quiere ejecutar.
@@ -23,7 +11,7 @@ class genreModel
      */
     function getAllGenresDB()
     {
-        $query = $this->db->prepare('SELECT * FROM genre');
+        $query = $this->getDbConection()->prepare('SELECT * FROM genre');
         $response = $query->execute();
         if ($response == true)
             return $query->fetchAll(PDO::FETCH_OBJ);
@@ -40,7 +28,7 @@ class genreModel
      */
     function getOneGenreDB($name)
     {
-        $query = $this->db->prepare('SELECT * FROM genre WHERE genre.name = ?');
+        $query = $this->getDbConection()->prepare('SELECT * FROM genre WHERE genre.name = ?');
         $response = $query->execute([$name]);
         if ($response == true)
             return $query->fetchAll(PDO::FETCH_OBJ);
@@ -56,7 +44,7 @@ class genreModel
      */
     public function newGenreDB($genre)
     {
-        $query = $this->db->prepare('INSERT INTO genre (id, name) VALUES (NULL, ?)');
+        $query = $this->getDbConection()->prepare('INSERT INTO genre (id, name) VALUES (NULL, ?)');
         $response = $query->execute([$genre]);
         return $response;
     }
@@ -70,7 +58,7 @@ class genreModel
      */
     public function editGenreDB($newName, $id)
     {
-        $query = $this->db->prepare('UPDATE genre SET name = ? WHERE id = ?');
+        $query = $this->getDbConection()->prepare('UPDATE genre SET name = ? WHERE id = ?');
         $response = $query->execute([$newName, $id]);
         return $response;
     }
@@ -82,10 +70,8 @@ class genreModel
      *  @return response sera falso si es que no se ejecuto correctamente la sentencia.
      */
     public function deleteGenreDB($idGenre){
-        $query = $this->db->prepare('DELETE FROM genre WHERE id = ?');
+        $query = $this->getDbConection()->prepare('DELETE FROM genre WHERE id = ?');
         $response = $query->execute([$idGenre]);
         return $response;
     }
-
-
 }

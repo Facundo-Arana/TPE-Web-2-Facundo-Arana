@@ -1,1 +1,0 @@
-alert('genero ya existente');

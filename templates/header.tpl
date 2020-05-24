@@ -13,39 +13,31 @@
 
     <body>
         <header>
-            {if isset($user)}
-                <div>
-                    <h2>{$user}</h2>
-                </div>
-            {/if}
+            <div>
+                {if isset($user)}
+                    <h2><a href="library/admin">{$user}</a></h2>
+                {else}
+                    <h2 class="oculto">registrate</h2>
+                {/if}
+            </div>
             <div class="title">
                 <figure>
-                    <img src="img/libary.jpg" name="logo">
+                    <img src="img/libary1.jpg" name="logo">
                 </figure>
-
                 <div>
-                    <h1> <a href=""> Virtual Library </a></h1>
+                    <h1> <a href="library/home/allBooks"> Virtual Library </a></h1>
                 </div>
-
                 <figure>
                     <img src="img/libary1.jpg" name="logo">
                 </figure>
             </div>
-            {if isset($user)}
-                <div>
+            <div>
+                {if isset($user)}
                     <button><a href="library/logOut"> Log Out </a></button>
-                </div>
-            {/if}
+                {else}
+                    <button ><a href="">registrate</a></button>
+                {/if}
+            </div>
         </header>
 
         <div class="conteiner">
-            {*
-            <div>
-                <form action="search" method="POST">
-
-                    <input type="text" name="userSearch" placeholder="search" class="oculto">
-
-                    <input type="submit" value="send" class="oculto">
-                </form>
-            </div>
-            *}

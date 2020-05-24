@@ -1,25 +1,15 @@
 <?php
+require_once('model/dbModel.php');
 
-class bookModel
+class bookModel extends dbModel
 {
-    private $db;
-
-    function __construct()
-    {
-        try {
-            $this->db = new PDO('mysql:host=localhost;' . 'dbname=biblioteca_virtual;charset=utf8', 'root', '');
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $c) {
-            var_dump($c);
-        }
-    }
-
-    /** #Obtener todos los registros de la tabla 'book' de la base de datos.
+    /** 
+     *  Obtener todos los registros de la tabla 'book' de la base de datos.
      *  
      */
     public function getAllBooksDB()
     {
-        $query = $this->db->prepare('SELECT *, genre.name as genre FROM book JOIN genre ON book.id_genre_fk = genre.id');
+        $query = $this->getDbConection()->prepare('SELECT *, genre.name as genre FROM book JOIN genre ON book.id_genre_fk = genre.id ORDER BY book_name ASC');
         $response = $query->execute();
         if ($response == true)
             return $query->fetchAll(PDO::FETCH_OBJ);
@@ -33,7 +23,7 @@ class bookModel
      */
     public function getBooksByGenreDB($genre)
     {
-        $query = $this->db->prepare('SELECT book.*, genre.name as genre FROM book JOIN genre ON book.id_genre_fk = genre.id WHERE genre.name = ? ');
+        $query = $this->getDbConection()->prepare('SELECT book.*, genre.name as genre FROM book JOIN genre ON book.id_genre_fk = genre.id WHERE genre.name = ? ');
         $response = $query->execute([$genre]);
         if ($response == true)
             return  $query->fetchAll(PDO::FETCH_OBJ);
@@ -41,12 +31,12 @@ class bookModel
             return $response;
     }
 
-    /** #obtener un elemento de la tabla 'book' de la base de datos.
-     * 
+    /** 
+     *  Obtener un elemento de la tabla 'book' de la base de datos.
      */
     public function getBookDetailsDB($id)
     {
-        $query = $this->db->prepare('SELECT * FROM book WHERE book.book_id = ?');
+        $query = $this->getDbConection()->prepare('SELECT * FROM book WHERE book.book_id = ?');
         $response = $query->execute([$id]);
         if ($response == true)
             return  $query->fetchAll(PDO::FETCH_OBJ);
@@ -54,24 +44,33 @@ class bookModel
             return $response;
     }
 
-    /** #añadir un nuevo libro a los registros.
-     * 
+    /** 
+     * añadir un nuevo libro a los registros.
      */
     public function addBookDB($name, $author, $details, $idGenreFK)
     {
-        $query = $this->db->prepare('INSERT INTO book (book_id, book_name, author, details, id_genre_fk ) VALUES (NULL, ?, ?, ?, ?)');
+        $query = $this->getDbConection()->prepare('INSERT INTO book (book_id, book_name, author, details, id_genre_fk ) VALUES (NULL, ?, ?, ?, ?)');
         $response = $query->execute([$name, $author, $details, $idGenreFK]);
         return $response;
     }
 
-    /** #editar un libro.
-     * 
-     * 
+    /** 
+     * editar un libro.
      */
     public function editBookDB($name, $author, $details, $idGenreFk, $idBook)
     {
-        $query = $this->db->prepare('UPDATE book SET book_name =? , author =? , details =?, id_genre_fk = ? WHERE book_id = ?');
+        $query = $this->getDbConection()->prepare('UPDATE book SET book_name =? , author =? , details =?, id_genre_fk = ? WHERE book_id = ?');
         $response = $query->execute([$name, $author, $details, $idGenreFk, $idBook]);
+        return $response;
+    }
+
+    /** #elimina un libro de la base de datos.
+     * 
+     *  @param id el el id del libro a borrar.
+     */
+    public function deleteBookDB($id){
+        $query = $this->getDbConection()->prepare('DELETE FROM book WHERE book_id = ?');
+        $response = $query->execute([$id]);
         return $response;
     }
 }
