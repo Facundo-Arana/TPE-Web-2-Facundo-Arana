@@ -1,7 +1,6 @@
 <?php
 require_once('controller/homeController.php');
 require_once('controller/adminController.php');
-require_once('helpers/auth.helper.php');
 
 define('URLBASE', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
@@ -65,5 +64,5 @@ switch ($actions[1]) {
         }
         break;
     default:
-        $adminController->routerError('page not found 404');
+        $homeController->getLogin('page not found 404');
 }

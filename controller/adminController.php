@@ -13,36 +13,22 @@ class adminController extends controller
             $this->getLoginView()->showErrorLogin('completar todos los campos');
             die();
         }
-        // el nombre de administrador correcto es admin.
+
         $userDB = $this->getUserModel()->getUserDB($name);
+        // el nombre de administrador correcto es admin.
         if ($userDB == false) {
             $this->getLoginView()->showErrorLogin('nombre de usuario incorrecto');
             die();
         }
+
         $hash = $userDB[0]->adminPass;
         // la contraseña correcta es 1234. (en la db hay guardado un valor encriptado equivalente a 1234)
         $response = password_verify($pass, $hash);
 
         if ($response == false)
             $this->getLoginView()->showErrorLogin('contraseña incorrecta');
-        else {
-            session_start();
-            $_SESSION['userName'] = $userDB[0]->userName;
-            header('location:' . URLBASE . 'library/admin');
-        }
-    }
-
-    /** Cerrar una sesion y borrar las variables.
-     * 
-     *  @param _SESSION['userName'] es el nombre del administrador inicio la sesion.
-     *  @param _SESSION['id'] es el id del administrador inicio la sesion.
-     */
-    public function logOut()
-    {
-        unset($_SESSION['userName']);
-        unset($_SESSION['id']);
-        session_destroy();
-        header('location:' . URLBASE . 'library/login');
+        else
+            AuthHelper::login($userDB);
     }
 
     /** #Mostrar la vista del administrador solo si hay una sesion iniciada.
@@ -51,15 +37,10 @@ class adminController extends controller
      */
     public function getAdminViews()
     {
-        $response = $this->getAuthHelper()->sessionIsOpen();
-        if ($response == NULL)
-            $this->getLoginView()->showErrorLogin('Acceso negado... debes inicar sesion');
-        else {
-            $books = $this->getBookModel()->getAllBooksDB();
-            $genres = $this->getGenreModel()->getAllGenresDB();
-
-            $this->getAdminView()->showAdminView($genres, $books);
-        }
+        AuthHelper::checkLoggedIn();
+        $books = $this->getBookModel()->getAllBooksDB();
+        $genres = $this->getGenreModel()->getAllGenresDB();
+        $this->getAdminView()->showAdminView($genres, $books);
     }
 
     /** #Añadir un nuevo genero a la base de datos.
@@ -70,6 +51,7 @@ class adminController extends controller
      */
     public function createNewGenre($name)
     {
+        AuthHelper::checkLoggedIn();
         if ($name == '')
             $this->getErrorView()->showErrorView('Formulario vacio', 1);
         else {
@@ -95,6 +77,7 @@ class adminController extends controller
      */
     public function editGenre($newName, $idGenre)
     {
+        AuthHelper::checkLoggedIn();
         if ($idGenre == '') {
             $this->getErrorView()->showErrorView('Seleccione un genero para editar', 1);
             die();
@@ -109,7 +92,7 @@ class adminController extends controller
         else {
             $response = $this->getGenreModel()->editGenreDB($newName, $idGenre);
             if ($response == false)
-                $this->getErrorView()->showErrorView('No se pudo editar el nombre del genero n°: ' . $idGenre , 1);
+                $this->getErrorView()->showErrorView('No se pudo editar el nombre del genero n°: ' . $idGenre, 1);
             else
                 $this->getAdminView()->showAdminSuccess('Nombre del genero n°: ' . $idGenre . ' cambiado a: "' . $newName . '" con exito');
         }
@@ -122,13 +105,14 @@ class adminController extends controller
      */
     public function deleteGenre($idGenre)
     {
+        AuthHelper::checkLoggedIn();
         if (empty($idGenre)) {
             $this->getErrorView()->showErrorView('Seleccione un genero para ser eliminado', 1);
             die();
         }
         $response = $this->getGenreModel()->deleteGenreDB($idGenre);
         if ($response == false)
-            $this->getErrorView()->showErrorView('No se pudo eliminar el genero n°: ' . $idGenre , 1);
+            $this->getErrorView()->showErrorView('No se pudo eliminar el genero n°: ' . $idGenre, 1);
         else
             $this->getAdminView()->showAdminSuccess('Se ha eliminado el genero n°: ' . $idGenre . ' con exito');
     }
@@ -139,6 +123,7 @@ class adminController extends controller
      */
     public function addBook($params)
     {
+        AuthHelper::checkLoggedIn();
         $name = $params['name'];
         $author = $params['author'];
         $details = $params['details'];
@@ -149,7 +134,7 @@ class adminController extends controller
         }
         $response = $this->getBookModel()->addBookDB($name, $author, $details, $idGenreFk);
         if ($response == false)
-            $this->getErrorView()->showErrorView('No se pudo añadir el libro: ' . $name , 1);
+            $this->getErrorView()->showErrorView('No se pudo añadir el libro: ' . $name, 1);
         else
             $this->getAdminView()->showAdminSuccess('Se ha añadido el libro: ' . $name . ' con exito');
     }
@@ -160,6 +145,7 @@ class adminController extends controller
      */
     public function editBook($params)
     {
+        AuthHelper::checkLoggedIn();
         $name = $params['newName'];
         $author = $params['newAuthorName'];
         $details = $params['details'];
@@ -182,6 +168,7 @@ class adminController extends controller
      */
     public function deleteBook($idBook)
     {
+        AuthHelper::checkLoggedIn();
         $response = $this->getBookModel()->deleteBookDB($idBook);
         if ($response == false)
             $this->getErrorView()->showErrorView('No se pudo eliminar el libro: ' . $idBook . '', 1);
@@ -190,12 +177,12 @@ class adminController extends controller
     }
 
 
-    /** #Mensaje de error cuando ingresa un parametro incorrecto en el router.
-     * 
-     *  @param mensagge es el error puntal que ha ocurrido y que se quiere informar.
+    /** 
+     * Cerrar una sesion y borrar las variables.
      */
-    public function routerError($mensagge)
+    public function logOut()
     {
-        $this->getLoginView()->showErrorLogin($mensagge);
+        AuthHelper::logout();
     }
+
 }
