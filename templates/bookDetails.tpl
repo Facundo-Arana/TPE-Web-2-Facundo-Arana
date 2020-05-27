@@ -17,11 +17,6 @@
             <p class="wrapper">"{$book->details}"</p>
         </article>
     </section>
-
-    <div>
-
-    </div>
-
 </div>
 
 {include 'templates/footer.tpl'}

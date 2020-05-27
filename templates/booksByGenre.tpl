@@ -19,7 +19,7 @@
             <div class="writer">
                 <h3> {$book->book_name}</h3>
                 <p class="detailsShort">
-                    "{$details}..."<a href='library/home/{$genero}/{$book->book_id}'><span>
+                    "{$details}..."<a href='library/book/{$book->book_id}'><span>
                             < ver mas>
                         </span></a>
                 </p>

@@ -11,6 +11,7 @@ if (!isset($actions[1]) || ($actions[1] == '')) {
     header('Location: ' . URLBASE . 'library/login');
     die;
 }
+
 $homeController = new homeController();
 $adminController = new adminController();
 
@@ -19,18 +20,16 @@ switch ($actions[1]) {
         $homeController->getLogin();
         break;
     case 'home':
-        if (!isset($actions[2]))
-            $homeController->getHome();
-        elseif (!isset($actions[3])) {
-            switch ($actions[2]) {
-                case 'allBooks':
-                    $homeController->getAllBooks();
-                    break;
-                default:
-                    $homeController->getBooksByGenre($actions[2]);
-            }
-        } else
-            $homeController->getBookDetails($actions[2], $actions[3]);
+        $homeController->getHome();
+        break;
+    case 'genre':
+        $homeController->getBooksByGenre($actions[2]);
+        break;
+    case 'book':
+        $homeController->getBookDetails($actions[2]);
+        break;
+    case 'allBooks':
+        $homeController->getAllBooks();
         break;
     case 'verify':
         $adminController->verify($_POST['user'], $_POST['password']);
@@ -66,5 +65,5 @@ switch ($actions[1]) {
         }
         break;
     default:
-        $adminController->routerError('parametro no contemplado en el router');
+        $adminController->routerError('page not found 404');
 }

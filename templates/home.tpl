@@ -12,8 +12,7 @@
                 </p>
             </article>
         </section>
-    </div>
-    
+    </div>  
 </div>
 
 {include 'templates/footer.tpl'}

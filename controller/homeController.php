@@ -30,14 +30,15 @@ class homeController extends controller
      *  Trae solo un libro.
      *  $name es el nombre del genero que el ususario quiere buscar.
      */
-    public function getBookDetails($genreName, $id)
+    public function getBookDetails($id)
     {
         $listGenres = $this->getGenreModel()->getAllGenresDB();
         $book = $this->getBookModel()->getBookDetailsDB($id);
+
         if ($book == false)
             $this->getErrorView()->showErrorView('ocurrio un error durante la busqueda de este libro en la base de datos', 0);
         else
-            $this->getHomeView()->showBookDetails($listGenres, $genreName, $book[0]);
+            $this->getHomeView()->showBookDetails($listGenres, $book[0]);
     }
 
     /** 
@@ -54,7 +55,7 @@ class homeController extends controller
     }
 
     /**
-     *  Muetra el formulario de registro index.php
+     *  Muetra el formulario de registro 
      */
     public function getLogin()
     {

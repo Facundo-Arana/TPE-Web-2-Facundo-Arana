@@ -16,8 +16,8 @@
             <div>
                 {if isset($user)}
                     <h2><a href="library/admin">{$user}</a></h2>
-                {else}
-                    <h2 class="oculto">registrate</h2>
+                {elseif !isset($inLogin)}
+                    <button class="oculto">login</button>
                 {/if}
             </div>
             <div class="title">
@@ -25,7 +25,7 @@
                     <img src="img/libary1.jpg" name="logo">
                 </figure>
                 <div>
-                    <h1> <a href="library/home/allBooks"> Virtual Library </a></h1>
+                    <h1> <a href="library/allBooks"> Virtual Library </a></h1>
                 </div>
                 <figure>
                     <img src="img/libary1.jpg" name="logo">
@@ -33,11 +33,10 @@
             </div>
             <div>
                 {if isset($user)}
-                    <button><a href="library/logOut"> Log Out </a></button>
-                {else}
-                    <button ><a href="">registrate</a></button>
+                    <button><a href="library/logOut">logout</a></button>
+                {elseif !isset($inLogin)}
+                    <button><a href="library/login">login</a></button>
                 {/if}
-            </div>
         </header>
 
         <div class="conteiner">

@@ -26,11 +26,10 @@ class homeView extends view
     /**
      *  Muestra los detalles un libro especifico.
      */
-    public function showBookDetails($listGenres, $genre, $book)
+    public function showBookDetails($listGenres, $book)
     {
         $this->getSmarty()->assign('genres', $listGenres);
         $this->getSmarty()->assign('book', $book);
-        $this->getSmarty()->assign('genero', $genre);
         $this->getSmarty()->display('templates/bookDetails.tpl');  
     }
 

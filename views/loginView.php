@@ -3,6 +3,12 @@ require_once('views/view.php');
 
 class loginView extends view
 {
+    function __construct()
+    {
+        parent:: __construct();
+        $this->getSmarty()->assign('inLogin', 1);
+    }
+
     /**
      *  Muestra la pagina login.
      */
