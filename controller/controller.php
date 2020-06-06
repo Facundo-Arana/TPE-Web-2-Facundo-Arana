@@ -3,7 +3,7 @@ require_once('helpers/auth.helper.php');
 require_once('model/bookModel.php');
 require_once('model/genreModel.php');
 require_once('model/userModel.php');
-require_once('views/homeView.php');
+require_once('views/bookView.php');
 require_once('views/adminView.php');
 require_once('views/errorView.php');
 require_once('views/loginView.php');
@@ -14,18 +14,18 @@ class controller
     private $genreModel;
     private $bookModel;
     private $userModel;
-    private $homeView;
+    private $bookView;
     private $adminView;
     private $errorView;
     private $loginView;
 
-    function __construct()
+    public function __construct()
     {
         $this->authHelper = new authHelper();
         $this->genreModel = new genreModel();
         $this->bookModel = new bookModel();
         $this->userModel = new userModel();
-        $this->homeView = new homeView();
+        $this->bookView = new bookView();
         $this->adminView = new adminView();
         $this->errorView = new errorView();
         $this->loginView = new loginView();
@@ -46,9 +46,9 @@ class controller
         return $this->userModel;
     }
     
-    public function getHomeView()
+    public function getBookView()
     {
-        return $this->homeView;
+        return $this->bookView;
     }
 
     public function getAdminView()
@@ -70,4 +70,5 @@ class controller
     {
         return $this->loginView;
     }
+
 }

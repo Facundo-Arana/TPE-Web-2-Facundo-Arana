@@ -5,14 +5,11 @@
     <section>
         <article>
             <h2 class="subtitle">{$book->book_name}</h2>
-
-
             <figure>
-                {*
-                <img src="img/{$book->book_name}.jpg" name="{$book->book_name}">
-                {$book->author}
-                *}
-                <figcaption>proximamente portada del libro</figcaption>
+                
+                <img src="{$book->img}" name="{$book->book_name}">
+                
+                <figcaption>{$book->author}</figcaption>
             </figure>
             <p class="wrapper">"{$book->details}"</p>
         </article>

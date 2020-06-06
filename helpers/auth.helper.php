@@ -1,6 +1,6 @@
 <?php
 
-class authHelper
+class AuthHelper
 {
 
     static private function start()

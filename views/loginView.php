@@ -12,8 +12,9 @@ class loginView extends view
     /**
      *  Muestra la pagina login.
      */
-    public function showLogin()
+    public function showLogin($username)
     {
+        $this->getSmarty()->assign('user', $username);
         $this->getSmarty()->display('templates/login.tpl');
     }
     

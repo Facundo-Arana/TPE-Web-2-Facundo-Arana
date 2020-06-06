@@ -47,20 +47,35 @@ class bookModel extends dbModel
     /** 
      * añadir un nuevo libro a los registros.
      */
-    public function addBookDB($name, $author, $details, $idGenreFK)
+    public function addBookDB($name, $author, $details, $idGenreFK, $img = null)
     {
-        $query = $this->getDbConection()->prepare('INSERT INTO book (book_id, book_name, author, details, id_genre_fk ) VALUES (NULL, ?, ?, ?, ?)');
-        $response = $query->execute([$name, $author, $details, $idGenreFK]);
+        $pathImg = null;
+        if ($img)
+            $pathImg = $this->uploadImage($img);
+
+        $query = $this->getDbConection()->prepare('INSERT INTO book (book_id, book_name, author, details, id_genre_fk, img) VALUES (NULL, ?, ?, ?, ?, ?)');
+        $response = $query->execute([$name, $author, $details, $idGenreFK, $pathImg]);
         return $response;
+    }
+
+    private function uploadImage($img)
+    {
+        $target = 'covers/' . uniqid() . '.jpg';
+        move_uploaded_file($img, $target);
+        return $target;
     }
 
     /** 
      * editar un libro.
      */
-    public function editBookDB($name, $author, $details, $idGenreFk, $idBook)
+    public function editBookDB($name, $author, $details, $idGenreFk, $idBook, $img = NULL)
     {
-        $query = $this->getDbConection()->prepare('UPDATE book SET book_name =? , author =? , details =?, id_genre_fk = ? WHERE book_id = ?');
-        $response = $query->execute([$name, $author, $details, $idGenreFk, $idBook]);
+        $pathImg = null;
+        if ($img)
+            $pathImg = $this->uploadImage($img);
+
+        $query = $this->getDbConection()->prepare('UPDATE book SET book_name =? , author =? , details =?, id_genre_fk =? img =? WHERE book_id = ?');
+        $response = $query->execute([$name, $author, $details, $idGenreFk, $pathImg, $idBook]);
         return $response;
     }
 
@@ -68,7 +83,8 @@ class bookModel extends dbModel
      * 
      *  @param id el el id del libro a borrar.
      */
-    public function deleteBookDB($id){
+    public function deleteBookDB($id)
+    {
         $query = $this->getDbConection()->prepare('DELETE FROM book WHERE book_id = ?');
         $response = $query->execute([$id]);
         return $response;

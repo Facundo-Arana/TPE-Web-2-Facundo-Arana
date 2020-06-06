@@ -1,68 +1,85 @@
 <?php
-require_once('controller/homeController.php');
+require_once('controller/libraryController.php');
 require_once('controller/adminController.php');
+require_once('controller/usersController.php');
 
 define('URLBASE', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
 $actions = explode('/', $_GET['action']);
 
-if (!isset($actions[1]) || ($actions[1] == '')) {
+if (!isset($actions[0]) || ($actions[0] == '')) {
     header('Location: ' . URLBASE . 'library/login');
     die;
 }
 
-$homeController = new homeController();
-$adminController = new adminController();
-
 switch ($actions[1]) {
     case 'login':
-        $homeController->getLogin();
+        $libraryController = new libraryController();
+        $libraryController->getLogin();
         break;
     case 'home':
-        $homeController->getHome();
+        $libraryController = new libraryController();
+        $libraryController->getHome();
         break;
     case 'genre':
-        $homeController->getBooksByGenre($actions[2]);
+        $libraryController = new libraryController();
+        $libraryController->getBooksByGenre($actions[2]);
         break;
     case 'book':
-        $homeController->getBookDetails($actions[2]);
+        $libraryController = new libraryController();
+        $libraryController->getBookDetails($actions[2]);
         break;
     case 'allBooks':
-        $homeController->getAllBooks();
+        $libraryController = new libraryController();
+        $libraryController->getAllBooks();
         break;
     case 'verify':
-        $adminController->verify($_POST['user'], $_POST['password']);
+        $usersController = new usersController();
+        $usersController->verify();
         break;
     case 'logOut':
+        $adminController = new adminController();
         $adminController->logOut();
         break;
     case 'admin':
-        if (!isset($actions[2]))
+        if (!isset($actions[2])){
+            $adminController = new adminController();
             $adminController->getAdminViews();
-        elseif (!isset($actions[3])) {
+        }
+        else {
             switch ($actions[2]) {
                 case 'newGenre':
-                    $adminController->createNewGenre($_POST['nameGenre']);
+                    $adminController = new adminController();
+                    $adminController->createNewGenre();
                     break;
                 case 'editGenre':
-                    $adminController->editGenre($_POST['newName'], $_POST['idGenre']);
+                    $adminController = new adminController();
+                    $adminController->editGenre();
                     break;
                 case 'deleteGenre':
-                    $adminController->deleteGenre($_POST['idGenre']);
+                    $adminController = new adminController();
+                    $adminController->deleteGenre();
                     break;
                 case 'addBook':
-                    $adminController->addBook($_POST);
+                    $adminController = new adminController();
+                    $adminController->addBook();
                     break;
                 case 'editBook':
-                    $adminController->editBook($_POST);
+                    $adminController = new adminController();
+                    $adminController->editBook();
                     break;
                 case 'deleteBook':
-                    $adminController->deleteBook($_POST['idBook']);
-                default:
+                    $adminController = new adminController();
+                    $adminController->deleteBook();
+                default:{ 
+                    $adminController = new adminController();
                     $adminController->getAdminView();
+                }
             }
         }
         break;
-    default:
-        $homeController->getLogin('page not found 404');
+    default:{
+        $libraryController = new libraryController();
+        $libraryController->getLogin('page not found 404');
+    }
 }

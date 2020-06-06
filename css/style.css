@@ -60,7 +60,7 @@ header {
 
 .main {
     opacity: 90%;
-    padding: 0 2em;
+    padding: 0 1em;
     margin: 2px 0 2px 0;
     float: right;
 }
@@ -70,10 +70,11 @@ header {
     padding: 0 2em;
     margin: 2px 2px 2px 0;
     min-height: 500px;
+    width: 15%;
 }
 
 .wrapper {
-    padding: 1em;
+    padding: 1em 0;
 }
 
 .writer {
@@ -115,11 +116,11 @@ article, footer, .error, .form-center, .subtitle, .login, .title-2, .title {
     width: 80%;
 }
 
-.side, .writer+div {
+ .writer+div {
     width: 20%;
 }
 
-nav>ul>li>a, input, button>a, select, label, .login, textarea {
+nav>ul>li>a, input, button>a, select, label, .login, textarea, button {
     color: rgb(202, 202, 202);
 }
 
@@ -129,7 +130,7 @@ input, button, select, textarea {
     padding: 0.5em;
 }
 
-nav>ul {
+nav>ul, .form-center{
     padding: 0.5em 0;
 }
 
@@ -145,7 +146,7 @@ article>p {
     font-size: 1.2em;
 }
 
-.details, .form-center {
+.details {
     border-radius: 0.5em;
     border-right: solid rgb(148, 148, 148);
     border-top: 1px solid rgb(148, 148, 148);
@@ -162,7 +163,6 @@ p, .writer>h3, .genre>h3 {
 }
 
 .form-center {
-    width: 33%;
     margin-left: 1em;
 }
 
@@ -174,14 +174,16 @@ h1 {
 html {
     position: relative;
 }
-
+ textarea{
+     width: 100%;
+ }
 footer>h2 {
     padding-top: 7px;
 }
 
 footer {
-    position: sticky;
-    bottom: 0;
+    position: absolute;
+    bottom: 0px;
     width: -webkit-fill-available;
     height: 30px;
     background: url(../img/headerbackground.png);
@@ -193,7 +195,6 @@ footer {
 }
 
 .subtitle {
-  
     padding: 15px 0;
     border-bottom: 1px solid rgb(148, 148, 148);
 }
@@ -205,6 +206,10 @@ footer {
 .oculto {
     visibility: hidden;
     max-width: 20%;
+}
+
+.none{
+    display: none;
 }
 
 @media(max-width:900px) {

@@ -1,8 +1,9 @@
-<div class="subtitle">
+<div class="form-center">
     <form action="library/admin/deleteGenre" method="POST">
+        <label class="oculto"> ---------------- </label>
         <div>
             <h2>Delete Genre</h2>
-        </div>    
+        </div>
         <label class="oculto"> ---------------- </label>
         <div>
             <select name="idGenre">
