@@ -3,14 +3,14 @@ require_once('controller/controller.php');
 
 class libraryController extends controller
 {
-    private $username;
+    private $userData;
     private $genres;
 
     public function __construct()
     {
         parent::__construct();
         $this->genres = $this->getGenreModel()->getAllGenresDB();
-        $this->username = AuthHelper::getUsername();
+        $this->userData = AuthHelper::getUserData();
     }
 
     /**
@@ -18,7 +18,7 @@ class libraryController extends controller
      */
     public function getHome()
     {
-        $this->getBookView()->showHome($this->genres, $this->username);
+        $this->getBookView()->showHome($this->genres, $this->userData);
     }
 
     /** 
@@ -30,7 +30,7 @@ class libraryController extends controller
         if ($books == false)
             $this->getErrorView()->showErrorView('ocurrio un error durante la busqueda en la base de datos', 0);
         else
-            $this->getBookView()->showBooksByGenre($this->genres, $books, $this->username);
+            $this->getBookView()->showAllBooks($this->genres, $books, $this->userData);
     }
 
     /**
@@ -40,11 +40,10 @@ class libraryController extends controller
     public function getBooksByGenre($genreName)
     {
         $booksByGenre = $this->getBookModel()->getBooksByGenreDB($genreName);
-     
         if ($booksByGenre == false)
             $this->getErrorView()->showErrorView('aun no hay registrados libros del genero ' . $genreName . '', 0);
         else
-            $this->getBookView()->showBooksByGenre($this->genres, $booksByGenre, $this->username);
+            $this->getBookView()->showBooksByGenre($this->genres, $booksByGenre, $this->userData);
     }
 
     /**
@@ -58,7 +57,7 @@ class libraryController extends controller
         if ($book == false)
             $this->getErrorView()->showErrorView('el libro no existe', 0);
         else
-            $this->getBookView()->showBookDetails($this->genres, $book[0], $this->username);
+            $this->getBookView()->showBookDetails($this->genres, $book, $this->userData);
     }
 
 
@@ -67,6 +66,6 @@ class libraryController extends controller
      */
     public function getLogin()
     {
-        $this->getLoginView()->showLogin($this->username);
+        $this->getLoginView()->showLogin($this->userData);
     }
 }

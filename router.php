@@ -37,16 +37,19 @@ switch ($actions[1]) {
         $usersController = new usersController();
         $usersController->verify();
         break;
+    case 'validate':
+        $usersController = new usersController();
+        $usersController->validate();
+        break;
     case 'logOut':
         $adminController = new adminController();
         $adminController->logOut();
         break;
     case 'admin':
-        if (!isset($actions[2])){
+        if (!isset($actions[2])) {
             $adminController = new adminController();
             $adminController->getAdminViews();
-        }
-        else {
+        } else {
             switch ($actions[2]) {
                 case 'newGenre':
                     $adminController = new adminController();
@@ -71,15 +74,15 @@ switch ($actions[1]) {
                 case 'deleteBook':
                     $adminController = new adminController();
                     $adminController->deleteBook();
-                default:{ 
-                    $adminController = new adminController();
-                    $adminController->getAdminView();
-                }
+                default: {
+                        $adminController = new adminController();
+                        $adminController->getAdminView();
+                    }
             }
         }
         break;
-    default:{
-        $libraryController = new libraryController();
-        $libraryController->getLogin('page not found 404');
-    }
+    default: {
+            $libraryController = new libraryController();
+            $libraryController->getLogin('page not found 404');
+        }
 }

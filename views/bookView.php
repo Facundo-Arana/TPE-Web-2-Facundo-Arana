@@ -2,37 +2,53 @@
 require_once('views/view.php');
 
 class bookView extends view
-{    
+{
     /**
      *  Muestra la pagina principal para navegar por el sitio. 
      */
-    public function showHome($listGenres, $username)
-    {    
-        $this->getSmarty()->assign('user', $username);
-        $this->getSmarty()->assign('genres', $listGenres); 
-        $this->getSmarty()->display('templates/home.tpl'); 
+    public function showHome($listGenres, $userData = null)
+    {
+        if ($userData != null)
+            $this->getSmarty()->assign('username', $userData['userName']);
+        $this->getSmarty()->assign('genres', $listGenres);
+        $this->getSmarty()->display('templates/home.tpl');
+    }
+
+    /**
+     *  Muestra todos los libros existentes. 
+     */
+    public function showAllBooks($listGenres, $allBooks, $userData = null)
+    {
+        if ($userData != null) {
+
+            $this->getSmarty()->assign('username', $userData['userName']);
+        }
+        $this->getSmarty()->assign('genres', $listGenres);
+        $this->getSmarty()->assign('books', $allBooks);
+        $this->getSmarty()->display('templates/allBooks.tpl');
     }
 
     /**
      *  Muestra todos los libros de un genero especifico.
      */
-    public function showBooksByGenre($listGenres, $booksByGenre, $username)
+    public function showBooksByGenre($listGenres, $booksByGenre, $userData = null)
     {
-        $this->getSmarty()->assign('user', $username);
+        if ($userData != null)
+            $this->getSmarty()->assign('username', $userData['userName']);
         $this->getSmarty()->assign('genres', $listGenres);
         $this->getSmarty()->assign('books', $booksByGenre);
-        $this->getSmarty()->display('templates/booksByGenre.tpl');    
+        $this->getSmarty()->display('templates/booksByGenre.tpl');
     }
 
     /**
      *  Muestra los detalles un libro especifico.
      */
-    public function showBookDetails($listGenres, $book, $username)
+    public function showBookDetails($listGenres, $book, $userData = null)
     {
-        $this->getSmarty()->assign('user', $username);
+        if ($userData != null)
+            $this->getSmarty()->assign('username', $userData['userName']);
         $this->getSmarty()->assign('genres', $listGenres);
         $this->getSmarty()->assign('book', $book);
-        $this->getSmarty()->display('templates/bookDetails.tpl');  
+        $this->getSmarty()->display('templates/bookDetails.tpl');
     }
-
 }

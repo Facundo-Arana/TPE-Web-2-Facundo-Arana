@@ -16,7 +16,7 @@
         <label class="oculto"> ---------------- </label>
         <div>
             <input type="text" name="newName" id="newName">
-            <input type="text" name="newAuthorName" id="newAuthor">
+            <input type="text" name="newAuthorName" id="newAuthorName">
         </div>
         <label class="oculto"> ---------------- </label>
         <div>
@@ -24,11 +24,7 @@
         </div>
         <label class="oculto"> ---------------- </label>
         <div>
-            <input type="file" name="img_name" id="newCover">
-        </div>
-        <label class="oculto"> ---------------- </label>
-        <div>
-            <select name="idGenreFk" id="newFK">
+            <select name="idGenreFk" id="idGenreFk">
                 <option value="">select new genre</option>
                 {foreach from=$genres item=genre}
                     <option value="{$genre->id}">{$genre->name}</option>

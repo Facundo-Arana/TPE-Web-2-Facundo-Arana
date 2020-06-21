@@ -15,16 +15,43 @@ class AuthHelper
         $_SESSION['IS_LOGGED'] = true;
         $_SESSION['ID_USER'] = $user[0]->id_user;
         $_SESSION['USERNAME'] = $user[0]->userName;
-        header('location:' . URLBASE . 'library/admin');
+        $_SESSION['PRIORITY'] = $user[0]->priority;
+        header('location:' . URLBASE . 'library/home');
     }
 
-    public static function getUsername()
+    public static function guestAccess()
     {
         self::start();
-        if (!isset($_SESSION['USERNAME']))
+        $_SESSION['PRIORITY'] = 0;
+        header('location:' . URLBASE . 'library/home');
+    }
+
+    public static function getUserData()
+    {
+        self::start();
+        if (!isset($_SESSION['IS_LOGGED']))
+            return NULL;
+        else {
+            $userData ['id']= $_SESSION['ID_USER'];
+            $userData ['userName']= $_SESSION['USERNAME'];
+            $userData ['priority']= $_SESSION['PRIORITY'];
+            return  $userData;
+        }
+    }
+
+    public static function getUserName(){
+        self::start();
+        if (!isset($_SESSION['IS_LOGGED']))
             return NULL;
         else
-            return  $_SESSION['USERNAME'];
+            return $_SESSION['USERNAME'];
+    }
+
+    public static function authorityCheck()
+    {
+        self::checkLoggedIn();
+        if ($_SESSION['PRIORITY'] != 2)
+            header('location:' . URLBASE . 'library/login');
     }
 
     public static function checkLoggedIn()
@@ -40,6 +67,7 @@ class AuthHelper
         unset($_SESSION['IS_LOGGED']);
         unset($_SESSION['ID_USER']);
         unset($_SESSION['USERNAME']);
+        unset($_SESSION['PRIORITY']);
         session_destroy();
         header('location:' . URLBASE . 'library/login');
     }

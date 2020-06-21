@@ -6,7 +6,7 @@
 }
 
 body {
-    margin: 1px;
+    margin: 1px 0;
     background-color: rgb(255, 255, 255);
 }
 
@@ -52,6 +52,7 @@ header {
     width: -webkit-fill-available;
     justify-content: space-around;
     background: url(../img/headerbackground.png);
+    margin: 0 2px;
 }
 
 .conteiner {
@@ -68,7 +69,7 @@ header {
 .side {
     background-color: rgb(37, 37, 37);
     padding: 0 2em;
-    margin: 2px 2px 2px 0;
+    margin: 2px 2px 2px 1px;
     min-height: 500px;
     width: 15%;
 }
@@ -94,6 +95,10 @@ header {
 .side, header, input, button, .login, footer, select, textarea {
     border: 1px solid #008081;
     border-radius: 5px;
+}
+
+.formularios{
+    justify-content: center;
 }
 
 p {
@@ -174,18 +179,22 @@ h1 {
 html {
     position: relative;
 }
+
+.fit{
+    font-size: xx-small;
+    color: lightsteelblue;
+    padding: 0px;
+}
+
  textarea{
      width: 100%;
  }
-footer>h2 {
-    padding-top: 7px;
-}
 
 footer {
     position: absolute;
     bottom: 0px;
     width: -webkit-fill-available;
-    height: 30px;
+    height: 10px;
     background: url(../img/headerbackground.png);
 }
 
@@ -199,10 +208,6 @@ footer {
     border-bottom: 1px solid rgb(148, 148, 148);
 }
 
-.form-left-top, article {
-    padding: 5px 0 5px 0;
-}
-
 .oculto {
     visibility: hidden;
     max-width: 20%;
@@ -210,6 +215,10 @@ footer {
 
 .none{
     display: none;
+}
+
+.button-login{
+    text-align-last: center;
 }
 
 @media(max-width:900px) {

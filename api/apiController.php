@@ -17,13 +17,13 @@ class apiController
     public function getBook($params = [])
     {
         if (empty($params)) {
-            $tasks = $this->model->getAllBooksDB();
-            $this->view->response($tasks, 200);
+            $books = $this->model->getAllBooksDB();
+            $this->view->response($books, 200);
         } else {
             $idBook = $params[':ID'];
-            $task = $this->model->getBookDetailsDB($idBook);
-            if ($task)
-                $this->view->response($task, 200);
+            $book = $this->model->getBookDetailsDB($idBook);
+            if ($book)
+                $this->view->response($book, 200);
             else
                 $this->view->response("no existe tarea con id {$idBook}", 404);
         }
