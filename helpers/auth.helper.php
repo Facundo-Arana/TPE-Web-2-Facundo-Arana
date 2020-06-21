@@ -16,12 +16,16 @@ class AuthHelper
         $_SESSION['ID_USER'] = $user[0]->id_user;
         $_SESSION['USERNAME'] = $user[0]->userName;
         $_SESSION['PRIORITY'] = $user[0]->priority;
-        header('location:' . URLBASE . 'library/home');
+        if ($_SESSION['PRIORITY'] == 2)
+            header('location:' . URLBASE . 'library/admin');
+        else
+            header('location:' . URLBASE . 'library/home');
     }
 
     public static function guestAccess()
     {
         self::start();
+        $_SESSION['USERNAME'] = 'Guest';
         $_SESSION['PRIORITY'] = 0;
         header('location:' . URLBASE . 'library/home');
     }
@@ -32,19 +36,25 @@ class AuthHelper
         if (!isset($_SESSION['IS_LOGGED']))
             return NULL;
         else {
-            $userData ['id']= $_SESSION['ID_USER'];
-            $userData ['userName']= $_SESSION['USERNAME'];
-            $userData ['priority']= $_SESSION['PRIORITY'];
+            $userData['id'] = $_SESSION['ID_USER'];
+            $userData['is_logged'] = $_SESSION['IS_LOGGED'];
+            $userData['userName'] = $_SESSION['USERNAME'];
+            $userData['priority'] = $_SESSION['PRIORITY'];
             return  $userData;
         }
     }
 
-    public static function getUserName(){
+    public static function getUserGuest()
+    {
         self::start();
-        if (!isset($_SESSION['IS_LOGGED']))
-            return NULL;
-        else
-            return $_SESSION['USERNAME'];
+        $userData = [];
+        if (isset($_SESSION['USERNAME'])) {
+            if (isset($_SESSION['PRIORITY'])) {
+                $userData['userName'] = $_SESSION['USERNAME'];
+                $userData['priority'] = $_SESSION['PRIORITY'];
+                return $userData;
+            }
+        } else return null;
     }
 
     public static function authorityCheck()

@@ -6,7 +6,11 @@ class dbModel
     function __construct()
     {
         try {
-            $this->db = new PDO('mysql:host=localhost;' . 'dbname=biblioteca_virtual;charset=utf8', 'root', '');
+            $host = 'localhost';
+            $userName = 'root';
+            $password = '';
+            $database = 'biblioteca_virtual';
+            $this->db = new PDO('mysql:host='. $host .';' . 'dbname='.$database.';charset=utf8', $userName, $password);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $c) {
             var_dump($c);

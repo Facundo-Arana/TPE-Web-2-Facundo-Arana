@@ -3,11 +3,11 @@ require_once('controller/controller.php');
 
 class adminController extends controller
 {
-    private $username;
+    private $userData;
     function __construct()
     {
         parent::__construct();
-        $this->username = AuthHelper::getUserName();
+        $this->userData = AuthHelper::getUserData();
     }
     /**
      *  Mostrar la vista del administrador solo si hay una sesion iniciada.
@@ -17,7 +17,7 @@ class adminController extends controller
         AuthHelper::authorityCheck();
         $books = $this->getBookModel()->getAllBooksDB();
         $genres = $this->getGenreModel()->getAllGenresDB();
-        $this->getAdminView()->showAdminView($genres, $books, $this->username);
+        $this->getAdminView()->showAdminView($genres, $books, $this->userData);
     }
 
     /** #Añadir un nuevo genero a la base de datos.
@@ -34,13 +34,13 @@ class adminController extends controller
         else {
             $existGenre = $this->getGenreModel()->getOneGenreDB($name);
             if ($existGenre == true)
-                $this->getErrorView()->showErrorView('Genero ya existente', 1, $this->username);
+                $this->getErrorView()->showErrorView('Genero ya existente', $this->userData);
             else {
                 $response = $this->getGenreModel()->newGenreDB($name);
                 if ($response == false)
-                    $this->getErrorView()->showErrorView('Error al añadir nuevo genero', 1, $this->username);
+                    $this->getErrorView()->showErrorView('Error al añadir nuevo genero', $this->userData);
                 else
-                    $this->getAdminView()->showAdminSuccess('Genero "' . $name . '" creado con exito', $this->username);
+                    $this->getAdminView()->showAdminSuccess('Genero "' . $name . '" creado con exito', $this->userData);
             }
         }
     }
@@ -58,22 +58,22 @@ class adminController extends controller
         $newName =    $_POST['newName'];
         $idGenre = $_POST['idGenre'];
         if ($idGenre == '') {
-            $this->getErrorView()->showErrorView('Seleccione un genero para editar', 1, $this->username);
+            $this->getErrorView()->showErrorView('Seleccione un genero para editar', $this->userData);
             die();
         }
         if (empty($newName)) {
-            $this->getErrorView()->showErrorView('Escriba el nuevo nombre del genero', 1, $this->username);
+            $this->getErrorView()->showErrorView('Escriba el nuevo nombre del genero', $this->userData);
             die();
         }
         $existName = $this->getGenreModel()->getOneGenreDB($newName);
         if ($existName == true)
-            $this->getErrorView()->showErrorView('El nombre es incorrecto. genero ya existente!', 1, $this->username);
+            $this->getErrorView()->showErrorView('El nombre es incorrecto. genero ya existente!', $this->userData);
         else {
             $response = $this->getGenreModel()->editGenreDB($newName, $idGenre);
             if ($response == false)
-                $this->getErrorView()->showErrorView('No se pudo editar el nombre del genero n°: ' . $idGenre, 1, $this->username);
+                $this->getErrorView()->showErrorView('No se pudo editar el nombre del genero n°: ' . $idGenre, $this->userData);
             else
-                $this->getAdminView()->showAdminSuccess('Nombre del genero n°: ' . $idGenre . ' cambiado a: "' . $newName . '" con exito', $this->username);
+                $this->getAdminView()->showAdminSuccess('Nombre del genero n°: ' . $idGenre . ' cambiado a: "' . $newName . '" con exito', $this->userData);
         }
     }
 
@@ -87,14 +87,14 @@ class adminController extends controller
         AuthHelper::authorityCheck();
         $idGenre = $_POST['idGenre'];
         if (empty($idGenre)) {
-            $this->getErrorView()->showErrorView('Seleccione un genero para ser eliminado', 1, $this->username);
+            $this->getErrorView()->showErrorView('Seleccione un genero para ser eliminado', $this->userData);
             die();
         }
         $response = $this->getGenreModel()->deleteGenreDB($idGenre);
         if ($response == false)
-            $this->getErrorView()->showErrorView('No se pudo eliminar el genero n°: ' . $idGenre, 1, $this->username);
+            $this->getErrorView()->showErrorView('No se pudo eliminar el genero n°: ' . $idGenre, $this->userData);
         else
-            $this->getAdminView()->showAdminSuccess('Se ha eliminado el genero n°: ' . $idGenre . ' con exito', $this->username);
+            $this->getAdminView()->showAdminSuccess('Se ha eliminado el genero n°: ' . $idGenre . ' con exito', $this->userData);
     }
 
     /**
@@ -108,7 +108,7 @@ class adminController extends controller
         $details = $_POST['details'];
         $idGenreFk = $_POST['idGenreFK'];
         if (empty($name) || empty($author) || empty($idGenreFk) || empty($details)) {
-            $this->getErrorView()->showErrorView('completar todos los campos', 1, $this->username);
+            $this->getErrorView()->showErrorView('completar todos los campos', $this->userData);
             die();
         }
         if (
@@ -121,9 +121,9 @@ class adminController extends controller
             $response = $this->getBookModel()->addBookDB($name, $author, $details, $idGenreFk);
 
         if ($response == false)
-            $this->getErrorView()->showErrorView('No se pudo añadir el libro: ' . $name, 1, $this->username);
+            $this->getErrorView()->showErrorView('No se pudo añadir el libro: ' . $name, $this->userData);
         else
-            $this->getAdminView()->showAdminSuccess('Se ha añadido el libro: ' . $name . ' con exito', $this->username);
+            $this->getAdminView()->showAdminSuccess('Se ha añadido el libro: ' . $name . ' con exito', $this->userData);
     }
 
     /** 
@@ -143,9 +143,9 @@ class adminController extends controller
         }
         $response = $this->getBookModel()->editBookDB($name, $author, $details, $idGenreFk, $idBook);
         if ($response == false)
-            $this->getErrorView()->showErrorView('No se pudo editar el libro :' . $name . '', 1, $this->username);
+            $this->getErrorView()->showErrorView('No se pudo editar el libro :' . $name . '', $this->userData);
         else
-            $this->getAdminView()->showAdminSuccess('Se ha editado el libro: ' . $name . ' con exito', $this->username);
+            $this->getAdminView()->showAdminSuccess('Se ha editado el libro: ' . $name . ' con exito', $this->userData);
     }
 
     /**
@@ -157,9 +157,9 @@ class adminController extends controller
         $idBook = $_POST['idBook'];
         $response = $this->getBookModel()->deleteBookDB($idBook);
         if ($response == false)
-            $this->getErrorView()->showErrorView('No se pudo eliminar el libro: ' . $idBook . '', 1, $this->username);
+            $this->getErrorView()->showErrorView('No se pudo eliminar el libro: ' . $idBook . '', $this->userData);
         else
-            $this->getAdminView()->showAdminSuccess('Se ha elimiado el libro:' . $idBook . ' con exito', $this->username);
+            $this->getAdminView()->showAdminSuccess('Se ha elimiado el libro:' . $idBook . ' con exito', $this->userData);
     }
 
 

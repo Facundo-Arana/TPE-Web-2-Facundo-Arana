@@ -11,6 +11,9 @@ class libraryController extends controller
         parent::__construct();
         $this->genres = $this->getGenreModel()->getAllGenresDB();
         $this->userData = AuthHelper::getUserData();
+        if($this->userData == null){
+            $this->userData = AuthHelper::getUserGuest();
+        }
     }
 
     /**
@@ -28,7 +31,7 @@ class libraryController extends controller
     {
         $books = $this->getBookModel()->getAllBooksDB();
         if ($books == false)
-            $this->getErrorView()->showErrorView('ocurrio un error durante la busqueda en la base de datos', 0);
+            $this->getErrorView()->showErrorView('ocurrio un error durante la busqueda en la base de datos', $this->userData);
         else
             $this->getBookView()->showAllBooks($this->genres, $books, $this->userData);
     }
@@ -41,7 +44,7 @@ class libraryController extends controller
     {
         $booksByGenre = $this->getBookModel()->getBooksByGenreDB($genreName);
         if ($booksByGenre == false)
-            $this->getErrorView()->showErrorView('aun no hay registrados libros del genero ' . $genreName . '', 0);
+            $this->getErrorView()->showErrorView('aun no hay registrados libros del genero ' . $genreName . '', $this->userData);
         else
             $this->getBookView()->showBooksByGenre($this->genres, $booksByGenre, $this->userData);
     }
@@ -55,7 +58,7 @@ class libraryController extends controller
         $book = $this->getBookModel()->getBookDetailsDB($id);
 
         if ($book == false)
-            $this->getErrorView()->showErrorView('el libro no existe', 0);
+            $this->getErrorView()->showErrorView('el libro no existe', $this->userData);
         else
             $this->getBookView()->showBookDetails($this->genres, $book, $this->userData);
     }
@@ -66,6 +69,9 @@ class libraryController extends controller
      */
     public function getLogin()
     {
-        $this->getLoginView()->showLogin($this->userData);
+        $userData = AuthHelper::getUserData();
+        if ($userData == null)
+            $userData = AuthHelper::getUserGuest();
+        $this->getLoginView()->showLogin($userData);
     }
 }
