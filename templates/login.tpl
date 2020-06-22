@@ -1,12 +1,17 @@
 {include 'templates/header.tpl' }
 <div class="index">
-    {if isset($msj) }
-        <h2 id="msj">{$msj}</h2>
-    {/if}
+
     <div class="button-login">
         <button id="checkin" value="login">create account</button>
     </div>
+
+    {if isset($msj) }
+        <h2 id="msj">{$msj}</h2>
+    {/if}
     <div class="login none" id="form-checkin">
+        <form action="library/verify" method="GET">
+            <input type="submit" name="guest" value="acceder como invitado">
+        </form>
         <div class="subtitle">
             <h2>crear cuenta</h2>
         </div>

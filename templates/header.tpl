@@ -13,21 +13,19 @@
     <body>
         <header>
             <div>
-                {if !isset($inLogin)}
-                    {if $priority == 2}
-                        <h2><a href="library/admin">{$username}</a></h2>
-                    {elseif $priority == 1}
-                        <h2><a href="library/home">{$username}</a></h2>
-                    {else}
-                        <h2>{$username}</h2>
-                    {/if}
+                {if !isset($username)}
+                    <button class="oculto">login</button>
                 {else}
                     {if $priority == 2}
                         <h2><a href="library/admin">{$username}</a></h2>
                     {elseif $priority == 1}
                         <h2><a href="library/home">{$username}</a></h2>
                     {else}
-                        <button class="oculto">login</button>
+                        {if isset($inLogin)}
+                            <button class="oculto">login</button>
+                        {else}
+                            <h2>{$username}</h2>
+                        {/if}
                     {/if}
                 {/if}
             </div>
@@ -49,7 +47,7 @@
                     {else}
                         <button><a href="library/login">login</a></button>
                     {/if}
-                    <button class="oculto">login</button>
+                    
                 {else}
                     {if isset($is_logged)}
                         <button><a href="library/logOut">logout</a></button>

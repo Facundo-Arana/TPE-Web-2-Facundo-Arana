@@ -46,7 +46,6 @@ class bookView extends view
             $this->getSmarty()->assign('username', $userData['userName']);
             $this->getSmarty()->assign('priority', $userData['priority']);
             if (isset($userData['is_logged'])){
-
                 $this->getSmarty()->assign('is_logged', $userData['is_logged']);
             }
         }

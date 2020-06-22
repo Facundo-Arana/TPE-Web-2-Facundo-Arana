@@ -32,6 +32,10 @@ class usersController extends controller
             AuthHelper::login($userDB);
     }
 
+    /**
+     * verificar que no existan dos usuarios con el mismo nombre. 
+     * añadir un nuevo ususario a la base de datos.
+     */
     public function validate()
     {
         $name = $_POST['user'];

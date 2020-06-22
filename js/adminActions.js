@@ -2,10 +2,32 @@
 document.addEventListener('DOMContentLoaded', iniciar);
 
 function iniciar() {
-    let forms = document.getElementById('formularios').addEventListener('click', e => {
-        document.getElementById('library-forms').classList.toggle('none');
+    let forms = document.getElementsByName('formularios');
+    forms.forEach(element => {
+        element.addEventListener('click', e => {
+            show_content(e);
+        });
     });
-    let bookSelected = document.querySelector('#selectedToEdit').addEventListener('change', book_data);
+    document.querySelector('#selectedToEdit').addEventListener('change', book_data);
+}
+
+function show_content(e) {
+    console.log(e.currentTarget.value);
+    if (e.currentTarget.value == 'formularios') {
+        document.getElementById('library-forms').classList.remove('none');
+        document.getElementById('users-form').classList.add('none');
+        document.getElementById('comments-forms').classList.add('none');
+    }
+    if (e.currentTarget.value == 'usuarios') {
+        document.getElementById('library-forms').classList.add('none');
+        document.getElementById('users-form').classList.remove('none');
+        document.getElementById('comments-forms').classList.add('none');
+    }
+    if(e.currentTarget.value == 'comentarios'){
+        document.getElementById('library-forms').classList.add('none');
+        document.getElementById('users-form').classList.add('none');
+        document.getElementById('comments-forms').classList.remove('none');
+    }
 }
 
 function book_data(event) {
@@ -24,7 +46,7 @@ function book_data(event) {
         name.value = book.book_name;
         author.value = book.author;
         details.value = book.details;
-        $(fk).val(book.id_genre_fk);      
+        $(fk).val(book.id_genre_fk);
     });
 }
 

@@ -48,13 +48,12 @@ class AuthHelper
     {
         self::start();
         $userData = [];
-        if (isset($_SESSION['USERNAME'])) {
-            if (isset($_SESSION['PRIORITY'])) {
-                $userData['userName'] = $_SESSION['USERNAME'];
-                $userData['priority'] = $_SESSION['PRIORITY'];
-                return $userData;
-            }
-        } else return null;
+        if (isset($_SESSION['USERNAME']) && isset($_SESSION['PRIORITY'])) {
+            $userData['userName'] = $_SESSION['USERNAME'];
+            $userData['priority'] = $_SESSION['PRIORITY'];
+            return $userData;
+        } else
+            return null;
     }
 
     public static function authorityCheck()

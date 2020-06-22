@@ -25,7 +25,7 @@ class adminView extends view
     /** 
      * Muestra un mensaje de exito en una operacion.
      */
-    public function showAdminSuccess($mensaggeSuccess, $userData)
+    public function showAdminSuccess($mensaggeSuccess, $userData = null)
     {
         if ($userData != null){
             $this->getSmarty()->assign('username', $userData['userName']);

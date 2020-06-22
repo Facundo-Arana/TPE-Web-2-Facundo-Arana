@@ -56,22 +56,17 @@ class libraryController extends controller
     public function getBookDetails($id)
     {
         $book = $this->getBookModel()->getBookDetailsDB($id);
-
         if ($book == false)
             $this->getErrorView()->showErrorView('el libro no existe', $this->userData);
         else
             $this->getBookView()->showBookDetails($this->genres, $book, $this->userData);
     }
 
-
     /**
      *  Muetra el formulario de registro 
      */
     public function getLogin()
     {
-        $userData = AuthHelper::getUserData();
-        if ($userData == null)
-            $userData = AuthHelper::getUserGuest();
-        $this->getLoginView()->showLogin($userData);
+        $this->getLoginView()->showLogin($this->userData);
     }
 }

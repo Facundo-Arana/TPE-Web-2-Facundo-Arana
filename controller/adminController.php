@@ -9,6 +9,7 @@ class adminController extends controller
         parent::__construct();
         $this->userData = AuthHelper::getUserData();
     }
+
     /**
      *  Mostrar la vista del administrador solo si hay una sesion iniciada.
      */
@@ -161,7 +162,6 @@ class adminController extends controller
         else
             $this->getAdminView()->showAdminSuccess('Se ha elimiado el libro:' . $idBook . ' con exito', $this->userData);
     }
-
 
     /** 
      * Cerrar una sesion y borrar las variables.

@@ -1,17 +1,20 @@
 {include 'templates/header.tpl'}
 <div class="side">
     <div class="wrapper formularios">
-        <button id="formularios">
+        <button name="formularios" value="formularios" >
             <h2>Administrar Catalogo</h2>
         </button>
     </div>
-
     <div class="wrapper usuarios">
-        <button id="usuarios">
+        <button name="formularios" value="usuarios">
             <h2>Administrar Usuarios</h2>
         </button>
     </div>
-
+    <div class="wrapper usuarios">
+        <button name="formularios" value="comentarios">
+            <h2>Administrar Comentarios</h2>
+        </button>
+    </div>
 </div>
 <div class="main">
     <div>
@@ -32,6 +35,16 @@
             </div>
         </div>
     </div>
+    <div class="wrapper" id="users-form">
+        <div>
+            {include 'templates/form-edit-users.tpl'}
+        </div>
+    </div>
+    <div class="wrapper" id="comments-forms">
+    <div>
+        {include 'templates/form-edit-comments.tpl'}
+    </div>
+</div>
 </div>
 <script type="text/javascript" src="js/adminActions.js"></script>
 {include 'templates/footer.tpl'}

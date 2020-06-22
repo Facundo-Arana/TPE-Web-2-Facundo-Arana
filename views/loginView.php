@@ -12,7 +12,7 @@ class loginView extends view
     /**
      *  Muestra la pagina login.
      */
-    public function showLogin($userData)
+    public function showLogin($userData = null)
     {
         if ($userData != null) {
             $this->getSmarty()->assign('username', $userData['userName']);
