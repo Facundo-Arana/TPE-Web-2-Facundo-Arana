@@ -34,7 +34,11 @@
                     <img src="img/libary1.jpg" name="logo">
                 </figure>
                 <div>
-                    <h1> <a href="library/allBooks"> Virtual Library </a></h1>
+                    {if !isset($inLogin)}
+                        <h1> <a href="library/allBooks"> Virtual Library </a></h1>
+                    {else}
+                        <h1>Virtual Library</h1>
+                    {/if}
                 </div>
                 <figure>
                     <img src="img/libary1.jpg" name="logo">
@@ -47,7 +51,7 @@
                     {else}
                         <button><a href="library/login">login</a></button>
                     {/if}
-                    
+    
                 {else}
                     {if isset($is_logged)}
                         <button><a href="library/logOut">logout</a></button>

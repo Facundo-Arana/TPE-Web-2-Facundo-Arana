@@ -18,7 +18,45 @@ class adminController extends controller
         AuthHelper::authorityCheck();
         $books = $this->getBookModel()->getAllBooksDB();
         $genres = $this->getGenreModel()->getAllGenresDB();
-        $this->getAdminView()->showAdminView($genres, $books, $this->userData);
+        $users = $this->getUserModel()->getAllUsers();
+        $this->getAdminView()->showAdminView($genres, $books, $this->userData, $users);
+    }
+
+    /**
+     *  Modificar los permisos de un usuario 
+     */
+    public function editPermissions()
+    {
+        AuthHelper::authorityCheck();
+        $id = $_POST['idUser'];
+        $priority = $_POST['priority'];
+        if ((empty($id)) || (empty($priority))) {
+            $this->getErrorView()->showErrorView('Completar todos los campos', $this->userData);
+            die();
+        }
+        $result = $this->getUserModel()->editPriority(intval($priority), $id);
+        if ($result == false)
+            $this->getErrorView()->showErrorView('Error al editar permisos', $this->userData);
+        else
+            $this->getAdminView()->showAdminSuccess('Permisos del usuario "' . $id . '" editados con exito', $this->userData);
+    }
+
+    /**
+     * Eliminar un usuario.
+     */
+    public function deleteUser()
+    {
+        AuthHelper::authorityCheck();
+        $id = $_POST['idUser'];
+        if (empty($id)) {
+            $this->getErrorView()->showErrorView('Completar todos los campos', $this->userData);
+            die();
+        }
+        $result = $this->getUserModel()->deleteUser($id);
+        if ($result == false)
+            $this->getErrorView()->showErrorView('Error al eliminar usuario', $this->userData);
+        else
+            $this->getAdminView()->showAdminSuccess('Usuario "' . $id . '" eliminado con exito', $this->userData);
     }
 
     /** #Añadir un nuevo genero a la base de datos.
@@ -31,7 +69,7 @@ class adminController extends controller
         AuthHelper::authorityCheck();
         $name = $_POST['nameGenre'];
         if ($name == '')
-            $this->getErrorView()->showErrorView('Formulario vacio', 1);
+            $this->getErrorView()->showErrorView('Formulario vacio', $this->userData);
         else {
             $existGenre = $this->getGenreModel()->getOneGenreDB($name);
             if ($existGenre == true)

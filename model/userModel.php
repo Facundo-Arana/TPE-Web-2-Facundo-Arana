@@ -14,6 +14,41 @@ class userModel extends dbModel
         }
     }
 
+    public function getUserById($id)
+    {
+        $query = $this->getDbConection()->prepare('SELECT id_user, userName, priority FROM user WHERE id_user = ?');
+        $response = $query->execute([$id]);
+        if ($response == true) {
+            return $query->fetchAll(PDO::FETCH_OBJ);
+        } else {
+            return $response;
+        }
+    }
+
+    public function getAllUsers()
+    {
+        $query = $this->getDbConection()->prepare('SELECT id_user, userName, priority FROM user');
+        $response = $query->execute([]);
+        if ($response == true) {
+            return $query->fetchAll(PDO::FETCH_OBJ);
+        } else {
+            return $response;
+        }
+    }
+
+    public function deleteUser($id){
+        $query = $this->getDbConection()->prepare('DELETE FROM user WHERE id_user = ?');
+        $response = $query->execute([$id]);
+        return $response;
+    }
+
+    public function editPriority($priority, $id)
+    {
+        $query = $this->getDbConection()->prepare('UPDATE user SET priority = ? WHERE id_user = ?');
+        $response = $query->execute([$priority, $id]);
+        return $response;
+    }
+
     public function newUser($name, $hash)
     {
         $query = $this->getDbConection()->prepare('INSERT INTO user (userName, password) VALUES (?,?)');

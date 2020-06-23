@@ -97,11 +97,26 @@ header {
     border-radius: 5px;
 }
 
-.formularios{
+.formularios {
     justify-content: center;
+    width: fit-content;
 }
 
-p {
+table {
+    border-collapse: collapse;
+    border: 2px solid rgb(200, 200, 200);
+    letter-spacing: 1px;
+    font-family: sans-serif;
+    font-size: .8rem;
+    min-width: 300px;
+}
+
+td, th {
+    border: 1px solid rgb(190, 190, 190);
+    padding: 5px 10px;
+}
+
+p, label {
     color: black;
 }
 
@@ -109,7 +124,7 @@ h1, h1>a, h2>a, h2, input, button, figcaption, button>a, .writer>h3, .genre>h3, 
     color: #008081;
 }
 
-article, footer, .error, .form-center, .subtitle, .login, .title-2, .title {
+article, footer, .error, .form-center, .subtitle, .login, .title-2, .title, td {
     text-align: center;
 }
 
@@ -121,7 +136,7 @@ article, footer, .error, .form-center, .subtitle, .login, .title-2, .title {
     width: 80%;
 }
 
- .writer+div {
+.writer+div {
     width: 20%;
 }
 
@@ -135,7 +150,7 @@ input, button, select, textarea {
     padding: 0.5em;
 }
 
-nav>ul, .form-center{
+nav>ul, .form-center {
     padding: 0.5em 0;
 }
 
@@ -169,6 +184,7 @@ p, .writer>h3, .genre>h3 {
 
 .form-center {
     margin-left: 1em;
+    min-width: 300px;
 }
 
 h1 {
@@ -180,15 +196,15 @@ html {
     position: relative;
 }
 
-.fit{
+.fit {
     font-size: xx-small;
     color: lightsteelblue;
     padding: 0px;
 }
 
- textarea{
-     width: 100%;
- }
+textarea {
+    width: 100%;
+}
 
 footer {
     position: absolute;
@@ -213,14 +229,12 @@ footer {
     max-width: 20%;
 }
 
-.none{
+.none {
     display: none;
 }
 
-.button-login{
+.button-login {
     text-align-last: center;
 }
 
-@media(max-width:900px) {
-  
-}
+@media(max-width:900px) {}

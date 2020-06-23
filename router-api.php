@@ -8,6 +8,7 @@ $router = new Router();
 // creo la tabla de ruteo
 $router->addRoute('book', 'GET', 'apiController', 'getBook');
 $router->addRoute('book/:ID', 'GET', 'apiController', 'getBook');
+$router->addRoute('user/:ID', 'GET', 'apiController', 'getUser');
 //$router->addRoute('book/:ID', 'DELETE', 'apiController', 'deletebook');
 
 // rutea

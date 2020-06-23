@@ -13,7 +13,7 @@
             <input type="submit" name="guest" value="acceder como invitado">
         </form>
         <div class="subtitle">
-            <h2>crear cuenta</h2>
+            <h2>Registrarse</h2>
         </div>
         <form action="library/validate" method="POST">
             <div>
@@ -38,7 +38,7 @@
             <input type="submit" name="guest" value="acceder como invitado">
         </form>
         <div class="subtitle">
-            <h2>Acceso Usuarios</h2>
+            <h2>Acceder</h2>
         </div>
         <form action="library/verify" method="POST">
             <div>
@@ -60,8 +60,7 @@
     </div>
 </div>
 {if isset($newAccount)}
-    {$newAccount}
     <script type="text/javascript" src="js/newAccount.js"></script>
 {/if}
-
 <script type="text/javascript" src="js/login.js"></script>
+{include 'templates/footer.tpl' }

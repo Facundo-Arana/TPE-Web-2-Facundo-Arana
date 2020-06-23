@@ -74,6 +74,14 @@ switch ($actions[1]) {
                 case 'deleteBook':
                     $adminController = new adminController();
                     $adminController->deleteBook();
+                case 'editUser':
+                    $adminController = new adminController();
+                    $adminController->editPermissions();
+                    break;
+                case 'deleteUser':
+                    $adminController = new adminController();
+                    $adminController->deleteUser();
+                    break;
                 default: {
                         $adminController = new adminController();
                         $adminController->getAdminView();

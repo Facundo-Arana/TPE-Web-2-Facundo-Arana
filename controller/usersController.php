@@ -56,4 +56,5 @@ class usersController extends controller
         else
             header('location:'. URLBASE . 'library/verify');
     }
+
 }

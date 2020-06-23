@@ -8,7 +8,7 @@ class adminView extends view
      *  @param name es el nombre del administrador que inicio sesion.
      *  @param genres es un objeto PDO con datos de la tabla 'genre' de la base de datos.
      */
-    public function showAdminView($genres, $books, $userData = null)
+    public function showAdminView($genres, $books, $userData = null, $users)
     {
         if ($userData != null){
             $this->getSmarty()->assign('username', $userData['userName']);
@@ -17,6 +17,7 @@ class adminView extends view
                 $this->getSmarty()->assign('is_logged', $userData['is_logged']);
             }
         }
+        $this->getSmarty()->assign('users', $users);
         $this->getSmarty()->assign('genres', $genres);
         $this->getSmarty()->assign('books', $books);
         $this->getSmarty()->display('templates/adminView.tpl');
