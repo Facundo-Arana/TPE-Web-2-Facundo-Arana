@@ -49,10 +49,10 @@ class userModel extends dbModel
         return $response;
     }
 
-    public function newUser($name, $hash)
+    public function newUser($name, $hash, $email)
     {
-        $query = $this->getDbConection()->prepare('INSERT INTO user (userName, password) VALUES (?,?)');
-        $response = $query->execute([$name, $hash]);
+        $query = $this->getDbConection()->prepare('INSERT INTO user (userName, email, password) VALUES (?,?,?)');
+        $response = $query->execute([$name, $email, $hash]);
         return $response;
     }
 }

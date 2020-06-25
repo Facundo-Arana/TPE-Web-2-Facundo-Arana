@@ -7,16 +7,14 @@
     <div>
         <table>
             <thead>
-                <tr>
-                    
+                <tr>            
                     <th>Username</th>
                     <th>Priority</th>
                 </tr>
             </thead>
             <tbody>
                 {foreach from=$users item=user}
-                    <tr>
-                        
+                    <tr>                       
                         <td>{$user->userName}</td>
                         <td>{$user->priority}</td>
                     </tr>

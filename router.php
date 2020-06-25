@@ -82,6 +82,10 @@ switch ($actions[1]) {
                     $adminController = new adminController();
                     $adminController->deleteUser();
                     break;
+                case 'editCover':
+                    $adminController = new adminController();
+                    $adminController->editCover();
+                    break;
                 default: {
                         $adminController = new adminController();
                         $adminController->getAdminView();

@@ -9,15 +9,16 @@
         <h2 id="msj">{$msj}</h2>
     {/if}
     <div class="login none" id="form-checkin">
-        <form action="library/verify" method="GET">
-            <input type="submit" name="guest" value="acceder como invitado">
-        </form>
         <div class="subtitle">
             <h2>Registrarse</h2>
         </div>
         <form action="library/validate" method="POST">
             <div>
                 <label class="oculto"> ---------------- </label>
+            </div>
+            <label>Email</label>
+            <div>
+                <input type="email" name="email" required>
             </div>
             <label>UserName</label>
             <div>

@@ -3,14 +3,17 @@
 
 <div class="main">
     <section>
-        <article>
-            <h2 class="subtitle">{$book->book_name}</h2>
-            <figure>           
-                <img src="{$book->img}" name="{$book->book_name}">
-                <figcaption>{$book->author}</figcaption>
-            </figure>
-            <p class="wrapper">"{$book->details}"</p>
-        </article>
+        <div class="wrapper">
+            <div>
+                <figure>
+                    <img src="{$book->img}" name="{$book->book_name}">
+                </figure>
+
+            </div>
+            <div >
+                <h2 class="subtitle">{$book->book_name}</h2>
+                <p>"{$book->details}"</p>
+            </div>
     </section>
 </div>
 

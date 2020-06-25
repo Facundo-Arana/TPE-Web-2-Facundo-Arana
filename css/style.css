@@ -92,7 +92,7 @@ header {
 *
 */
 
-.side, header, input, button, .login, footer, select, textarea {
+.side, header, input, button, .login, footer, select, textarea , .cover{
     border: 1px solid #008081;
     border-radius: 5px;
 }
@@ -116,7 +116,7 @@ td, th {
     padding: 5px 10px;
 }
 
-p, label {
+p{
     color: black;
 }
 
@@ -144,7 +144,7 @@ nav>ul>li>a, input, button>a, select, label, .login, textarea, button {
     color: rgb(202, 202, 202);
 }
 
-input, button, select, textarea {
+input, button, select, textarea, .cover {
     background-color: rgb(20, 20, 20);
     opacity: 90%;
     padding: 0.5em;
@@ -164,6 +164,11 @@ nav>ul>li>a {
 
 article>p {
     font-size: 1.2em;
+}
+
+.min_img{
+    width: 80px;
+    height: 80px;
 }
 
 .details {

@@ -58,6 +58,18 @@ class bookModel extends dbModel
         return $response;
     }
 
+    /**
+     *  Editar / eliminar una portada.
+     */
+    public function editCover($img = null, $id)
+    {
+        $pathImg = null;
+        if ($img)
+            $pathImg = $this->uploadImage($img);
+        $query = $this->getDbConection()->prepare('UPDATE book SET img = ? WHERE book_id = ?');
+        return $query->execute([$pathImg, $id]);
+    }
+
     private function uploadImage($img)
     {
         $target = 'covers/' . uniqid() . '.jpg';
@@ -70,7 +82,6 @@ class bookModel extends dbModel
      */
     public function editBookDB($name, $author, $details, $idGenreFk, $idBook)
     {
-
         $query = $this->getDbConection()->prepare('UPDATE book SET book_name = ? , author = ? , details = ?, id_genre_fk = ? WHERE book_id = ?');
         $response = $query->execute([$name, $author, $details, $idGenreFk, $idBook]);
         return $response;

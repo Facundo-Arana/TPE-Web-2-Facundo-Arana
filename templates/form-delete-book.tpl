@@ -1,6 +1,8 @@
 <div class="form-center">
     <form action="library/admin/deleteBook" method="POST">
-        <label class="oculto"> ---------------- </label>
+        <div>
+            <label class="oculto">---------</label>
+        </div>
         <div>
             <h2 class="">Delete Book</h2>
         </div>

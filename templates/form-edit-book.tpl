@@ -1,6 +1,5 @@
 <div class="form-center">
-    <form action="library/admin/editBook" method="POST" enctype="multipart/form-data">
-        <label class="oculto"> ---------------- </label>
+    <form action="library/admin/editBook" method="POST">
         <div>
             <h2>Edit Book</h2>
         </div>
@@ -12,15 +11,12 @@
                     <option value="{$book->book_id}">{$book->book_name}</option>
                 {/foreach}
             </select>
-        </div>
-        <label class="oculto"> ---------------- </label>
-        <div>
             <input type="text" name="newName" id="newName">
             <input type="text" name="newAuthorName" id="newAuthorName">
         </div>
         <label class="oculto"> ---------------- </label>
         <div>
-            <textarea name="details" rows="10" id="details"></textarea>
+            <textarea name="details" rows="6" id="details"></textarea>
         </div>
         <label class="oculto"> ---------------- </label>
         <div>
@@ -32,6 +28,5 @@
             </select>
             <input type="submit" value="edit">
         </div>
-   
     </form>
 </div>

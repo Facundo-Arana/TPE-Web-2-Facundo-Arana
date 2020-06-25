@@ -40,7 +40,8 @@ class usersController extends controller
     {
         $name = $_POST['user'];
         $pass = $_POST['password'];
-        if (empty($name) || empty($pass)) {
+        $email = $_POST['email'];
+        if (empty($name) || empty($pass) || empty($email)) {
             $this->getLoginView()->showErrorLogin('completar todos los campos', 1);
             die();
         }
@@ -50,7 +51,7 @@ class usersController extends controller
             die();
         }
         $encryptedPass = password_hash($pass, PASSWORD_DEFAULT);
-        $result = $this->getUserModel()->newUser($name, $encryptedPass);
+        $result = $this->getUserModel()->newUser($name, $encryptedPass, $email);
         if ($result == false)
             $this->getLoginView()->showErrorLogin('error 500');
         else {

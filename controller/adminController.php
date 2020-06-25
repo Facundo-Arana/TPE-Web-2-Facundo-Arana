@@ -23,6 +23,37 @@ class adminController extends controller
     }
 
     /**
+     * Editar portada de un libro. tambien borrar.
+     */
+    public function editCover()
+    {
+        AuthHelper::authorityCheck();
+        if (!isset($_POST['id_book_cover'])) {
+            $this->getErrorView()->showErrorView('Libro no seleccionado', $this->userData);
+            die();
+        }
+        $id = $_POST['id_book_cover'];
+        if ($_POST['submitCover'] == 'Delete Cover') {
+            $this->getBookModel()->editCover(null, $id);
+            $this->getAdminView()->showAdminSuccess('Se eliminado la portada con exito', $this->userData);
+            die();
+        }
+        if (
+            $_FILES['cover']['type'] == "image/jpg" ||
+            $_FILES['cover']['type'] == "image/jpeg" ||
+            $_FILES['cover']['type'] == "image/png"
+        ) {
+            $response = $this->getBookModel()->editCover($_FILES['cover']['tmp_name'], $id);
+            if ($response == false)
+                $this->getErrorView()->showErrorView('Error al añadir imagen', $this->userData);
+            else
+                $this->getAdminView()->showAdminSuccess('Se editado la portada con exito', $this->userData);
+        } else {
+            $this->getErrorView()->showErrorView('Formato de imagen incorrecto(solo .jpg, .jpge, .png)', $this->userData);
+        }
+    }
+
+    /**
      *  Modificar los permisos de un usuario 
      */
     public function editPermissions()
