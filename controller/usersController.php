@@ -51,10 +51,11 @@ class usersController extends controller
         }
         $encryptedPass = password_hash($pass, PASSWORD_DEFAULT);
         $result = $this->getUserModel()->newUser($name, $encryptedPass);
-        if($result == false)
+        if ($result == false)
             $this->getLoginView()->showErrorLogin('error 500');
-        else
-            header('location:'. URLBASE . 'library/verify');
+        else {
+            $userDB = $this->getUserModel()->getUserDB($name);
+            AuthHelper::login($userDB);
+        }
     }
-
 }

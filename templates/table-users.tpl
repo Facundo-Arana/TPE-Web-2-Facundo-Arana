@@ -8,7 +8,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Id</th>
+                    
                     <th>Username</th>
                     <th>Priority</th>
                 </tr>
@@ -16,7 +16,7 @@
             <tbody>
                 {foreach from=$users item=user}
                     <tr>
-                        <td>{$user->id_user}</td>
+                        
                         <td>{$user->userName}</td>
                         <td>{$user->priority}</td>
                     </tr>
