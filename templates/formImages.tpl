@@ -1,4 +1,4 @@
-<div class="form-center oculto" id="cover-title">
+<div class="form-center" id="cover-title">
     <div>
         <label class="oculto">---------</label>
     </div>
@@ -19,6 +19,9 @@
         </div>
         <div>
             <input type="file" id="input-cover" name="cover">
+        </div>
+        <div>
+            <label><p>si no selecciona una imagen borrara la actual</p></label>
         </div>
         <div>
             <input type="submit" id="submitCover" name="submitCover" value="Delete Cover">

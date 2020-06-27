@@ -11,14 +11,20 @@
                     <option value="{$genre->id}">{$genre->name}</option>
                 {/foreach}
             </select>
+        </div>
+        <label class="oculto"> ---------------- </label>
+        <div>
             <input type="text" name="name" placeholder="name">
+        </div>
+        <label class="oculto"> ---------------- </label>
+        <div>
             <input type="text" name="author" placeholder="autor">
         </div>
         <label class="oculto"> ---------------- </label>
         <div>
             <textarea name="details" rows="6" placeholder="details"></textarea>
         </div>
-        <label class="oculto"> ---------------- </label>
+        <label><p>select cover</p></label>
         <div>
             <input type="file" name="img_name" id="imageToUpload">
         </div>

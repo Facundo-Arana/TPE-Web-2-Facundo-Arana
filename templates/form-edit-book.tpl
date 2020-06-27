@@ -5,13 +5,10 @@
         </div>
         <label class="oculto"> ---------------- </label>
         <div>
-            <select name="idBook" id="selectedToEdit">
-                <option value="">Select Book</option>
-                {foreach from=$books item=book}
-                    <option value="{$book->book_id}">{$book->book_name}</option>
-                {/foreach}
-            </select>
             <input type="text" name="newName" id="newName">
+        </div>
+        <label class="oculto"> ---------------- </label>
+        <div>
             <input type="text" name="newAuthorName" id="newAuthorName">
         </div>
         <label class="oculto"> ---------------- </label>
