@@ -1,19 +1,34 @@
 <?php
 require_once('model/userModel.php');
 require_once('model/bookModel.php');
+require_once('model/commentModel.php');
 require_once('api/APIView.php');
 
 class apiController
 {
     private $user_model;
     private $book_model;
+    private $comment_model;
     private $view;
 
     public function __construct()
     {
+        $this->comment_model = new commentModel();
         $this->user_model = new userModel();
         $this->book_model = new bookModel();
         $this->view = new APIView();
+    }
+
+    public function getComments($params = [])
+    {
+        if (!empty($params)) {
+            $id = $params[':ID'];
+            $comment = $this->comment_model->getCommentsDB($id);
+            if ($comment)
+                $this->view->response($comment, 200);
+            else
+                $this->view->response('no hay comentarios de este libro', 200);
+        }
     }
 
     public function getUser($params = [])

@@ -9,7 +9,7 @@ $router = new Router();
 $router->addRoute('book', 'GET', 'apiController', 'getBook');
 $router->addRoute('book/:ID', 'GET', 'apiController', 'getBook');
 $router->addRoute('user/:ID', 'GET', 'apiController', 'getUser');
-//$router->addRoute('book/:ID', 'DELETE', 'apiController', 'deletebook');
+$router->addRoute('comments/:ID', 'GET', 'apiController', 'getComments');
 
 // rutea
 $router->route($_REQUEST['resource'], $_SERVER['REQUEST_METHOD']);

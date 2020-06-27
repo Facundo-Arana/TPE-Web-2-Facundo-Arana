@@ -2,11 +2,9 @@
 document.addEventListener('DOMContentLoaded', iniciar);
 
 function iniciar() {
-    let forms = document.getElementsByName('formularios');
+    let forms = document.getElementsByName('botones');
     forms.forEach(element => {
-        element.addEventListener('click', e => {
-            show_content(e);
-        });
+        element.addEventListener('click', e => show_content(e));
     });
 
     document.querySelector('#input-cover').addEventListener('change', e => {
@@ -37,42 +35,30 @@ function show_content(e) {
     let form_books = document.getElementById('books-forms');
     let form_book_edit = document.getElementById('books-edit');
     let form_users = document.getElementById('users-form');
-    let form_comments = document.getElementById('comments-forms');
     let form_genres = document.getElementById('genres-form');
-    
     if (e.currentTarget.value == 'add-book') {
         form_books.classList.remove('none');
         form_all_books.classList.remove('none');
         form_users.classList.add('none');
         form_book_edit.classList.add('none');
-        form_comments.classList.add('none');
         form_genres.classList.add('none');
     }
-    if (e.currentTarget.value == 'edit-book') {
+    if(e.currentTarget.value == 'edit-book') {
         form_all_books.classList.remove('none');
+        form_book_edit.classList.remove('none');
         form_books.classList.add('none');
         form_users.classList.add('none');
-        form_book_edit.classList.remove('none');
-        form_comments.classList.add('none');
         form_genres.classList.add('none');
     }
-    if (e.currentTarget.value == 'usuarios') {
-        form_all_books.classList.add('none');
+    if(e.currentTarget.value == 'usuarios') {
         form_users.classList.remove('none');
-        form_comments.classList.add('none');
+        form_all_books.classList.add('none');
         form_genres.classList.add('none');
     }
-    if (e.currentTarget.value == 'comentarios') {
-        form_all_books.classList.add('none');
-        form_users.classList.add('none');
-        form_comments.classList.remove('none');
-        form_genres.classList.add('none');
-    }
-    if (e.currentTarget.value == 'generos') {
-        form_all_books.classList.add('none');
+    if(e.currentTarget.value == 'generos') {
         form_genres.classList.remove('none');
+        form_all_books.classList.add('none');
         form_users.classList.add('none');
-        form_comments.classList.add('none');
     }
 }
 
@@ -95,8 +81,8 @@ function book_data(event) {
             cover.alt = 'no img';
             document.querySelector('#submitCover').classList.add('oculto');
         }
-           
-        
+
+
         cover.src = book.img;
         name.value = book.book_name;
         author.value = book.author;

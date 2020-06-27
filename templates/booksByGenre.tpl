@@ -3,8 +3,6 @@
 <div class="main">
     <h2 class="subtitle">Resultados</h2>
 
-
-
     {include 'templates/listOfBooks.tpl'}
 
 </div>

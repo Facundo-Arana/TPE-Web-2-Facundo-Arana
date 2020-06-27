@@ -1,30 +1,26 @@
 {include 'templates/header.tpl'}
 <div class="side">
-    <div class="wrapper formularios">
-        <button name="formularios" value="add-book">
+    <div class="wrapper ">
+        <button name="botones" value="add-book">
             <h2>Add/delete book</h2>
         </button>
     </div>
-    <div class="wrapper formularios">
-        <button name="formularios" value="edit-book">
+    <div class="wrapper ">
+        <button name="botones" value="edit-book">
             <h2>Edit book</h2>
         </button>
     </div>
-    <div class="wrapper formularios">
-        <button name="formularios" value="generos">
+    <div class="wrapper ">
+        <button name="botones" value="generos">
             <h2>Genres</h2>
         </button>
     </div>
-    <div class="wrapper formularios">
-        <button name="formularios" value="usuarios">
+    <div class="wrapper ">
+        <button name="botones" value="usuarios">
             <h2>Users</h2>
         </button>
     </div>
-    <div class="wrapper formularios">
-        <button name="formularios" value="comentarios">
-            <h2>Comments</h2>
-        </button>
-    </div>
+    
 </div>
 <div class="main">
     <div class="wrapper" id="books">
@@ -68,12 +64,7 @@
             {include 'templates/form-delete-user.tpl'}
         </div>
     </div>
-    <div class="wrapper none" id="comments-forms">
-        <div>
-            {include 'templates/form-edit-comments.tpl'}
-        </div>
-    </div>
+   
 </div>
 <script type="text/javascript" src="js/adminActions.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 {include 'templates/footer.tpl'}

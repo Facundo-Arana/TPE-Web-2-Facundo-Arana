@@ -92,7 +92,7 @@ header {
 *
 */
 
-.side, header, input, button, .login, footer, select, textarea , .cover{
+.side, header, input, button, .login, footer, select, textarea, .cover {
     border: 1px solid #008081;
     border-radius: 5px;
 }
@@ -116,11 +116,11 @@ td, th {
     padding: 5px 10px;
 }
 
-p{
+p {
     color: black;
 }
 
-h1, h1>a, h2>a, h2, input, button, figcaption, button>a, .writer>h3, .genre>h3, p>a, select {
+h1, h1>a, h2>a, h3>a, h2, input, button, figcaption, button>a, .writer>h3, .genre>h3, p>a, select {
     color: #008081;
 }
 
@@ -166,9 +166,22 @@ article>p {
     font-size: 1.2em;
 }
 
-.min_img{
+.min_img {
     width: 80px;
     height: 80px;
+}
+
+.big_img {
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 300px;
+    max-height: 300px;
+    border: 1px solid rgb(148, 148, 148);
+}
+
+.description {
+    min-width: 75%;
+    padding: 0px 1em;
 }
 
 .details {
@@ -184,7 +197,6 @@ article>p {
 
 p, .writer>h3, .genre>h3 {
     font-weight: bold;
-    padding: 0 0 1em 0;
 }
 
 .form-center {
