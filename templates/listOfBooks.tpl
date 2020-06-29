@@ -1,7 +1,7 @@
 {foreach from=$books item=book}
     <div class="wrapper details">
         <div class="writer">
-            <h3> <a href='library/book/{$book->book_id}'>{$book->book_name}</a></h3>
+            <h3> <a href='library/book/{$book->book_id}'>{$book->book_name}</a</h3>
             <p class="detailsShort">
                 "{$book->details|truncate:200}..."<a href='library/book/{$book->book_id}'><span>
                         < ver mas>

@@ -17,9 +17,9 @@
                     <button class="oculto">login</button>
                 {else}
                     {if $priority == 2}
-                        <h2><a href="library/admin">{$username}</a></h2>
+                        <h2><a href="library/admin" id="username">{$username}</a></h2>
                     {elseif $priority == 1}
-                        <h2><a href="library/home">{$username}</a></h2>
+                        <h2><a href="library/home" id="username">{$username}</a></h2>
                     {else}
                         {if isset($inLogin)}
                             <button class="oculto">login</button>

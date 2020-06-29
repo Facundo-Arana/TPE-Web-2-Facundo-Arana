@@ -22,8 +22,8 @@ class apiController
     public function getComments($params = [])
     {
         if (!empty($params)) {
-            $id = $params[':ID'];
-            $comment = $this->comment_model->getCommentsDB($id);
+            $id_book = $params[':ID'];
+            $comment = $this->comment_model->getCommentsDB($id_book);
             if ($comment)
                 $this->view->response($comment, 200);
             else

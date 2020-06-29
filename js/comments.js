@@ -2,10 +2,11 @@
 document.addEventListener('DOMContentLoaded', iniciar);
 
 function iniciar() {
+    let username = document.getElementById('username').textContent;
 
     var commentsList = new Vue({
         el: '#comments',
-        data: {
+        data: {   
             comentarios: []
         }
     });
@@ -19,7 +20,6 @@ function iniciar() {
         fetch('library/api/comments/' + id)
             .then(response => response.json())
             .then(comments => {
-                console.log(comments);
                 commentsList.comentarios = comments;
             });
     }

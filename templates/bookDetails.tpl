@@ -16,8 +16,14 @@
             <p>"{$book->details}"</p>
         </div>
     </section>
-    <section class="wrapper">
-        {include 'templates/vue/comments.vue'}
+    <section>
+        {if ($priority > 0)}
+    
+    
+            <div class="wrapper">
+                {include 'templates/vue/comments.vue'}
+            </div>
+        {/if}
     </section>
 </div>
 <script src="js/comments.js"></script>
