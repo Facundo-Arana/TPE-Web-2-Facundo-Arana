@@ -10,7 +10,7 @@
     </div>
     <div>
         <figcaption class="portada">
-            <img src="" class="min_img" id="cover" alt="" />
+            <img src="" class="big_img" id="cover" alt="" />
         </figcaption>
     </div>
     <form action="library/admin/editCover" method="POST" enctype="multipart/form-data">

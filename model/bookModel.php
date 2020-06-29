@@ -9,7 +9,7 @@ class bookModel extends dbModel
      */
     public function getAllBooksDB()
     {
-        $query = $this->getDbConection()->prepare('SELECT *, genre.name as genre FROM book JOIN genre ON book.id_genre_fk = genre.id');
+        $query = $this->getDbConection()->prepare('SELECT *, genre.name as genre FROM book JOIN genre ON book.id_genre_fk = genre.id ORDER BY book_name ASC');
         $response = $query->execute();
         if ($response == true)
             return $query->fetchAll(PDO::FETCH_OBJ);

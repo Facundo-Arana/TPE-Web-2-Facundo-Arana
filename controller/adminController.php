@@ -41,7 +41,7 @@ class adminController extends controller
         if (
             $_FILES['cover']['type'] == "image/jpg" ||
             $_FILES['cover']['type'] == "image/jpeg" ||
-            $_FILES['cover']['type'] == "image/png"
+            $_FILES['cover']['type'] == "image/png" 
         ) {
             $response = $this->getBookModel()->editCover($_FILES['cover']['tmp_name'], $id);
             if ($response == false)
@@ -184,7 +184,7 @@ class adminController extends controller
         if (
             $_FILES['img_name']['type'] == "image/jpg" ||
             $_FILES['img_name']['type'] == "image/jpeg" ||
-            $_FILES['img_name']['type'] == "image/png"
+            $_FILES['img_name']['type'] == "image/png" 
         ) {
             $response = $this->getBookModel()->addBookDB($name, $author, $details, $idGenreFk, $_FILES['img_name']['tmp_name']);
         } else
@@ -226,10 +226,14 @@ class adminController extends controller
         AuthHelper::authorityCheck();
         $idBook = $_POST['idBook'];
         $response = $this->getBookModel()->deleteBookDB($idBook);
-        if ($response == false)
+        if ($response == false){
+
             $this->getErrorView()->showErrorView('No se pudo eliminar el libro: ' . $idBook . '', $this->userData);
-        else
+        }
+        else{
             $this->getAdminView()->showAdminSuccess('Se ha elimiado el libro:' . $idBook . ' con exito', $this->userData);
+            die();
+        }
     }
 
     /** 

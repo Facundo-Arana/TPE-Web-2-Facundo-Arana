@@ -13,7 +13,7 @@
         </div>
         <label class="oculto"> ---------------- </label>
         <div>
-            <textarea name="details" rows="6" id="details"></textarea>
+            <textarea name="details" rows="15" id="details"></textarea>
         </div>
         <label class="oculto"> ---------------- </label>
         <div>

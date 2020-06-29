@@ -19,9 +19,9 @@
             <tbody>
                 {foreach from=$books item=book}
                     <tr>
-                        <td>{$book->book_name|truncate:30}</td>
-                        <td>{$book->author|truncate:30}</td>
-                        <td>{$book->details|truncate:30}</td>
+                        <td>{$book->book_name|truncate:50}</td>
+                        <td>{$book->author|truncate:50}</td>
+                        <td>{$book->details|truncate:60}</td>
     
                         {if ($book->img)}
                             <td>
