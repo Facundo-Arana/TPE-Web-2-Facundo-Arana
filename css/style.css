@@ -193,6 +193,12 @@ article>p {
     color: rgb(0, 26, 255);
 }
 
+.text-size{
+    color: rgb(0, 26, 255);
+    background-color: rgb(230, 221, 221);
+    resize: none;
+}
+
 .details {
     border-radius: 0.5em;
     border-right: solid rgb(148, 148, 148);
@@ -204,7 +210,7 @@ article>p {
     text-decoration-line: underline;
 }
 
-p, .writer>h3, .genre>h3 {
+p, .writer>h3, .genre>h3, .text-size {
     font-weight: bold;
 }
 

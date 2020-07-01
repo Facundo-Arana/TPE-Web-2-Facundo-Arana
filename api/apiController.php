@@ -19,11 +19,34 @@ class apiController
         $this->view = new APIView();
     }
 
+    public function postComment()
+    {
+        $params = json_decode(file_get_contents("php://input"));
+        $this->comment_model->newComment($params->id_book_fk, $params->id_user_fk, $params->content, $params->puntaje);
+        $this->view->response($params, 200);
+    }
+
+    public function deleteComment($params = [])
+    {
+        if (!empty($params)) {
+            $id = $params[':ID'];
+            $result =  $this->comment_model->searchComment($id);
+            if (empty($result)) {
+                $this->view->response('comentario inexistente', 200);
+                die();
+            }
+            $this->comment_model->deleteComment($id);
+            $this->view->response(true, 200);
+        } else {
+            $this->view->response(false, 404);
+        }
+    }
+
     public function getComments($params = [])
     {
         if (!empty($params)) {
             $id_book = $params[':ID'];
-            $comment = $this->comment_model->getCommentsDB($id_book);
+            $comment = $this->comment_model->getBookComments($id_book);
             if ($comment)
                 $this->view->response($comment, 200);
             else

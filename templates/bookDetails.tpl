@@ -14,12 +14,15 @@
         <div class="description">
             <h2 class="subtitle">{$book->book_name}</h2>
             <p>"{$book->details}"</p>
-              
+
             {include 'templates/vue/users-rating.vue'}
         </div>
     </section>
     <section class="wrapper">
-
+            <p class="none" id="id_user">{$id_user}</p>
+        <div>
+            {include 'templates/vue/form-add-comment.vue'}
+        </div>
         <div>
             {include 'templates/vue/comments.vue'}
         </div>
