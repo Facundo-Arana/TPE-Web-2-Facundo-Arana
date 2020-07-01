@@ -27,7 +27,7 @@ class apiController
             if ($comment)
                 $this->view->response($comment, 200);
             else
-                $this->view->response('no hay comentarios de este libro', 200);
+                $this->view->response(null, 200);
         }
     }
 

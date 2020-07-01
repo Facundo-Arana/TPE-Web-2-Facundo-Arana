@@ -40,7 +40,7 @@ body {
     display: flex;
 }
 
-header, .conteiner, .wrapper {
+header, .conteiner, .wrapper, .rating {
     flex-direction: row;
 }
 
@@ -184,6 +184,15 @@ article>p {
     padding: 0px 1em;
 }
 
+.rating-img{
+    display: inline-flex;
+}
+
+.rating-info{
+    padding-top: 10px;
+    color: rgb(0, 26, 255);
+}
+
 .details {
     border-radius: 0.5em;
     border-right: solid rgb(148, 148, 148);
@@ -250,7 +259,7 @@ footer {
     display: none;
 }
 
-.button-login {
+.button-login, .rating {
     text-align-last: center;
 }
 

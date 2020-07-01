@@ -51,7 +51,6 @@ function book_data(event) {
             let fk = document.querySelector('#idGenreFk');
             let cover = document.querySelector('#cover');
             if (book.img == null) {
-
                 cover.alt = 'no img';
             }
             cover.src = book.img;
@@ -81,7 +80,6 @@ function show_content(e) {
     let form_users = document.getElementById('users-form');
     let form_genres = document.getElementById('genres-form');
 
-    console.log(e.currentTarget.value);
     if (e.currentTarget.value == 'books') {
         form_books.classList.remove('none');
         form_add_book.classList.remove('none');

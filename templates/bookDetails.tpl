@@ -14,16 +14,15 @@
         <div class="description">
             <h2 class="subtitle">{$book->book_name}</h2>
             <p>"{$book->details}"</p>
+              
+            {include 'templates/vue/users-rating.vue'}
         </div>
     </section>
-    <section>
-        {if ($priority > 0)}
-    
-    
-            <div class="wrapper">
-                {include 'templates/vue/comments.vue'}
-            </div>
-        {/if}
+    <section class="wrapper">
+
+        <div>
+            {include 'templates/vue/comments.vue'}
+        </div>
     </section>
 </div>
 <script src="js/comments.js"></script>
