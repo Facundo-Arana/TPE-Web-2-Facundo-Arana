@@ -33,8 +33,10 @@ class adminController extends controller
             die();
         }
         $id = $_POST['id_book_cover'];
+        $link_img = $_POST['link_img'];
         if ($_POST['submitCover'] == 'Delete Cover') {
             $this->getBookModel()->editCover(null, $id);
+            unlink($link_img);
             $this->getAdminView()->showAdminSuccess('Se eliminado la portada con exito', $this->userData);
             die();
         }
@@ -207,8 +209,10 @@ class adminController extends controller
         $details = $_POST['details'];
         $idBook = $_POST['idBook'];
         $idGenreFk = $_POST['idGenreFk'];
+
+        //var_dump($idBook);die;
         if (empty($name) || empty($author) || empty($idBook) || empty($details) || empty($idGenreFk)) {
-            $this->getErrorView()->showErrorView('completar todos los campos', 1);
+            $this->getErrorView()->showErrorView('completar todos los campos', $this->userData);
             die();
         }
         $response = $this->getBookModel()->editBookDB($name, $author, $details, $idGenreFk, $idBook);

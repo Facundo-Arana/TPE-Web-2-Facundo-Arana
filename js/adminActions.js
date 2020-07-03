@@ -34,6 +34,7 @@ function iniciar() {
             document.querySelector('#submitCover').value = 'Change cover';
         }
     });
+
     document.querySelector('#idUser').addEventListener('change', user_data);
 }
 
@@ -50,9 +51,14 @@ function book_data(event) {
             let details = document.querySelector('#details');
             let fk = document.querySelector('#idGenreFk');
             let cover = document.querySelector('#cover');
+            let idBook = document.querySelector('#idBook');
+            let link_img = document.querySelector('#link_img');
             if (book.img == null) {
+                document.querySelector('#submitCover').classList.add('none');
                 cover.alt = 'no img';
-            }
+            }  
+            link_img.value = book.img;
+            idBook.value = id;         
             cover.src = book.img;
             name.value = book.book_name;
             author.value = book.author;

@@ -19,14 +19,15 @@
         </div>
     </section>
     <section class="wrapper">
-            <p class="none" id="id_user">{$id_user}</p>
+        <p class="none" id="id_user">{$id_user}</p>
         <div>
             {include 'templates/vue/form-add-comment.vue'}
         </div>
         <div>
             {include 'templates/vue/comments.vue'}
         </div>
+        <script src="js/comments.js"></script>
     </section>
 </div>
-<script src="js/comments.js"></script>
+
 {include 'templates/footer.tpl'}

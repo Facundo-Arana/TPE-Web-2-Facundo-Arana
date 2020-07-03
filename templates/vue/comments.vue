@@ -1,12 +1,14 @@
 {literal}
-<section class="form-center" id="comments">
+<section class="form-center comment" id="comments">
   <h2 class="subtitle">comments</h2>
-  <div v-if="loading == true">
+
+  <div v-if="loading">
     <p>Loading comments...</p>
   </div>
-  <div v-else>
-    <div v-if="error == false">
-      <table>
+
+  <div v-if="!loading">
+    <div v-if="!error">
+      <table class="comment">
         <thead>
           <tr>
             <th>comentarios</th>
@@ -27,9 +29,11 @@
         </tbody>
       </table>
     </div>
-    <div v-else>
+    <div v-if="error">
       <h3>no hay comentarios en este libro</h3>
     </div>
   </div>
 </section>
+
+
 {/literal}

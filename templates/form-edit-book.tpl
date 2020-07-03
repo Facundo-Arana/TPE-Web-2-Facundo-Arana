@@ -4,6 +4,7 @@
             <h2>Edit Book</h2>
         </div>
         <label class="oculto"> ---------------- </label>
+        <input class="oculto" type="text" name="idBook" id="idBook" value="">
         <div>
             <input type="text" name="newName" id="newName">
         </div>

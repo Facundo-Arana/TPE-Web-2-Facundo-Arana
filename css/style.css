@@ -234,6 +234,10 @@ html {
     padding: 0px;
 }
 
+.comment{
+    min-width: 500px;
+}
+
 textarea {
     width: 100%;
 }

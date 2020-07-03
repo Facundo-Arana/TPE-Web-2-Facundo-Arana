@@ -77,7 +77,7 @@ class apiController
             if ($book)
                 $this->view->response($book, 200);
             else
-                $this->view->response("no existe libro con id {$idBook}", 404);
+                $this->view->response("no existe libro con id {$idBook}", 200);
         }
     }
 }
