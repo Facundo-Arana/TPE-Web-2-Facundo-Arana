@@ -45,6 +45,10 @@ switch ($actions[1]) {
         $adminController = new adminController();
         $adminController->logOut();
         break;
+    case 'sendMail':
+        $usersController = new usersController();
+        $usersController->sendMail();
+        break;
     case 'admin':
         if (!isset($actions[2])) {
             $adminController = new adminController();

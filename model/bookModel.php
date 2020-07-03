@@ -47,11 +47,11 @@ class bookModel extends dbModel
     /** 
      * añadir un nuevo libro a los registros.
      */
-    public function addBookDB($name, $author, $details, $idGenreFK, $img = null)
+    public function addBookDB($name, $author, $details, $idGenreFK, $img = null, $imgname=null)
     {
         $pathImg = null;
         if ($img)
-            $pathImg = $this->uploadImage($img);
+            $pathImg = $this->uploadImage($img,$imgname);
 
         $query = $this->getDbConection()->prepare('INSERT INTO book (book_id, book_name, author, details, id_genre_fk, img) VALUES (NULL, ?, ?, ?, ?, ?)');
         $response = $query->execute([$name, $author, $details, $idGenreFK, $pathImg]);
@@ -61,18 +61,19 @@ class bookModel extends dbModel
     /**
      *  Editar / eliminar una portada.
      */
-    public function editCover($img = null, $id)
+    public function editCover($id, $img = null, $name = null)
     {
         $pathImg = null;
         if ($img)
-            $pathImg = $this->uploadImage($img);
+            $pathImg = $this->uploadImage($img, $name);
+
         $query = $this->getDbConection()->prepare('UPDATE book SET img = ? WHERE book_id = ?');
         return $query->execute([$pathImg, $id]);
     }
 
-    private function uploadImage($img)
+    private function uploadImage($img, $name)
     {
-        $target = 'covers/' . uniqid() . '.jpg';
+        $target = 'covers/' . uniqid() . '.' . strtolower(pathinfo($name, PATHINFO_EXTENSION));
         move_uploaded_file($img, $target);
         return $target;
     }

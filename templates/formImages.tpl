@@ -15,7 +15,7 @@
     </div>
     <form action="library/admin/editCover" method="POST" enctype="multipart/form-data">
         <div>
-            <input class="oculto" type="text" name="id_book_cover" id="id_book_cover">
+            <input class="oculto" type="text" name="id_book_cover" id="id_book_cover"  value="">
             <input class="oculto" type="text" name="link_img" id="link_img" value="">
         </div>
         <div>

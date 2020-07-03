@@ -28,6 +28,7 @@ function iniciar() {
     });
 
     document.querySelector('#input-cover').addEventListener('change', e => {
+        document.querySelector('#submitCover').classList.remove('none');
         if (e.target.value == '') {
             document.querySelector('#submitCover').value = 'Delete cover';
         } else {
@@ -52,13 +53,14 @@ function book_data(event) {
             let fk = document.querySelector('#idGenreFk');
             let cover = document.querySelector('#cover');
             let idBook = document.querySelector('#idBook');
+            let id_book_cover = document.querySelector('#id_book_cover');
             let link_img = document.querySelector('#link_img');
             if (book.img == null) {
                 document.querySelector('#submitCover').classList.add('none');
-                cover.alt = 'no img';
             }  
             link_img.value = book.img;
-            idBook.value = id;         
+            idBook.value = id;   
+            id_book_cover.value = id;      
             cover.src = book.img;
             name.value = book.book_name;
             author.value = book.author;
@@ -66,7 +68,6 @@ function book_data(event) {
             fk.value = book.id_genre_fk;
         });
 }
-
 
 function user_data(event) {
     let id = event.target.value;
@@ -115,28 +116,3 @@ function show_content(e) {
 
 
 
-
-
-
-
-/*
-$(document).ready(function () {
-    $('#loginform').submit(function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: 'controller/controller.php',
-            data: $(this).serialize(),
-            success: function (response) {
-                var jsonData = JSON.parse(response);
-                if (jsonData.success == "1") {
-                    location.href = 'home';
-                }
-                else {
-                    alert('Invalid Credentials!');
-                }
-            }
-        });
-    });
-});
-*/

@@ -3,7 +3,7 @@
         <h2>All Books</h2>
     </div>
     <label class="oculto"> ---------------- </label>
-    <div>
+    <div class="scroll">
         <table>
             <thead>
                 <tr>
@@ -29,7 +29,7 @@
                             </td>
                         {else}
                             <td>
-                                <a name="change_covers" value="{$book->book_id}"><img class="min_img" alt="no image" /></a>
+                                <img class="min_img" name="change_covers" alt="{$book->book_id}" />
                             </td>
                         {/if}
     

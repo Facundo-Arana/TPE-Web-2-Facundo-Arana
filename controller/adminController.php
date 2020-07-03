@@ -33,25 +33,30 @@ class adminController extends controller
             die();
         }
         $id = $_POST['id_book_cover'];
+
         $link_img = $_POST['link_img'];
         if ($_POST['submitCover'] == 'Delete Cover') {
-            $this->getBookModel()->editCover(null, $id);
+            $this->getBookModel()->editCover($id);
             unlink($link_img);
             $this->getAdminView()->showAdminSuccess('Se eliminado la portada con exito', $this->userData);
             die();
         }
+
         if (
             $_FILES['cover']['type'] == "image/jpg" ||
             $_FILES['cover']['type'] == "image/jpeg" ||
-            $_FILES['cover']['type'] == "image/png" 
+            $_FILES['cover']['type'] == "image/png"
         ) {
-            $response = $this->getBookModel()->editCover($_FILES['cover']['tmp_name'], $id);
+            $response = $this->getBookModel()->editCover($id, $_FILES['cover']['tmp_name'], $_FILES['cover']['name']);
             if ($response == false)
                 $this->getErrorView()->showErrorView('Error al añadir imagen', $this->userData);
-            else
+            else {
                 $this->getAdminView()->showAdminSuccess('Se editado la portada con exito', $this->userData);
+                if ($link_img)
+                    unlink($link_img);
+            }
         } else {
-            $this->getErrorView()->showErrorView('Formato de imagen incorrecto(solo .jpg, .jpge, .png)', $this->userData);
+            $this->getErrorView()->showErrorView('Formato de imagen incorrecto', $this->userData);
         }
     }
 
@@ -186,9 +191,9 @@ class adminController extends controller
         if (
             $_FILES['img_name']['type'] == "image/jpg" ||
             $_FILES['img_name']['type'] == "image/jpeg" ||
-            $_FILES['img_name']['type'] == "image/png" 
+            $_FILES['img_name']['type'] == "image/png"
         ) {
-            $response = $this->getBookModel()->addBookDB($name, $author, $details, $idGenreFk, $_FILES['img_name']['tmp_name']);
+            $response = $this->getBookModel()->addBookDB($name, $author, $details, $idGenreFk, $_FILES['img_name']['tmp_name'], $_FILES['img_name']['name']);
         } else
             $response = $this->getBookModel()->addBookDB($name, $author, $details, $idGenreFk);
 
@@ -230,11 +235,10 @@ class adminController extends controller
         AuthHelper::authorityCheck();
         $idBook = $_POST['idBook'];
         $response = $this->getBookModel()->deleteBookDB($idBook);
-        if ($response == false){
+        if ($response == false) {
 
             $this->getErrorView()->showErrorView('No se pudo eliminar el libro: ' . $idBook . '', $this->userData);
-        }
-        else{
+        } else {
             $this->getAdminView()->showAdminSuccess('Se ha elimiado el libro:' . $idBook . ' con exito', $this->userData);
             die();
         }
