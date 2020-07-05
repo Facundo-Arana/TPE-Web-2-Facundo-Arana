@@ -46,9 +46,11 @@ function iniciar() {
 }
 
 function book_data(event) {
-    let id = event.target.value;
-    if (id == undefined)
-        id = event.target.alt;
+    let target = event.currentTarget;
+    let td = target.parentNode;
+    let tr = td.parentNode;
+    let id = tr.getAttribute('data-book-id');//--------------------->  el id del libro sale de un atributo HTML. 
+
     fetch('library/api/book/' + id)
         .then(respuesta => respuesta.json())
         .then(book => {

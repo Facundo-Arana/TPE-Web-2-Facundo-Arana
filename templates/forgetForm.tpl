@@ -1,13 +1,14 @@
 {include 'templates/header.tpl' }
-
-<div class="subtitle">
-    <h2>Escribe tu nombre de usuario y recibiras un mail</h2>
-</div>
-{if isset($msjr)}
+<div class="msj">
     <div>
-        <p>{$msjr}</p>
+        <h2 class="subtitle">Escribe tu nombre de usuario y recibiras un mail</h2>
     </div>
-{/if}
+    {if isset($msj)}
+        <div>
+            <p>{$msj}</p>
+        </div>
+    {/if}
+</div>
 <div class="login">
     <div>
         <a href="library/login">volver al login</a>

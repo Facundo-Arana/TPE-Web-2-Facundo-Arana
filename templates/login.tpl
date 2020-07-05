@@ -54,6 +54,9 @@
                 <input type="password" name="password">
             </div>
             <div>
+                <label class="oculto"> ---------------- </label>
+            </div>
+            <div>
                 <a href="library/forgetfulUser">olvide mi contraseña</a>
             </div>
             <label class="oculto"> ---------------- </label>

@@ -36,7 +36,7 @@ body {
 *
 */
 
-.conteiner, .main, .side, .wrapper, header, .title, .writer, .genre {
+.conteiner, .main, .side, .wrapper, header, .title, .writer, .genre, .msj {
     display: flex;
 }
 
@@ -44,7 +44,7 @@ header, .conteiner, .wrapper, .rating {
     flex-direction: row;
 }
 
-.main, .side, .writer, .genre {
+.main, .side, .writer, .genre, .msj {
     flex-direction: column;
 }
 

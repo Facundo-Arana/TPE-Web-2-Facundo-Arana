@@ -1,7 +1,13 @@
 {include 'templates/header.tpl' }
-
-<div class="subtitle">
-    <h2>Escribe la clave que recibiste</h2>
+<div class="msj">
+    <div>
+        <h2 class="subtitle">Escribe la clave que recibiste</h2>
+    </div>
+    {if isset($msj)}
+        <div>
+            <p>{$msj}</p>
+        </div>
+    {/if}
 </div>
 <div class="login">
     <div>
@@ -13,7 +19,7 @@
         </div>
         <label>Clave</label>
         <div>
-            <input class="none" type="text" name="user" value="{$name}">
+            <input class="none" type="text" name="user_id" value="{$user_id}">
         </div>
         <div>
             <input type="text" name="token" required>

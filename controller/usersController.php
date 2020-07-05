@@ -10,22 +10,9 @@ require_once('PHPMailer/src/SMTP.php');
 
 class usersController extends controller
 {
-
-    public function checkToken(){
-
-        $username = $_POST['user'];
-        $token = $_POST['token'];
-
-        $res = $this->getTokenModel()->getTokenByUser($username);
-        $response = password_verify($token, $res[0]->hash);
-        if($response == true){
-            //TODO editar contraseña de usuario (model y form).
-
-        }
-    }
-
-    /**
-     * Verificar los datos proporcinados por el usuario para reestablecer contraseña.
+    /** 1er paso recuperacion de cuenta de usuario.
+     * 
+     *  Recibir datos proporcinados por el usuario para reestablecer contraseña.
      */
     public function checkUserToGetToken()
     {
@@ -36,32 +23,38 @@ class usersController extends controller
         $username = $_POST['username'];
 
         // consulto los registros de usuarios.
-        $userDB = $this->getUserModel()->getUsername($username);
+        $userDB = $this->getUserModel()->getIdUser($username);
         if ($userDB == false) {
             $this->getLoginView()->showForgetForm('El nombre de usuario es incorrecto');
             die();
         }
 
         // borrar token si ya existe una para este usuario (solo se permite una a la vez por usuario).
-        $this->getTokenModel()->deleteToken($username);
+        $this->getTokenModel()->deleteToken($userDB[0]->id_user);
 
         // crear una clave unica
         $token =  strtoupper(uniqid());
         $hash = password_hash($token, PASSWORD_DEFAULT);
 
         // guardar token para el usuario en la bd.
-        $this->getTokenModel()->setToken($hash, $username);
-        $response = self::sendToken($token, $userDB[0]->email);
+        $this->getTokenModel()->setToken($hash, $userDB[0]->id_user);
+
+        // enviar clave al mail del usuario
+        $mensaje = '<p>La clave para recuperar tu cuenta es: ' . $token . ' </p>';
+        $response = self::sendToken($mensaje, $userDB[0]->email);
+
         if ($response == true)
-            $this->getLoginView()->showTokenForm($username);
-        else
+            $this->getLoginView()->showTokenForm($userDB[0]->id_user);
+        else{
+            $this->getTokenModel()->deleteToken($userDB[0]->id_user);
             $this->getLoginView()->showForgetForm('El mail con el que creaste la cuenta no sirve, agua y ajo');
+        }
     }
 
-    /**
-     * Enviar token al mail del usuario olvidadizo.
+    /** 
+     * Enviar mail del usuario olvidadizo.
      */
-    private static function sendToken($token, $email)
+    private static function sendToken($msj, $email)
     {
         $mail = new PHPMailer(true);
         try {
@@ -73,23 +66,18 @@ class usersController extends controller
             $mail->Password   = 'TUDAI1234';                             // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;          // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 587;                                     // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
-            //Recipients
             $mail->setFrom('tpe.web.2.library@gmail.com', 'Virtual Library');
-            //$mail->addAddress('joe@example.net', 'Joe User');                // Add a recipient
-            $mail->addAddress('facundoaranaloberia@gmail.com');                         // Name is optional
-            // $mail->addReplyTo('info@example.com', 'Information');
-            //$mail->addCC('cc@example.com');
-            //$mail->addBCC('bcc@example.com');
+
+            // mail del usuario 
+            $mail->addAddress($email);
 
             // Content
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Validacion de usuario de biblioteca virtual WEB 2';
-            $mail->Body    = ' <p> La clave para poder recuperar tu cuenta es: ' . $token . '</p>';
-            //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $mail->isHTML(true);
+            $mail->Subject = 'Recuperacion cuenta biblioteca virtual WEB 2';
+            $mail->Body    = $msj;
 
+            // enviar 
             $exito = $mail->Send();
-
             $intentos = 1;
             while ((!$exito) && ($intentos < 5)) {
                 sleep(5);
@@ -101,9 +89,46 @@ class usersController extends controller
             else
                 return false;
         } catch (Exception $e) {
-            var_dump($e);
-            $mail->ErrorInfo;
             return false;
+        }
+    }
+
+    /** 2do paso recuperacion de cuenta de usuario.
+     *   
+     *  Verificacion de usuario.
+     */
+    public function checkToken()
+    {
+        if (!isset($_POST['user_id'])) {
+            $this->getLoginView()->showForgetForm('Debes completar este paso primero');
+            die();
+        }
+        $id = $_POST['user_id'];
+        $token = $_POST['token'];
+
+        // traigo la token que se genero especificamete para este usuario.
+        $res = $this->getTokenModel()->getToken($id);
+
+        // comparo la clave ingresada con la token de la base de datos.
+        $response = password_verify($token, $res[0]->hash);
+        if ($response == true) {
+
+            // cambio la contraseña del usuario por la clave dada de forma aleatoria. 
+            $this->getUserModel()->setPassword($id, $res[0]->hash);
+            sleep(3);
+            $userDB = $this->getUserModel()->getUserById($id);
+
+            // eliminar la token de la base de datos (ya cumplio su funcion).
+            $this->getTokenModel()->deleteToken($id);
+
+            // aviso al usuario de la nueva contraseña.
+            $mensaje = '<p>Recuperaste tu cuenta!!! la contraseña nueva es la clave que recibiste anteriormente, recomendamos que la cambies</p>';
+            self::sendToken($mensaje, $userDB[0]->email);
+
+            // loguear al usuario.
+            AuthHelper::login($userDB);
+        } else {
+            $this->getLoginView()->showTokenForm($id, 'la clave es incorrecta... vuelve a intentar');
         }
     }
 

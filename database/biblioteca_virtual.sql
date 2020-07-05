@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-07-2020 a las 02:17:16
+-- Tiempo de generación: 05-07-2020 a las 03:49:01
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -57,7 +57,9 @@ INSERT INTO `book` (`book_id`, `book_name`, `author`, `details`, `id_genre_fk`, 
 (17, 'Mobile Learning: nuevas realidades en el aula', 'Raúl Santiago, Susana Trabaldo, Mercedes Kamijo y Álvaro Fernández', 'En este ebook, que forma parte de la colección de #InnovaciónEdu de Digital-Text, sus autores abordan el aprendizaje móvil y las herramientas para llevarlo a cabo. Asimismo, la obra realiza un recorrido por los dispositivos móviles y las posibilidades del M-learning, ofrece pautas para la creación de contenidos con apps móviles y para el diseño de actividades y descubre el trabajo colaborativo a través de los dispositivos.', 11, 'covers/5efa12f88d26c.jpg'),
 (18, 'Aprobar o aprender. Una propuesta para el estudio útil', 'Enrique Bono', 'El autor, en base a sus investigaciones, compartidas y reflexionadas con los docentes y puestas en práctica con jóvenes estudiantes, plantea un camino de mejora en la adquisición de un aprendizaje de calidad, significativo y eficaz, próximo a un aula experimental. El libro cuestiona el nivel de calidad del aprendizaje actual de los jóvenes, y pone sobre la mesa las mayores deficiencias de las didácticas actuales y del propio sistema educativo, atendiendo a los más recientes estudios y a los descubrimientos de la neurociencia cognitiva.', 11, 'covers/5efa13736b0eb.jpg'),
 (23, 'Fundamentos de Programacion.', 'Jose Alfredo Jimenez Murillo', 'Esta obra está pensada para ayudar a las personas que comienzan una carrera en el área de la computación. Busca desarrollar la lógica de programación del lector usando diferentes maneras de representar los algoritmos y resolviendo problemas interesantes para ilustrar y explicar cada uno de los conceptos o instrucciones de los lenguajes de programación, plantea problemas que obligarán a la persona a pensar y ser creativa para resolverlos.\r\n\r\n', 6, 'covers/5efa2b30dd7f9.jpg'),
-(24, 'desarrollador web claves y tecnicas para optimizar sitios', 'Minera Francisco José', 'Esta obra es una guía de referencia útil y versátil, tanto para programadores como para diseñadores, que deseen obtener resultados profesionales en sus desarrollos. En sus páginas, repararemos conceptos y técnicas que permitirán mejorar la experiencia final de los usuarios', 6, 'covers/5efa2c077c764.jpg');
+(24, 'desarrollador web claves y tecnicas para optimizar sitios', 'Minera Francisco José', 'Esta obra es una guía de referencia útil y versátil, tanto para programadores como para diseñadores, que deseen obtener resultados profesionales en sus desarrollos. En sus páginas, repararemos conceptos y técnicas que permitirán mejorar la experiencia final de los usuarios', 6, 'covers/5efa2c077c764.jpg'),
+(26, 'De la Tierra a la Luna', 'Julio Verne', 'En el Gun Club de Baltimore, tres científicos aficionados preparan el mayor salto intentado nunca por los hombres, sirviéndose de un proyectil, que contiene una cabina para los decimonónicos astronautas, y un gigantesco cañón para dispararlo más allá de la atmósfera.', 3, 'covers/5eff8c09713fb.png'),
+(27, 'aaaaaaaaaaaaaaaaaaa', 'sdfs', 'sfsfs', 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -78,8 +80,12 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id`, `id_book_fk`, `id_user_fk`, `content`, `puntaje`) VALUES
-(1, 5, 2, 'primer comentario', 0),
-(2, 5, 3, 'segundo comentario', 3);
+(37, 5, 3, 'aaaaaaaaaaaaaa', 5),
+(65, 24, 8, 'me gusta este livro', 5),
+(67, 7, 8, 'aaa', 3),
+(70, 5, 2, 'sssss', 2),
+(73, 7, 2, 'me gusto este libros muy buen recomendable que se yo', 5),
+(75, 7, 2, 'aaa a         a          a            aaaaaaaaaaaaaa aaaaaaaa aaaaaaa aaaa a aaaaaaa a a', 1);
 
 -- --------------------------------------------------------
 
@@ -102,6 +108,18 @@ INSERT INTO `genre` (`id`, `name`) VALUES
 (9, 'Terror'),
 (10, 'Fantasia'),
 (11, 'Educativos');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `token`
+--
+
+CREATE TABLE `token` (
+  `id` int(11) NOT NULL,
+  `username` varchar(80) NOT NULL,
+  `hash` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -143,14 +161,21 @@ ALTER TABLE `book`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `fk_user` (`id_user_fk`),
-  ADD KEY `fk_book` (`id_book_fk`);
+  ADD KEY `fk_book` (`id_book_fk`),
+  ADD KEY `fk_user` (`id_user_fk`) USING BTREE;
 
 --
 -- Indices de la tabla `genre`
 --
 ALTER TABLE `genre`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `token`
+--
+ALTER TABLE `token`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usertname` (`username`);
 
 --
 -- Indices de la tabla `user`
@@ -167,19 +192,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT de la tabla `genre`
 --
 ALTER TABLE `genre`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `token`
+--
+ALTER TABLE `token`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
@@ -195,7 +226,20 @@ ALTER TABLE `user`
 -- Filtros para la tabla `book`
 --
 ALTER TABLE `book`
-  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`id_genre_fk`) REFERENCES `genre` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`id_genre_fk`) REFERENCES `genre` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `comment`
+--
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_book_fk`) REFERENCES `book` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`id_user_fk`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `token`
+--
+ALTER TABLE `token`
+  ADD CONSTRAINT `usertname` FOREIGN KEY (`username`) REFERENCES `user` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

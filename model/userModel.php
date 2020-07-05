@@ -5,6 +5,15 @@ class userModel extends dbModel
 {
 
     /**
+     *  Cambiar contraseña de usuario.
+     */
+    public function setPassword($id, $hash)
+    {
+        $query = $this->getDbConection()->prepare('UPDATE user SET password = ? WHERE id_user = ?');
+        return $query->execute([$hash, $id]);
+    }
+
+    /**
      *  Traer un usuario por su nombre.
      */
     public function getUserByName($name)
@@ -19,10 +28,11 @@ class userModel extends dbModel
     }
 
     /**
-     *  
+     *  Traer el id y el mail de un usuario.
      */
-    public function getUsername($name){
-        $query = $this->getDbConection()->prepare('SELECT username, email FROM user WHERE username = ?');
+    public function getIdUser($name)
+    {
+        $query = $this->getDbConection()->prepare('SELECT id_user, email FROM user WHERE username = ?');
         $response = $query->execute([$name]);
         if ($response == true) {
             return $query->fetchAll(PDO::FETCH_OBJ);

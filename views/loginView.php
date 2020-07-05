@@ -12,10 +12,12 @@ class loginView extends view
     /** 
      * Muestra el mensaje del error especifico en el login.  
      */
-    public function showTokenForm($username)
+    public function showTokenForm($user_id, $msj = null)
     {
-
-        $this->getSmarty()->assign('name', $username);
+        if ($msj != null) {
+            $this->getSmarty()->assign('msj', $msj);
+        }
+        $this->getSmarty()->assign('user_id', $user_id);
         $this->getSmarty()->display('templates/writeToken.tpl');
     }
 
@@ -25,7 +27,7 @@ class loginView extends view
     public function showForgetForm($msj = null)
     {
         if ($msj != null) {
-            $this->getSmarty()->assign('msjr', $msj);
+            $this->getSmarty()->assign('msj', $msj);
         }
         $this->getSmarty()->display('templates/forgetForm.tpl');
     }

@@ -18,18 +18,18 @@
             </thead>
             <tbody>
                 {foreach from=$books item=book}
-                    <tr>
+                    <tr data-book-id="{$book->book_id}">
                         <td>{$book->book_name|truncate:50}</td>
                         <td>{$book->author|truncate:50}</td>
                         <td>{$book->details|truncate:60}</td>
     
                         {if ($book->img)}
                             <td>
-                                <img class="min_img" name="change_covers" src="{$book->img}" alt="{$book->book_id}" />
+                                <img class="min_img" name="change_covers" src="{$book->img}" alt="image" />
                             </td>
                         {else}
                             <td>
-                                <img class="min_img" name="change_covers" alt="{$book->book_id}" />
+                                <img class="min_img" name="change_covers" alt="no image" />
                             </td>
                         {/if}
     
