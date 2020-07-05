@@ -45,9 +45,17 @@ switch ($actions[1]) {
         $adminController = new adminController();
         $adminController->logOut();
         break;
-    case 'sendMail':
+    case 'forgetfulUser':
         $usersController = new usersController();
-        $usersController->sendMail();
+        $usersController->getForgetForm();
+        break;
+    case 'checkUserToGetToken':
+        $usersController = new usersController();
+        $usersController->checkUserToGetToken();
+        break;
+    case 'checkToken':
+        $usersController = new usersController();
+        $usersController->checkToken();
         break;
     case 'admin':
         if (!isset($actions[2])) {

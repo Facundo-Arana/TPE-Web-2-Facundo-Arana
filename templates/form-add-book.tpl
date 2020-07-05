@@ -22,7 +22,7 @@
         </div>
         <label class="oculto"> ---------------- </label>
         <div>
-            <textarea name="details" rows="15" placeholder="details"></textarea>
+            <textarea name="details" rows="13" placeholder="details"></textarea>
         </div>
         <label><p>select cover</p></label>
         <div>

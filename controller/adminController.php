@@ -3,7 +3,11 @@ require_once('controller/controller.php');
 
 class adminController extends controller
 {
+    /**
+     *  Contiene todos los datos del usuario actualmente logueado.
+     */
     private $userData;
+
     function __construct()
     {
         parent::__construct();
@@ -18,7 +22,7 @@ class adminController extends controller
         AuthHelper::authorityCheck();
         $books = $this->getBookModel()->getAllBooksDB();
         $genres = $this->getGenreModel()->getAllGenresDB();
-        $users = $this->getUserModel()->getAllUsers();
+        $users = $this->getUserModel()->getAllUsersWithoutAdmin($this->userData['id']);
         $this->getAdminView()->showAdminView($genres, $books, $this->userData, $users);
     }
 
@@ -28,10 +32,6 @@ class adminController extends controller
     public function editCover()
     {
         AuthHelper::authorityCheck();
-        if (!isset($_POST['id_book_cover'])) {
-            $this->getErrorView()->showErrorView('Libro no seleccionado', $this->userData);
-            die();
-        }
         $id = $_POST['id_book_cover'];
 
         $link_img = $_POST['link_img'];
@@ -43,17 +43,18 @@ class adminController extends controller
         }
 
         if (
-            $_FILES['cover']['type'] == "image/jpg" ||
-            $_FILES['cover']['type'] == "image/jpeg" ||
+            $_FILES['cover']['type'] == "image/jpg" || $_FILES['cover']['type'] == "image/jpeg" ||
             $_FILES['cover']['type'] == "image/png"
         ) {
             $response = $this->getBookModel()->editCover($id, $_FILES['cover']['tmp_name'], $_FILES['cover']['name']);
             if ($response == false)
                 $this->getErrorView()->showErrorView('Error al añadir imagen', $this->userData);
             else {
-                $this->getAdminView()->showAdminSuccess('Se editado la portada con exito', $this->userData);
-                if ($link_img)
+                if ($link_img) {
+                    $this->getAdminView()->showAdminSuccess('Se editado la portada con exito', $this->userData);
                     unlink($link_img);
+                } else
+                    $this->getAdminView()->showAdminSuccess('Se añadido la portada con exito', $this->userData);
             }
         } else {
             $this->getErrorView()->showErrorView('Formato de imagen incorrecto', $this->userData);
@@ -189,8 +190,7 @@ class adminController extends controller
             die();
         }
         if (
-            $_FILES['img_name']['type'] == "image/jpg" ||
-            $_FILES['img_name']['type'] == "image/jpeg" ||
+            $_FILES['img_name']['type'] == "image/jpg" || $_FILES['img_name']['type'] == "image/jpeg" ||
             $_FILES['img_name']['type'] == "image/png"
         ) {
             $response = $this->getBookModel()->addBookDB($name, $author, $details, $idGenreFk, $_FILES['img_name']['tmp_name'], $_FILES['img_name']['name']);

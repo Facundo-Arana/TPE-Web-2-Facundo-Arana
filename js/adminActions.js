@@ -1,6 +1,12 @@
 "use strict";
 document.addEventListener('DOMContentLoaded', iniciar);
 
+/**
+ *   Este archivo tiene la funcion de mostrar/ocultar botones, formularios,   </br>
+ *  traer datos de libros, usuarios (via API REST) para mostrarlos con la     </br>
+ *  idea de poder editarlos y demas cuestiones que no son relevantes para     </br>
+ *  cumplir con las funcionalidades requeridas en este trabajo practico.
+ */
 function iniciar() {
     let btn_forms = document.getElementsByName('botones_forms');
     btn_forms.forEach(element => {
@@ -55,9 +61,12 @@ function book_data(event) {
             let idBook = document.querySelector('#idBook');
             let id_book_cover = document.querySelector('#id_book_cover');
             let link_img = document.querySelector('#link_img');
+            let submitCover = document.querySelector('#submitCover');
             if (book.img == null) {
-                document.querySelector('#submitCover').classList.add('none');
-            }  
+                submitCover.classList.add('none');
+            }else{
+                submitCover.classList.remove('none');
+            }
             link_img.value = book.img;
             idBook.value = id;   
             id_book_cover.value = id;      

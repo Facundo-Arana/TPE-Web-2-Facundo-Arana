@@ -1,7 +1,7 @@
 <div class="form-center">
     <label class="oculto"> ---------------- </label>
     <div>
-        <h2>All Users</h2>
+        <h2>All Users (without me)</h2>
     </div>
     <label class="oculto"> ---------------- </label>
     <div>

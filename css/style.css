@@ -102,7 +102,7 @@ header {
     width: fit-content;
 }
 
-.scroll{
+.scroll {
     overflow: scroll;
     height: 500px;
 }
@@ -113,12 +113,18 @@ table {
     letter-spacing: 1px;
     font-family: sans-serif;
     font-size: .8rem;
-    min-width: 300px;
+    width: 100%;
+}
+
+td {
+    min-width: 30px;
+    max-width: 400px;
 }
 
 td, th {
     border: 1px solid rgb(190, 190, 190);
     padding: 5px 10px;
+    
 }
 
 p {
@@ -189,18 +195,17 @@ article>p {
     padding: 0px 1em;
 }
 
-.rating-img{
+.rating-img {
     display: inline-flex;
 }
 
-.rating-info{
+.rating-info {
     padding-top: 10px;
     color: rgb(0, 26, 255);
 }
 
-.text-size{
+.text-size {
     color: rgb(0, 26, 255);
-    background-color: rgb(230, 221, 221);
     resize: none;
 }
 
@@ -239,8 +244,8 @@ html {
     padding: 0px;
 }
 
-.comment{
-    min-width: 500px;
+.comment {
+    width: -webkit-fill-available;
 }
 
 textarea {

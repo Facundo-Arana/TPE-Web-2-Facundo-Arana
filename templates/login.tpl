@@ -54,7 +54,7 @@
                 <input type="password" name="password">
             </div>
             <div>
-                <a href="library/sendMail">olvide mi contraseña</a>
+                <a href="library/forgetfulUser">olvide mi contraseña</a>
             </div>
             <label class="oculto"> ---------------- </label>
             <div>

@@ -9,6 +9,27 @@ class loginView extends view
         $this->getSmarty()->assign('inLogin', 1);
     }
 
+    /** 
+     * Muestra el mensaje del error especifico en el login.  
+     */
+    public function showTokenForm($username)
+    {
+
+        $this->getSmarty()->assign('name', $username);
+        $this->getSmarty()->display('templates/writeToken.tpl');
+    }
+
+    /** 
+     * Muestra el mensaje del error especifico en el login.  
+     */
+    public function showForgetForm($msj = null)
+    {
+        if ($msj != null) {
+            $this->getSmarty()->assign('msjr', $msj);
+        }
+        $this->getSmarty()->display('templates/forgetForm.tpl');
+    }
+
     /**
      *  Muestra la pagina login.
      */

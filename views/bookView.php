@@ -11,9 +11,10 @@ class bookView extends view
         if ($userData != null) {
             $this->getSmarty()->assign('username', $userData['userName']);
             $this->getSmarty()->assign('priority', $userData['priority']);
-            if (isset($userData['is_logged'])){
+            if (isset($userData['is_logged']))
                 $this->getSmarty()->assign('is_logged', $userData['is_logged']);
-            }
+            if (isset($userData['id']))
+                $this->getSmarty()->assign('user_id', $userData['id']);
         }
         $this->getSmarty()->assign('genres', $listGenres);
         $this->getSmarty()->display('templates/home.tpl');
@@ -27,10 +28,10 @@ class bookView extends view
         if ($userData != null) {
             $this->getSmarty()->assign('username', $userData['userName']);
             $this->getSmarty()->assign('priority', $userData['priority']);
-            if (isset($userData['is_logged'])){
-
+            if (isset($userData['is_logged']))
                 $this->getSmarty()->assign('is_logged', $userData['is_logged']);
-            }
+            if (isset($userData['id']))
+                $this->getSmarty()->assign('user_id', $userData['id']);
         }
         $this->getSmarty()->assign('genres', $listGenres);
         $this->getSmarty()->assign('books', $allBooks);
@@ -45,9 +46,11 @@ class bookView extends view
         if ($userData != null) {
             $this->getSmarty()->assign('username', $userData['userName']);
             $this->getSmarty()->assign('priority', $userData['priority']);
-            if (isset($userData['is_logged'])){
+            if (isset($userData['is_logged']))
                 $this->getSmarty()->assign('is_logged', $userData['is_logged']);
-            }
+
+            if (isset($userData['id']))
+                $this->getSmarty()->assign('user_id', $userData['id']);
         }
         $this->getSmarty()->assign('genres', $listGenres);
         $this->getSmarty()->assign('books', $booksByGenre);
@@ -62,10 +65,10 @@ class bookView extends view
         if ($userData != null) {
             $this->getSmarty()->assign('username', $userData['userName']);
             $this->getSmarty()->assign('priority', $userData['priority']);
-            if (isset($userData['is_logged'])) {
+            if (isset($userData['is_logged']))
                 $this->getSmarty()->assign('is_logged', $userData['is_logged']);
-                $this->getSmarty()->assign('id_user', $userData['id']);
-            }
+            if (isset($userData['id']))
+                $this->getSmarty()->assign('user_id', $userData['id']);
         }
         $this->getSmarty()->assign('genres', $listGenres);
         $this->getSmarty()->assign('book', $book);

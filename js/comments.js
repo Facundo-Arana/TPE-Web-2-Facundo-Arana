@@ -1,11 +1,11 @@
 "use strict";
 
 /**
- *  Obtener datos de usuario actual desde elementos HTML ocultos.
+ *  Obtener datos de usuario actual desde atributos HTML.
  */
-let username = document.getElementById('username').textContent;
-let priority = document.getElementById('priority').textContent;
-let id_user = document.getElementById('id_user').textContent;
+let username = document.querySelector("#user_data").getAttribute('user-username');
+let id_user = document.querySelector("#user_data").getAttribute('user-id');
+let priority = document.querySelector("#user_data").getAttribute('user-priority');
 
 /**
  *  Renderizar tabla de comentarios.
