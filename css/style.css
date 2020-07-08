@@ -22,7 +22,6 @@ body {
 
 .login {
     background-color: black;
-    opacity: 98%;
     position: fixed;
     top: 60%;
     left: 50%;
@@ -275,7 +274,7 @@ textarea {
 footer {
     position: absolute;
     bottom: 0px;
-    width: -webkit-fill-available;
+    width: 99.8%;
     height: 10px;
     background: url(../img/headerbackground.png);
 }

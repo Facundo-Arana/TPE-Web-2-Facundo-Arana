@@ -5,11 +5,7 @@
     <div class="wrapper">
         <section>
             <h2 class="subtitle">My Profile</h2>
-
             {include 'templates/form-edit-pass.tpl'}
-
-
-
         </section>
     </div>
     {if isset($msj)}

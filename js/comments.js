@@ -138,8 +138,7 @@ function getComments() {
  *  Obtener el id del libro desde la direccion URL.
  */
 function getBookID() {
-    let url = window.location.pathname.split("/");
-    let id = url[(url.length - 1)];
+    let id = document.getElementById('user_data').getAttribute('book-id'); 
     return id;
 }
 

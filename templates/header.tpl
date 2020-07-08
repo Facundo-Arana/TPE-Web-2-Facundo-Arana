@@ -52,6 +52,7 @@
                             <li class="item"><a href="library/profile">profile</a></li>
                             <li class="item"><a href="library/logOut">logout</a></li>
                         </ul>
+                        <script src="js/userActions.js"></script>
                     {else}
                         <button><a href="library/login">login</a></button>
                     {/if}
@@ -63,12 +64,12 @@
                             <li><a class="item" href="library/profile">profile</a></li>
                             <li><a class="item" href="library/logOut">logout</a></li>
                         </ul>
+                        <script src="js/userActions.js"></script>
                     {else}
                         <button class="oculto">login</button>
                     {/if}
                 {/if}
             </div>
-            <script src="js/userActions.js"></script>
         </header>
 
         <div class="conteiner">

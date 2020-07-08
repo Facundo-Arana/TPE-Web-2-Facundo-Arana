@@ -19,7 +19,7 @@
         </div>
     </section>
 
-    <section class="wrapper" id="user_data" user-id="{$user_id}" user-priority="{$priority}" user-username="{$username}">
+    <section class="wrapper" id="user_data" user-id="{$user_id}" user-priority="{$priority}" user-username="{$username}" book-id="{$book->book_id}">
 
         <p class="none" id="id_user">{$id_user}</p>
         <div>
