@@ -13,9 +13,9 @@ class AuthHelper
     {
         self::start();
         $_SESSION['IS_LOGGED'] = true;
-        $_SESSION['ID_USER'] = $user[0]->id_user;
-        $_SESSION['USERNAME'] = $user[0]->userName;
-        $_SESSION['PRIORITY'] = $user[0]->priority;
+        $_SESSION['ID_USER'] = $user->id_user;
+        $_SESSION['USERNAME'] = $user->userName;
+        $_SESSION['PRIORITY'] = $user->priority;
         if ($_SESSION['PRIORITY'] == 2)
             header('location:' . URLBASE . 'library/admin');
         else

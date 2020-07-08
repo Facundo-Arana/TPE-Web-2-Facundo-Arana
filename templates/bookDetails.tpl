@@ -20,6 +20,7 @@
     </section>
 
     <section class="wrapper" id="user_data" user-id="{$user_id}" user-priority="{$priority}" user-username="{$username}">
+
         <p class="none" id="id_user">{$id_user}</p>
         <div>
             {include 'templates/vue/form-add-comment.vue'}
@@ -28,6 +29,7 @@
             {include 'templates/vue/comments.vue'}
         </div>
         <script src="js/comments.js"></script>
+        
     </section>
 </div>
 

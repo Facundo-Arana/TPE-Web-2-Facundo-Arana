@@ -63,9 +63,10 @@ class controller
         return $this->adminView;
     }
 
-    public function getAuthHelper()
+    public function getUserData()
     {
-        return $this->authHelper;
+        $data = AuthHelper::getUserData();
+        return $data;
     }
 
     public function getErrorView()

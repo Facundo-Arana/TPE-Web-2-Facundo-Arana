@@ -10,7 +10,7 @@ let priority = document.querySelector("#user_data").getAttribute('user-priority'
 /**
  *  Renderizar tabla de comentarios.
  */
-var commentsList = new Vue({
+let commentsList = new Vue({
     el: '#comments',
     data: {
         error: false,
@@ -49,7 +49,7 @@ var commentsList = new Vue({
 /**
  *  Renderizar promedio de puntajes de los usuarios.
  */
-var assessment = new Vue({
+let assessment = new Vue({
     el: '#assessment',
     data: {
         loading: true,
@@ -61,7 +61,7 @@ var assessment = new Vue({
 /**
  *  Renderizar formulario para postear un comentario.
  */
-var formPostComment = new Vue({
+let formPostComment = new Vue({
     el: '#form-add-comment',
     data: {
         userComment: null,

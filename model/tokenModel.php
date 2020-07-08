@@ -9,7 +9,7 @@ class tokenModel extends dbModel
         $query = $this->getDbConection()->prepare('SELECT hash FROM token WHERE id_user_fk = ?');
         $response = $query->execute([$id]);
         if ($response == true)
-            return $query->fetchAll(PDO::FETCH_OBJ);
+            return $query->fetch(PDO::FETCH_OBJ);
         else
             return $response;
     }

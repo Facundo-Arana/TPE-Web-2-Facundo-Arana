@@ -60,6 +60,7 @@ header {
 }
 
 .main {
+    z-index: 1;
     opacity: 90%;
     padding: 0 1em;
     margin: 2px 0 2px 0;
@@ -92,7 +93,7 @@ header {
 *
 */
 
-.side, header, input, button, .login, footer, select, textarea, .cover {
+.side, header, input, button, .login, footer, select, textarea, .cover, .activ {
     border: 1px solid #008081;
     border-radius: 5px;
 }
@@ -124,7 +125,6 @@ td {
 td, th {
     border: 1px solid rgb(190, 190, 190);
     padding: 5px 10px;
-    
 }
 
 p {
@@ -175,6 +175,26 @@ nav>ul>li>a {
 
 article>p {
     font-size: 1.2em;
+}
+
+li>a {  
+    color: beige;
+}
+
+.item {
+    z-index: 2;
+    padding: 10px;
+}
+
+.activ {
+    position: absolute;
+    z-index: 11;
+    background-color: rgb(20, 20, 20);
+}
+
+#profile {
+    width: 50px;
+    padding: 10px;
 }
 
 .min_img {

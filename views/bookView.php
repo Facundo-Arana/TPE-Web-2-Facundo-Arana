@@ -3,6 +3,20 @@ require_once('views/view.php');
 
 class bookView extends view
 {
+
+    /**
+     * Motrar perfil del usuario.
+     */
+    public function showProfile($listGenres, $userData, $msj = null)
+    {
+        $this->getSmarty()->assign('username', $userData['userName']);
+        $this->getSmarty()->assign('priority', $userData['priority']);
+        $this->getSmarty()->assign('is_logged', $userData['is_logged']);
+        $this->getSmarty()->assign('genres', $listGenres);
+        if ($msj != null)
+            $this->getSmarty()->assign('msj', $msj);
+        $this->getSmarty()->display('templates/user-profile.tpl');
+    }
     /**
      *  Muestra la pagina principal para navegar por el sitio. 
      */

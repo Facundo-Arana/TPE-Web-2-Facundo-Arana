@@ -14,7 +14,6 @@ class errorView extends view
             if (isset($userData['is_logged']))
                 $this->getSmarty()->assign('is_logged', $userData['is_logged']);
         }
-        $this->getSmarty()->assign('number', $userData);
         $this->getSmarty()->assign('text', $mensagge);
         $this->getSmarty()->display('templates/error.tpl');
     }

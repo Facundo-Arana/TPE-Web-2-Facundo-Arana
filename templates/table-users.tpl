@@ -18,6 +18,7 @@
                     <tr>
                         <td>{$user->userName}</td>
                         <td>{$user->priority}</td>
+                        <td>{$user->email}</td>
                         <td>
                             <form action="library/admin/deleteUser" method="POST">
     

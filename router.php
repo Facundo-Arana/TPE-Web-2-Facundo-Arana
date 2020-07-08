@@ -57,6 +57,14 @@ switch ($actions[1]) {
         $usersController = new usersController();
         $usersController->checkToken();
         break;
+    case 'profile':
+        $libraryController = new libraryController();
+        $libraryController->getUserProfile();
+        break;
+    case 'editPassword':
+        $usersController = new usersController();
+        $usersController->editPassword();
+        break;
     case 'admin':
         if (!isset($actions[2])) {
             $adminController = new adminController();

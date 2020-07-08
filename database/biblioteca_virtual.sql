@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-07-2020 a las 03:49:01
+-- Tiempo de generación: 06-07-2020 a las 01:23:49
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -117,7 +117,7 @@ INSERT INTO `genre` (`id`, `name`) VALUES
 
 CREATE TABLE `token` (
   `id` int(11) NOT NULL,
-  `username` varchar(80) NOT NULL,
+  `id_user_fk` int(11) NOT NULL,
   `hash` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -143,7 +143,8 @@ INSERT INTO `user` (`id_user`, `userName`, `email`, `priority`, `password`) VALU
 (2, 'TUDAI', '', 2, '$2y$12$6bkmpd7tqhioPGgfO0X7IOu.EDTE8wjelj.fFhrKw5eTcxJB3D3lq'),
 (3, 'facundo', '', 1, '$2y$10$lpoh8wBGp1EFoS4liKyA3ONfQea8H0k2c1Vaue6eyq4AQ7qZbC.US'),
 (5, 'admin', '', 1, '$2y$10$8e2HaY0BGmDTN4LgNXx.f.0IPXo3EI8CgTRXqhj/nlYZ3c3ux9APu'),
-(8, 'gabyte', 'gabriematiasquattrini@gmail.com', 1, '$2y$10$9P3Zrhqce9mz50R69vA3NubE842WIVtn8ZtXEcTKKdt8/B4um3Lou');
+(8, 'gabyte', 'gabriematiasquattrini@gmail.com', 1, '$2y$10$9P3Zrhqce9mz50R69vA3NubE842WIVtn8ZtXEcTKKdt8/B4um3Lou'),
+(9, 'nuevo', 'facundoaranaloberia@gmail.com', 1, '$2y$10$9sK9pxQQE6V7B/zJqdbmXOdaKaemzA7sbD5lkVcKmEuQ0BgONIZ/K');
 
 --
 -- Índices para tablas volcadas
@@ -175,7 +176,7 @@ ALTER TABLE `genre`
 --
 ALTER TABLE `token`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `usertname` (`username`);
+  ADD KEY `id_user_fk` (`id_user_fk`);
 
 --
 -- Indices de la tabla `user`
@@ -210,13 +211,13 @@ ALTER TABLE `genre`
 -- AUTO_INCREMENT de la tabla `token`
 --
 ALTER TABLE `token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
@@ -239,7 +240,7 @@ ALTER TABLE `comment`
 -- Filtros para la tabla `token`
 --
 ALTER TABLE `token`
-  ADD CONSTRAINT `usertname` FOREIGN KEY (`username`) REFERENCES `user` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `token_ibfk_1` FOREIGN KEY (`id_user_fk`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

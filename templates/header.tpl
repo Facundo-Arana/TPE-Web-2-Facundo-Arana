@@ -47,19 +47,28 @@
             <div>
                 {if !isset($inLogin)}
                     {if isset($is_logged)}
-                        <button><a href="library/logOut">logout</a></button>
+                        <button id="profile">|||</button>
+                        <ul id="activ" class="activ oculto">
+                            <li class="item"><a href="library/profile">profile</a></li>
+                            <li class="item"><a href="library/logOut">logout</a></li>
+                        </ul>
                     {else}
                         <button><a href="library/login">login</a></button>
                     {/if}
     
                 {else}
                     {if isset($is_logged)}
-                        <button><a href="library/logOut">logout</a></button>
+                        <button id="profile">|||</button>
+                        <ul id="activ" class="activ oculto">
+                            <li><a class="item" href="library/profile">profile</a></li>
+                            <li><a class="item" href="library/logOut">logout</a></li>
+                        </ul>
                     {else}
                         <button class="oculto">login</button>
                     {/if}
                 {/if}
             </div>
+            <script src="js/userActions.js"></script>
         </header>
 
         <div class="conteiner">

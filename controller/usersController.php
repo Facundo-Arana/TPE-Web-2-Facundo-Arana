@@ -30,23 +30,23 @@ class usersController extends controller
         }
 
         // borrar token si ya existe una para este usuario (solo se permite una a la vez por usuario).
-        $this->getTokenModel()->deleteToken($userDB[0]->id_user);
+        $this->getTokenModel()->deleteToken($userDB->id_user);
 
         // crear una clave unica
         $token =  strtoupper(uniqid());
         $hash = password_hash($token, PASSWORD_DEFAULT);
 
         // guardar token para el usuario en la bd.
-        $this->getTokenModel()->setToken($hash, $userDB[0]->id_user);
+        $this->getTokenModel()->setToken($hash, $userDB->id_user);
 
         // enviar clave al mail del usuario
         $mensaje = '<p>La clave para recuperar tu cuenta es: ' . $token . ' </p>';
-        $response = self::sendToken($mensaje, $userDB[0]->email);
+        $response = self::sendToken($mensaje, $userDB->email);
 
         if ($response == true)
-            $this->getLoginView()->showTokenForm($userDB[0]->id_user);
-        else{
-            $this->getTokenModel()->deleteToken($userDB[0]->id_user);
+            $this->getLoginView()->showTokenForm($userDB->id_user);
+        else {
+            $this->getTokenModel()->deleteToken($userDB->id_user);
             $this->getLoginView()->showForgetForm('El mail con el que creaste la cuenta no sirve, agua y ajo');
         }
     }
@@ -110,11 +110,11 @@ class usersController extends controller
         $res = $this->getTokenModel()->getToken($id);
 
         // comparo la clave ingresada con la token de la base de datos.
-        $response = password_verify($token, $res[0]->hash);
+        $response = password_verify($token, $res->hash);
         if ($response == true) {
 
             // cambio la contraseña del usuario por la clave dada de forma aleatoria. 
-            $this->getUserModel()->setPassword($id, $res[0]->hash);
+            $this->getUserModel()->setPassword($id, $res->hash);
             sleep(3);
             $userDB = $this->getUserModel()->getUserById($id);
 
@@ -122,9 +122,8 @@ class usersController extends controller
             $this->getTokenModel()->deleteToken($id);
 
             // aviso al usuario de la nueva contraseña.
-            $mensaje = '<p>Recuperaste tu cuenta!!! la contraseña nueva es la clave que recibiste anteriormente, recomendamos que la cambies</p>';
-            self::sendToken($mensaje, $userDB[0]->email);
-
+            $mensaje = '<p>Recuperaste tu cuenta!!! tu nueva contraseña es la clave de recuperacion que recibiste anteriormente, recomendamos que la cambies</p>';
+            $res = self::sendToken($mensaje, $userDB->email);
             // loguear al usuario.
             AuthHelper::login($userDB);
         } else {
@@ -132,9 +131,26 @@ class usersController extends controller
         }
     }
 
+    /**
+     *  Cambiar contraseña.
+     */
+    public function editPassword()
+    {
+        if (empty($_POST['oldPass']) || empty($_POST['newPass']) || empty($_POST['username'])) {
+            header('location:' . URLBASE . 'library/profile');
+            die();
+        }
+        $result = $this->getUserModel()->checkPass($_POST['username'], $_POST['oldPass'], $_POST['newPass']);
+        $genres = $this->getGenreModel()->getAllGenresDB();
+        if ($result == false) {
+            $this->getBookView()->showProfile($genres, $this->getUserData(), 'la contraseña es incorrecta');
+        } else {
+            $this->getBookView()->showProfile($genres, $this->getUserData(), 'cambiaste tu contraseña correctamente');
+        }
+    }
 
     /** 
-     *  Verificacion de los datos de registro del administrador.
+     *  Verificacion de los datos de acceso de usuario.
      *  @param userDB sera falso si es que no existe un usuario con ese nombre en la base de datos.
      */
     public function verify()
@@ -154,7 +170,7 @@ class usersController extends controller
             $this->getLoginView()->showErrorLogin('nombre de usuario incorrecto');
             die();
         }
-        $hash = $userDB[0]->password;
+        $hash = $userDB->password;
         $response = password_verify($pass, $hash);
         if ($response == false)
             $this->getLoginView()->showErrorLogin('contraseña incorrecta');

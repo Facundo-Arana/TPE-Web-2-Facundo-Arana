@@ -14,6 +14,25 @@ class userModel extends dbModel
     }
 
     /**
+     * 
+     */
+    public function checkPass($username, $old, $new){
+        $data = $this->getUserByName($username);
+        $response = password_verify($old, $data->password);
+        if($response == false)
+            return false;
+        else{
+            $encryptedPass = password_hash($new, PASSWORD_DEFAULT);
+            $ok = $this->setPassword($data->id_user, $encryptedPass);
+            
+            if(!$ok)
+                return false;
+            else
+                return true;
+        }
+    }
+
+    /**
      *  Traer un usuario por su nombre.
      */
     public function getUserByName($name)
@@ -21,7 +40,7 @@ class userModel extends dbModel
         $query = $this->getDbConection()->prepare('SELECT * FROM user WHERE username = ?');
         $response = $query->execute([$name]);
         if ($response == true) {
-            return $query->fetchAll(PDO::FETCH_OBJ);
+            return $query->fetch(PDO::FETCH_OBJ);
         } else {
             return $response;
         }
@@ -35,7 +54,7 @@ class userModel extends dbModel
         $query = $this->getDbConection()->prepare('SELECT id_user, email FROM user WHERE username = ?');
         $response = $query->execute([$name]);
         if ($response == true) {
-            return $query->fetchAll(PDO::FETCH_OBJ);
+            return $query->fetch(PDO::FETCH_OBJ);
         } else {
             return $response;
         }
@@ -45,10 +64,10 @@ class userModel extends dbModel
      */
     public function getUserById($id)
     {
-        $query = $this->getDbConection()->prepare('SELECT id_user, userName, priority FROM user WHERE id_user = ?');
+        $query = $this->getDbConection()->prepare('SELECT id_user, userName, email, priority FROM user WHERE id_user = ?');
         $response = $query->execute([$id]);
         if ($response == true) {
-            return $query->fetchAll(PDO::FETCH_OBJ);
+            return $query->fetch(PDO::FETCH_OBJ);
         } else {
             return $response;
         }
@@ -59,7 +78,7 @@ class userModel extends dbModel
      */
     public function getAllUsersWithoutAdmin($id)
     {
-        $query = $this->getDbConection()->prepare('SELECT id_user, userName, priority FROM user WHERE id_user != ?');
+        $query = $this->getDbConection()->prepare('SELECT id_user, userName, email, priority FROM user WHERE id_user != ?');
         $response = $query->execute([$id]);
         if ($response == true) {
             return $query->fetchAll(PDO::FETCH_OBJ);

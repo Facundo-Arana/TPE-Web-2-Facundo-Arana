@@ -45,6 +45,10 @@ function iniciar() {
     document.querySelector('#idUser').addEventListener('change', user_data);
 }
 
+
+/**
+ *  Traer datos de un libro para autocompletar los formularios de edicion de libro y el de portadas. 
+ */
 function book_data(event) {
     let target = event.currentTarget;
     let td = target.parentNode;
@@ -80,16 +84,22 @@ function book_data(event) {
         });
 }
 
+/**
+ * Traer datos de un usuario para autocompletar el form de edicion de permisos.
+ */
 function user_data(event) {
     let id = event.target.value;
     fetch('library/api/user/' + id)
         .then(respuesta => respuesta.json())
-        .then(book => {
+        .then(user => {
             let priority = document.querySelector('#priority');
-            priority.value = book[0].priority;
+            priority.value = user.priority;
         });
 }
 
+/**
+ * mostrar / ocultar formularios.
+ */
 function show_content(e) {
     let form_books = document.getElementById('books');
     let form_add_book = document.getElementById('book-add');

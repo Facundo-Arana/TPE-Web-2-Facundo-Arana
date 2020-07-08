@@ -17,6 +17,14 @@ class libraryController extends controller
     }
 
     /**
+     * Muestra el perfil del usuario.
+     */
+    public function getUserProfile(){
+        AuthHelper::checkLoggedIn();
+        $this->getBookView()->showProfile($this->genres, $this->userData);
+    }
+
+    /**
      *  Muestra la pagina home donde ya se puede explorar el catalogo de libros.
      */
     public function getHome()
