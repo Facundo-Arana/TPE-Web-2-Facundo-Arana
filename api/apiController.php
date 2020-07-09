@@ -22,8 +22,11 @@ class apiController
     public function postComment()
     {
         $params = json_decode(file_get_contents("php://input"));
-        $this->comment_model->newComment($params->id_book_fk, $params->id_user_fk, $params->content, $params->puntaje);
-        $this->view->response($params, 200);
+        $res = $this->comment_model->newComment($params->id_book_fk, $params->id_user_fk, $params->content, $params->puntaje);
+        if ($res)
+            $this->view->response($res, 200);
+        else
+            $this->view->response(null, 200);
     }
 
     public function deleteComment($params = [])
@@ -35,10 +38,11 @@ class apiController
                 $this->view->response('comentario inexistente', 200);
                 die();
             }
-            $this->comment_model->deleteComment($id);
-            $this->view->response(true, 200);
+            $res = $this->comment_model->deleteComment($id);
+            if ($res)
+                $this->view->response($res, 200);
         } else {
-            $this->view->response(false, 404);
+            $this->view->response(null, 200);
         }
     }
 
@@ -62,7 +66,7 @@ class apiController
             if ($user)
                 $this->view->response($user, 200);
             else
-                $this->view->response("no existe usuario con id {$id_user}", 404);
+                $this->view->response(null, 200);
         }
     }
 
@@ -77,7 +81,7 @@ class apiController
             if ($book)
                 $this->view->response($book, 200);
             else
-                $this->view->response("no existe libro con id {$idBook}", 200);
+                $this->view->response(null, 200);
         }
     }
 }

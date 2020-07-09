@@ -25,21 +25,15 @@ let commentsList = new Vue({
          */
         deleteComment: function (id) {
             fetch('library/api/deleteComment/' + id, { method: 'DELETE' })
-                .then((response) => { return response.text() })
+                .then((response) => { return response.json() })
                 .then(response => {
-
-                    // Desde la API se recibe 'true' (string), en lugar de TRUE (boolean).
+                    console.log(response);
+                    // Desde la API se recibe 'true' (string), en lugar de TRUE (boolean). nose xq
                     if (response == 'true') {
-
-                        // Resetear valores del promedio de puntajes de usuarios. 
-                        assessment.loading = true;
-                        assessment.users_rating = null;
-
-                        // Demora necesaria antes de volver a cargar la tabla de comentarios.
-                        setTimeout(function () { getComments() }, 500);
+                        getComments();
                     }
                     else
-                        alert(response);
+                        alert('no se pudo borrar comentario');
                 })
                 .catch((exception) => console.log(exception));
         }
@@ -81,16 +75,6 @@ let formPostComment = new Vue({
 
             // Postear comentario.
             postComment(userComment.value, puntaje.value);
-
-            // Resetear valores del formulario y la tabla de comentario previo a volver a cargarlos.
-            commentsList.error = false;
-            commentsList.loading = true;
-            commentsList.book_comments = [];
-            formPostComment.userComment = null;
-            formPostComment.puntaje = null;
-
-            // Demora necesaria antes de recargarlos comentarios.
-            setTimeout(function () { getComments() }, 1000);
         }
     }
 });
@@ -102,17 +86,20 @@ getComments();
  *  Traer datos de la tabla de comentarios en la base de datos.
  */
 function getComments() {
+    commentsList.error = false;
+    commentsList.loading = true;
+    assessment.loading = true;
+    assessment.users_rating = null;
+    commentsList.book_comments = [];
 
     // Obtener id del libro.
     let id = getBookID();
 
     // Ir a buscar los comentarios correspondientes al libro.
     fetch('library/api/comments/book/' + id)
-        .then(response => response.json())
+        .then(response => { return response.json() })
         .then(book_comments => {
             if (book_comments == null) {
-
-                // Si no hay comentarios se debe mostrar informar al usuario. 
                 commentsList.error = true;
             }
             else {
@@ -135,10 +122,10 @@ function getComments() {
 
 
 /**
- *  Obtener el id del libro desde la direccion URL.
+ *  Obtener el id del libro desde un atributo HTML.
  */
 function getBookID() {
-    let id = document.getElementById('user_data').getAttribute('book-id'); 
+    let id = document.getElementById('user_data').getAttribute('book-id');
     return id;
 }
 
@@ -171,6 +158,12 @@ function postComment(comment, puntaje) {
                 console.log('ok');
             else
                 alert('error al postear comentario');
+        })
+        .then(response => {
+            formPostComment.userComment = null;
+            formPostComment.puntaje = null;
+
+            getComments();
         })
         .catch(exception => console.log(exception));
 }

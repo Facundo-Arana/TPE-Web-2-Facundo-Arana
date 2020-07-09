@@ -80,7 +80,7 @@ class usersController extends controller
             $exito = $mail->Send();
             $intentos = 1;
             while ((!$exito) && ($intentos < 5)) {
-                sleep(5);
+                sleep(3);
                 $exito = $mail->Send();
                 $intentos = $intentos + 1;
             }
