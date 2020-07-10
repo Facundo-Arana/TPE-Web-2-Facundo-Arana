@@ -19,6 +19,9 @@ class apiController
         $this->view = new APIView();
     }
 
+    /**
+     *  postear un comentario.
+     */
     public function postComment()
     {
         $params = json_decode(file_get_contents("php://input"));
@@ -29,6 +32,9 @@ class apiController
             $this->view->response(null, 200);
     }
 
+    /**
+     *  borrar un comentario.
+     */
     public function deleteComment($params = [])
     {
         if (!empty($params)) {
@@ -46,6 +52,9 @@ class apiController
         }
     }
 
+    /**
+     *  obtener comentarios de un libro.
+     */
     public function getComments($params = [])
     {
         if (!empty($params)) {
@@ -58,6 +67,9 @@ class apiController
         }
     }
 
+    /**
+     *  obtener datos de un usuario.
+     */
     public function getUser($params = [])
     {
         if (!empty($params)) {
@@ -70,6 +82,9 @@ class apiController
         }
     }
 
+    /**
+     *  obtener datos de libros.
+     */
     public function getBook($params = [])
     {
         if (empty($params)) {

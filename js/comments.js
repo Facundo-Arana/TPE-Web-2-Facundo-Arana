@@ -24,12 +24,11 @@ let commentsList = new Vue({
          * @param {*} id referencia al comentario seleccionado.
          */
         deleteComment: function (id) {
-            fetch('library/api/deleteComment/' + id, { method: 'DELETE' })
+            fetch('library/api/comment/' + id, { method: 'DELETE' })
                 .then((response) => { return response.json() })
                 .then(response => {
-                    console.log(response);
-                    // Desde la API se recibe 'true' (string), en lugar de TRUE (boolean). nose xq
-                    if (response == 'true') {
+                    // Desde la API se recibe true si esta todo ok.
+                    if (response == true) {
                         getComments();
                     }
                     else
@@ -148,7 +147,7 @@ function postComment(comment, puntaje) {
     }
 
     // eviar JSON a la API para que se encargue de registrar el comentario en la base de datos. 
-    fetch('library/api/postComment', {
+    fetch('library/api/comment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(comentario)

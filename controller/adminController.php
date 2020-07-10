@@ -239,7 +239,7 @@ class adminController extends controller
 
             $this->getErrorView()->showErrorView('No se pudo eliminar el libro: ' . $idBook . '', $this->userData);
         } else {
-            $this->getAdminView()->showAdminSuccess('Se ha elimiado el libro:' . $idBook . ' con exito', $this->userData);
+            $this->getAdminView()->showAdminSuccess('Se ha elimiado el libro: ' . $idBook . ' con exito', $this->userData);
             die();
         }
     }
