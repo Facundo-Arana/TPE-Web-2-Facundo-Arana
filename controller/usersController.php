@@ -4,9 +4,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require_once('controller/controller.php');
-require_once('PHPMailer/src/PHPmailer.php');
-require_once('PHPMailer/src/Exception.php');
-require_once('PHPMailer/src/SMTP.php');
+require_once('external/PHPMailer/src/PHPMailer.php');
+require_once('external/PHPMailer/src/Exception.php');
+require_once('external/PHPMailer/src/SMTP.php');
 
 class usersController extends controller
 {

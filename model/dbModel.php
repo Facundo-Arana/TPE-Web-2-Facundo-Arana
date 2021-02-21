@@ -8,7 +8,7 @@ class dbModel
         $host = 'localhost';
         $userName = 'root';
         $password = '';
-        $database = 'biblioteca_virtual';
+        $database = 'library';
         $this->db = new PDO('mysql:host=' . $host . ';' . 'dbname=' . $database . ';charset=utf8', $userName, $password);
        
         /**
